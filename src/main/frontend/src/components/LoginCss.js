@@ -1,0 +1,176 @@
+import styled from "@emotion/styled";
+export const Body = styled.div`
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+`;
+export const JoinBodyWapper = styled.div``;
+
+export const BodyWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  margin: 50px;
+  border: 1px solid rgba(0, 0, 0, 20%);
+  border-radius: 10px;
+  width: 500px;
+  padding: 20px;
+  box-shadow: 3px 3px 5px #bdbdbd;
+`;
+
+export const TitleLogin = styled.h1`
+  margin-bottom: 20px;
+  color: #664200;
+`;
+
+export const InputOption_1 = styled.input`
+  width: 400px;
+  height: 50px;
+  background-color: #f9f9f9;
+  border: 1px solid #bdbdbd;
+  border-radius: 5px;
+  margin: 5px;
+  font-size: 16px;
+`;
+
+export const InputOption_1_1 = styled.input`
+  width: 400px;
+  height: 50px;
+  background-color: #f9f9f9;
+  border: 1px solid #bdbdbd;
+  border-radius: 5px;
+  margin: 5px;
+  font-size: 16px;
+  margin-left: 47px;
+`;
+
+export const BodyWrapper_TextWrapper = styled.div`
+  width: 400px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin: 15px;
+`;
+
+export const LoginKeepLWrapper = styled.label`
+  display: flex;
+  flex-direction: row;
+`;
+
+export const InputOption_2 = styled.input``;
+
+export const LoginKeepLFont = styled.div`
+  color: #8d8d8d;
+  font-size: 13px;
+  font-weight: 600;
+  margin-left: 5px;
+`;
+
+export const FindPasswordFont = styled.div`
+  color: #e49400;
+  font-size: 13px;
+  cursor: pointer;
+`;
+
+export const LoginButton = styled.button`
+  background-color: #e49400;
+  border: 1px solid #e49400;
+  border-radius: 5px;
+  width: 400px;
+  height: 50px;
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  margin-top: 50px;
+  cursor: pointer;
+`;
+
+export const LoginButton_2 = styled.button`
+  background-color: #e49400;
+  border: 1px solid #e49400;
+  border-radius: 5px;
+  width: 400px;
+  height: 50px;
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  margin-top: 50px;
+  cursor: pointer;
+  margin-left: 47px;
+`;
+export const LoginButton_3 = styled.button`
+  background-color: #e49400;
+  border: 1px solid #e49400;
+  border-radius: 5px;
+  width: 90px;
+  height: 50px;
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-left: 10px;
+`;
+
+export const JoinWrapper = styled.div`
+  width: 200px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 65px;
+`;
+
+export const PhoneWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+`;
+
+export const InputApi = styled.input`
+  width: 290px;
+  height: 50px;
+  background-color: #f9f9f9;
+  border: 1px solid #bdbdbd;
+  border-radius: 5px;
+  margin: 5px;
+  font-size: 16px;
+  margin-left: 47px;
+`;
+
+export const Select_1 = styled.select`
+width: 100px;
+height: 50px;
+background-color: #f9f9f9;
+border: 1px solid #bdbdbd;
+border-radius: 5px;
+margin:5px;
+font-size: 16px;'`;
+
+export const Option_1 = styled.option``;
+
+export const ErrorTextFront = styled.div`
+  margin-top: 20px;
+  color: red;
+  font-weight: 600;
+  font-size: 11px;
+`;
+
+export const ErrorTextFront2 = styled.div`
+  margin: 0px;
+  margin-left: 50px;
+  color: red;
+  font-weight: 600;
+  font-size: 11px;
+`;
+
+export const ErrorTextFront_1 = styled.div`
+  margin-bottom: 15px;
+  color: red;
+  font-weight: 600;
+  font-size: 11px;
+`;
