@@ -39,6 +39,12 @@ function Board() {
             });
     }, []);
 
+    //  작성일 날짜까지만 보이도록 수정한 함수
+    const extractDate = (datetime) => {
+        // Split the datetime string and get the date part (index 0)
+        return datetime.split('T')[0];
+    };
+
     return (
         <div>
             <h1>게시판 페이지</h1>
@@ -56,10 +62,11 @@ function Board() {
                     <tr key={article.id}>
                         <td>{index + 1}</td>
                         <td>
-                            <Link to={`/boardShow/${article.id}`}>{article.title}</Link>
+                            {/* 해당 게시글의 상세 페이지로 이동 */}
+                            <Link to={`/board/${article.id}`}>{article.title}</Link>
                         </td>
                         <td>{article.user.username}</td>
-                        <td>{new Date(article.createdAt).toLocaleTimeString('en-US', {hour12: false})}</td>
+                        <td>{extractDate(article.createdAt)}</td>
                     </tr>
                 ))}
                 </tbody>
