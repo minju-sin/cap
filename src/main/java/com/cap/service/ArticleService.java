@@ -33,6 +33,8 @@ public class ArticleService {
         }
     }
 
+
+
     //  게시글 삭제 처리 서비스
     public boolean deleteArticle(Long articleId) {
         Optional<Article> articleOptional = articleRepository.findById(articleId);
@@ -45,5 +47,6 @@ public class ArticleService {
             return false; // 게시글을 찾을 수 없음
         }
     }
+
 
 }

@@ -48,6 +48,9 @@ function Board() {
     return (
         <div>
             <h1>게시판 페이지</h1>
+            <Link to={`/`}>
+                <button type="button">이전페이지</button>
+            </Link>
             <table>
                 <thead>
                 <tr>

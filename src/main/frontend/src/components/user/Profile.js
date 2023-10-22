@@ -5,6 +5,7 @@
 */
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import {Link} from "react-router-dom";
 
 function Profile() {
     const [user, setUser] = useState({
@@ -85,6 +86,9 @@ function Profile() {
     return (
         <div>
             <h1>마이 페이지</h1>
+            <Link to={`/`}>
+                <button type="button">이전 페이지로 이동</button>
+            </Link>
             <form>
                 <div>
                     <label>아이디(학번):</label>

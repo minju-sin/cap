@@ -7,6 +7,7 @@
 
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import {Link} from "react-router-dom";
 
 function Management() {
     const [users, setUsers] = useState([]);
@@ -42,6 +43,9 @@ function Management() {
     return (
         <div>
             <h1>사용자 관리</h1>
+            <Link to={`/`}>
+                <button type="button">메인 페이지 이동</button>
+            </Link>
             <table>
                 <thead>
                 <tr>

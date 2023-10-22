@@ -4,9 +4,12 @@ import com.cap.domain.Article;
 import com.cap.domain.User;
 import com.cap.repository.ArticleRepository;
 import com.cap.service.ArticleService;
+import com.cap.service.UserService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -36,6 +39,7 @@ public class ArticleController {
     public List<Article> getArticles() {
         // 게시글 목록을 서비스를 통해 가져옵니다.
         List<Article> articles = articleService.getAllArticles();
+
         return articles;
     }
 
@@ -76,16 +80,87 @@ public class ArticleController {
 
     // 게시글 상세 페이지
     @GetMapping("/{articleId}")
-    public ResponseEntity<Article> getArticleDetail(@PathVariable Long articleId) {
-        // articleId를 사용하여 게시물 데이터베이스에서 게시물을 찾음
-        Article article = articleService.getArticleById(articleId);
+    public ResponseEntity<Article> getArticleDetail(HttpSession session, @PathVariable Long articleId) {
+        User loggedInUser = (User) session.getAttribute("user"); // 로그인한 사용자 정보를 가져옴
+        Article article = articleService.getArticleById(articleId); // 게시글 정보를 가져옴
 
         if (article != null) {
-            return ResponseEntity.ok(article);
+            // 게시글 정보를 항상 반환
+            ResponseEntity<Article> response = ResponseEntity.ok(article);
+
+            return response;
         } else {
-            // 게시물을 찾을 수 없는 경우, 에러 반환
+            // 게시글을 찾을 수 없는 경우, 에러 반환
             return ResponseEntity.notFound().build();
         }
+    }
+
+    @GetMapping("/check-login-Article/{articleId}")
+    public ResponseEntity<String> checkLoginArticle(@PathVariable Long articleId, HttpSession session) {
+        User loggedInUser = (User) session.getAttribute("user"); // 현재 로그인한 사용자 정보를 가져옴
+        Article article = articleService.getArticleById(articleId); // 게시글 정보를 가져옴 (이 부분은 실제 서비스에 맞게 수정 필요)
+
+        if (article != null && loggedInUser != null && loggedInUser.getUserId().equals(article.getUser().getUserId())) {
+            // 게시글이 존재하고, 현재 로그인한 사용자와 게시글 작성자의 아이디가 동일한 경우
+            return ResponseEntity.ok("loginArticle");
+        } else {
+            return ResponseEntity.ok("notLoginArticle");
+        }
+    }
+
+
+    // 게시글 수정 페이지
+    @GetMapping("/{articleId}/update")
+    public ResponseEntity<String> getArticleUpdatePage(@PathVariable Long articleId, HttpSession session) {
+        // 게시글 ID를 사용하여 해당 게시글을 찾음
+        Article article = articleService.getArticleById(articleId);
+
+        if (article == null) {
+            // 게시글을 찾을 수 없는 경우, 에러 응답
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("게시글을 찾을 수 없습니다.");
+        }
+
+        User loggedInUser = (User) session.getAttribute("user");
+        if (loggedInUser == null || !loggedInUser.getUserId().equals(article.getUser().getUserId())) {
+            // 사용자가 로그인하지 않았거나 게시글 작성자가 아닌 경우, 권한 없음 응답
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("게시글을 수정할 권한이 없습니다.");
+        }
+
+        // 게시글 수정 페이지로 이동하는 로직 추가
+        return ResponseEntity.ok("게시글 수정 페이지로 이동합니다.");
+    }
+
+
+
+    // 게시글 수정 처리
+    @PostMapping("/{articleId}/update")
+    public ResponseEntity<String> updateArticle(
+            @PathVariable Long articleId,
+            @RequestBody Article updatedArticle,
+            HttpSession session
+    ) {
+        // 게시글 ID를 사용하여 해당 게시글을 찾음
+        Article existingArticle = articleService.getArticleById(articleId);
+
+        if (existingArticle == null) {
+            // 게시글을 찾을 수 없는 경우, 에러 응답
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("게시글을 찾을 수 없습니다.");
+        }
+
+        User loggedInUser = (User) session.getAttribute("user");
+        if (loggedInUser == null || !loggedInUser.getUserId().equals(existingArticle.getUser().getUserId())) {
+            // 사용자가 로그인하지 않았거나 게시글 작성자가 아닌 경우, 권한 없음 응답
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("게시글을 수정할 권한이 없습니다.");
+        }
+
+        // 업데이트된 정보로 기존 게시글을 업데이트
+        existingArticle.setTitle(updatedArticle.getTitle());
+        existingArticle.setContent(updatedArticle.getContent());
+
+        // 데이터베이스에 변경 사항을 저장
+        articleService.createArticle(existingArticle);
+
+        return ResponseEntity.ok("게시글이 성공적으로 수정되었습니다.");
     }
 
 
