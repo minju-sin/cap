@@ -1,9 +1,10 @@
-// src/components/user/board/Board.js
+// src/components/admin/notice/Notice.js
+
 /*
-* 게시판 페이지
-* 작성된 게시글을 테이블 형태로 나타냄
+* 공지사항 페이지
+* 작성된 공지사항 테이블 형태로 나타냄
 * 순번, 제목, 작성자, 작성일 순서로 테이블 구성
-* 로그인 성공 후  `글쓰기` 버튼 이용 가능
+* 로그인 성공 후 관리자만  `글쓰기` 버튼 이용 가능
 * 로그인 전에는 `글쓰기` 버튼 보이지 않음
 */
 
@@ -12,17 +13,17 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 
-function Board() {
-    const [articles, setArticles] = useState([]);
+function Notice() {
+    const [notices, setNotices] = useState([]);
     const [isAuthenticated, setIsAuthenticated] = useState(false); // 사용자 로그인 상태
 
     useEffect(() => {
-        axios.get('/board')
+        axios.get('/notice')
             .then(response => {
-                setArticles(response.data);
+                setNotices(response.data);
             })
             .catch(error => {
-                console.error('게시글 목록을 가져오는 중 오류가 발생했습니다:', error);
+                console.error('공지사항 목록을 가져오는 중 오류가 발생했습니다:', error);
             });
 
         // 서버로 현재 사용자의 인증 상태 확인을 위한 요청 보내기
@@ -46,7 +47,7 @@ function Board() {
 
     return (
         <div>
-            <h1>게시판 페이지</h1>
+            <h1>공지사항 페이지</h1>
             <Link to={`/`}>
                 <button type="button">이전페이지(메인페이지로 이동)</button>
             </Link>
@@ -60,21 +61,21 @@ function Board() {
                 </tr>
                 </thead>
                 <tbody>
-                {articles.map((article, index) => (
-                    <tr key={article.id}>
+                {notices.map((notice, index) => (
+                    <tr key={notice.id}>
                         <td>{index + 1}</td>
                         <td>
                             {/* 해당 게시글의 상세 페이지로 이동 */}
-                            <Link to={`/board/${article.id}`}>{article.title}</Link>
+                            <Link to={`/notice/${notice.id}`}>{notice.title}</Link>
                         </td>
-                        <td>{article.user.username}</td>
-                        <td>{extractDate(article.createdAt)}</td>
+                        <td>{notice.user.username}</td>
+                        <td>{extractDate(notice.createdAt)}</td>
                     </tr>
                 ))}
                 </tbody>
             </table>
             {isAuthenticated && ( // 사용자가 로그인한 경우에만 버튼을 보이도록 함
-                <Link to="/boardDetail">
+                <Link to="/noticeDetail">
                     <button>글쓰기</button>
                 </Link>
             )}
@@ -82,4 +83,4 @@ function Board() {
     );
 }
 
-export default Board;
+export default Notice;
