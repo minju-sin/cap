@@ -30,7 +30,7 @@ public class NoticeController {
     @Autowired private NoticeService noticeService;
     @Autowired private NoticeRepository noticeRepository;
 
-    // 게시판 페이지
+    // 공지사항 페이지
     @GetMapping
     public List<Notice> getNotices() {
         // 공지사항 목록을 서비스를 통해 가져옵니다.

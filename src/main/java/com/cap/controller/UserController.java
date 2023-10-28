@@ -56,6 +56,7 @@ public class UserController {
         return response;
     }
 
+
     @GetMapping("/check-auth")
     public ResponseEntity<String> checkAuthentication(HttpServletRequest request) {
         // 사용자 세션에서 로그인 정보를 확인
@@ -65,6 +66,19 @@ public class UserController {
             return ResponseEntity.ok("authenticated");
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("not authenticated");
+        }
+    }
+
+    //  관리자 확인
+    @GetMapping("/check-admin")
+    public ResponseEntity<String> checkAdmin(HttpSession session) {
+        User loggedInUser = (User) session.getAttribute("user"); // 현재 로그인한 사용자 정보를 가져옴
+
+        if (loggedInUser != null && "admin".equals(loggedInUser.getUserId())) {
+            // 사용자가 "admin"인 경우
+            return ResponseEntity.ok("admin");
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("not admin");
         }
     }
 

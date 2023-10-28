@@ -13,9 +13,10 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 
+
 function Notice() {
     const [notices, setNotices] = useState([]);
-    const [isAuthenticated, setIsAuthenticated] = useState(false); // 사용자 로그인 상태
+    const [isAdmin, setIsAdmin] = useState(false); // 사용자 로그인 상태
 
     useEffect(() => {
         axios.get('/notice')
@@ -26,17 +27,17 @@ function Notice() {
                 console.error('공지사항 목록을 가져오는 중 오류가 발생했습니다:', error);
             });
 
-        // 서버로 현재 사용자의 인증 상태 확인을 위한 요청 보내기
-        axios.get('/check-auth')
+        // 서버로 사용자가 "admin"인지 확인을 위한 요청 보내기
+        axios.get('/check-admin')
             .then(response => {
-                if (response.data === 'authenticated') {
-                    setIsAuthenticated(true);
+                if (response.data === 'admin') {
+                    setIsAdmin(true);
                 } else {
-                    setIsAuthenticated(false);
+                    setIsAdmin(false);
                 }
             })
             .catch(error => {
-                console.error('인증 상태 확인 중 오류가 발생했습니다:', error);
+                console.error('사용자 권한 확인 중 오류가 발생했습니다:', error);
             });
     }, []);
 
@@ -74,7 +75,7 @@ function Notice() {
                 ))}
                 </tbody>
             </table>
-            {isAuthenticated && ( // 사용자가 로그인한 경우에만 버튼을 보이도록 함
+            {isAdmin && ( // 사용자가 로그인한 경우에만 버튼을 보이도록 함
                 <Link to="/noticeDetail">
                     <button>글쓰기</button>
                 </Link>
