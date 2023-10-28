@@ -1,0 +1,81 @@
+package com.cap.domain.delivery;
+
+import jakarta.persistence.*;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import java.sql.Timestamp;
+import java.time.DayOfWeek;
+import java.util.Set;
+
+/* 가게 DB
+*   가게Id, 가게명, 주소, 전화번호, 소개글, 평점, 가게 사진
+*   음식카테고리(한,중,일식,치킨,피자 등), 최소주문금액,
+*   영업 시간, 휴무일, 배달지역
+*/
+
+@Getter //  get 함수를 일괄적으로 만듦
+@Setter
+@NoArgsConstructor  //  기본 생성자 만들어 줌
+@Entity //  DB 테이블 역할
+public class Store {
+    @Id() //  primary key
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long storeId;  //  가게 id
+
+    @Column(nullable = false, length = 50)
+    private String Sname;   //  가게 이름
+
+    @Column(nullable = false, length = 50)
+    private String Saddress;    //  가게 주소
+
+    @Column(nullable = false, length = 20)
+    private String Sphone;  //  가게 전화 번호
+
+    @Column(nullable = false, length = 50)
+    private String Sintro;  //  소개
+
+    @Column(nullable = false, length = 20)
+    private String Sgrade;  //  평점
+
+    private Long SorderMinimum; //  주문 최소 금액
+
+    @Column(nullable = false, length = 20)
+    private String Sopen; // 영업 시간
+
+    @Column(nullable = false, length = 20)
+    private String SdeliveryAreas; // 배달지역 정보 (문자열로 구분)
+
+    @Enumerated(EnumType.STRING)    //  열거형 타입을 문자열로 저장
+    @Column(nullable = false, length = 20)
+    private StoreRole store;  //  음식 카테고리
+
+
+    @ElementCollection(targetClass = DayOfWeek.class)
+    @Enumerated(EnumType.STRING)
+    @CollectionTable(name = "store_closed_days", joinColumns = @JoinColumn(name = "store_id"))
+    @Column(name = "day")
+    private Set<DayOfWeek> closedDay;   //  휴무일
+
+
+    @Builder
+    public Store(Long storeId, String Sname, String Saddress, String Sphone,
+                 String Sintro, String Sgrade, Long SorderMinimum,
+                 String Sopen, String SdeliveryAreas, StoreRole store,
+                 Set<DayOfWeek> closedDay) {
+       this.storeId = storeId;
+       this.Sname = Sname;
+       this.Saddress = Saddress;
+       this.Sphone = Sphone;
+       this.Sintro = Sintro;
+       this.Sgrade = Sgrade;
+       this.SorderMinimum =SorderMinimum ;
+       this.Sopen = Sopen;
+       this.SdeliveryAreas = SdeliveryAreas;
+       this.store =store;
+       this.closedDay = closedDay;
+    }
+
+}
