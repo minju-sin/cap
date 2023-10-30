@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -33,12 +34,24 @@ public class ArticleController {
 
     // 게시판 페이지
     @GetMapping
-    public List<Article> getArticles() {
-        // 게시글 목록을 서비스를 통해 가져옵니다.
-        List<Article> articles = articleService.getAllArticles();
+    public List<Article> getArticles(@RequestParam(name = "search", required = false) String search) {
+        List<Article> articles = articleService.getAllArticles(); // 모든 게시글 가져오기
 
-        return articles;
+        if (search != null && !search.isEmpty()) {
+            // 검색어가 제공된 경우, 게시글을 검색어로 필터링
+            List<Article> filteredArticles = new ArrayList<>();
+            for (Article article : articles) {
+                if (article.getTitle().contains(search) || article.getContent().contains(search)) {
+                    filteredArticles.add(article);
+                }
+            }
+            return filteredArticles;
+        } else {
+            // 검색어가 없는 경우 모든 게시글 반환
+            return articles;
+        }
     }
+
 
 
     //  게시글 작성 페이지

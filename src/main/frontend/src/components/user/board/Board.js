@@ -15,6 +15,7 @@ import { Link } from 'react-router-dom';
 function Board() {
     const [articles, setArticles] = useState([]);
     const [isAuthenticated, setIsAuthenticated] = useState(false); // 사용자 로그인 상태
+    const [search, setSearch] = useState(''); // 검색어 상태 추가
 
     useEffect(() => {
         axios.get('/board')
@@ -44,12 +45,32 @@ function Board() {
         return datetime.split('T')[0];
     };
 
+    // 검색 함수
+    const handleSearch = () => {
+        axios.get('/board', { params: { search } }) // 검색어를 서버로 전달
+            .then(response => {
+                setArticles(response.data);
+            })
+            .catch(error => {
+                console.error('게시글 검색 중 오류가 발생했습니다:', error);
+            });
+    };
+
     return (
         <div>
             <h1>게시판 페이지</h1>
             <Link to={`/`}>
                 <button type="button">이전페이지(메인페이지로 이동)</button>
             </Link>
+            <div>
+                <input
+                    type="text"
+                    placeholder="검색어 입력"
+                    value={search}
+                    onChange={(e) => setSearch(e.target.value)}
+                />
+                <button onClick={handleSearch}>검색</button>
+            </div>
             <table>
                 <thead>
                 <tr>
