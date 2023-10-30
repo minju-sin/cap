@@ -1,4 +1,7 @@
 // src/components/admin/notice/NoticeShow.js
+/* 공지사항 상세 페이지
+* 관리자만 수정, 삭제 버튼 생성됨
+*/
 
 import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';

@@ -1,5 +1,5 @@
 //  src/components/admin/notice/NoticeDetail.js
-
+/*  공지사항 작성 페이지 */
 import React, { useState } from 'react';
 import axios from 'axios';
 

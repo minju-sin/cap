@@ -1,7 +1,8 @@
 // src/components/user/Profile.js
 /*
+* 사용자 프로필 페이지
 * 학과, 비밀번호, 전화번호, 주소만 변경 가능
-* 다른 것은 변경이 되지 않는다.
+* 다른 것은 수정 불가
 */
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
