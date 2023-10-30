@@ -1,4 +1,7 @@
 //  src/components/user/board/BoardDetail.js
+/*
+* 게시글 작성 페이지
+*/
 
 import React, { useState } from 'react';
 import axios from 'axios';

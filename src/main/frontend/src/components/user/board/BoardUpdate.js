@@ -1,5 +1,7 @@
 // src/components/user/board/BoardUpdate.js
-
+/*
+* 게시글 수정 페이지
+*/
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';

@@ -1,5 +1,8 @@
 // src/components/user/board/BoardShow.js
-
+/*
+* 게시글 상세 페이지
+* 작성자 본인만 수정, 삭제 가능하도록 구현함
+*/
 import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import axios from 'axios';
