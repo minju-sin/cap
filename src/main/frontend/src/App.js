@@ -42,7 +42,7 @@ function App() {
                 <Route path="/notice/:noticeId" element={<NoticeShow />} />
                 <Route path="/notice/:noticeId/update" element={<NoticeUpdate />} />
 
-                <Route path="/store/:category" element={<Store />} />
+                <Route path="/store/category/:category" element={<Store />} />
                 <Route path="/store/:storeId" element={<StoreDetail />} />
             </Routes>
         </BrowserRouter>

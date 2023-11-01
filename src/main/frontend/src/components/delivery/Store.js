@@ -20,7 +20,7 @@ function Store() {
     const [stores, setStores] = useState([]);
 
     useEffect(() => {
-        axios.get(`/store?category=${category}`)
+        axios.get(`/store/category?category=${category}`)
             .then(response => {
                 setStores(response.data);
             })
@@ -35,11 +35,13 @@ function Store() {
             <div className="store-list">
                 {stores.map(store => (
                     <div key={store.storeId} className="store-item">
-                        <h2>{store.sname}</h2>
-                        <p>평점 ⭐{store.sgrade}</p>
-                        <p>리뷰 {store.sreview}</p>
-                        <p>최소 주문 금액: {formatNumberWithCommas(store.sorderMinimum)}원</p>
-                        <p>배달 예상 시간: {store.stime}</p>
+                        <Link to={`/store/${store.storeId}`}>
+                            <h2>{store.sname}</h2>
+                            <p>평점 ⭐{store.sgrade}</p>
+                            <p>리뷰 {store.sreview}</p>
+                            <p>최소 주문 금액: {formatNumberWithCommas(store.sorderMinimum)}원</p>
+                            <p>배달 예상 시간: {store.stime}</p>
+                        </Link>
                     </div>
                 ))}
             </div>

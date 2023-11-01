@@ -72,22 +72,22 @@ function Home() {
                         <h1>음식 카테고리</h1>
                         <ul>
                             <li>
-                                <Link to="/store/KOREAN">한식</Link>
+                                <Link to="/store/category/KOREAN">한식</Link>
                             </li>
                             <li>
-                                <Link to="/store/JAPANESE">일식</Link>
+                                <Link to="/store/category/JAPANESE">일식</Link>
                             </li>
                             <li>
-                                <Link to="/store/CHINESE">중식</Link>
+                                <Link to="/store/category/CHINESE">중식</Link>
                             </li>
                             <li>
-                                <Link to="/store/NIGHT">야식</Link>
+                                <Link to="/store/category/NIGHT">야식</Link>
                             </li>
                             <li>
-                                <Link to="/store/CHICKEN">치킨</Link>
+                                <Link to="/store/category/CHICKEN">치킨</Link>
                             </li>
                             <li>
-                                <Link to="/store/PIZZA">피자</Link>
+                                <Link to="/store/category/PIZZA">피자</Link>
                             </li>
                         </ul>
                     </div>
@@ -106,22 +106,22 @@ function Home() {
                         <h1>음식 카테고리</h1>
                         <ul>
                             <li>
-                                <Link to="/store/KOREAN">한식</Link>
+                                <Link to="/store/category/KOREAN">한식</Link>
                             </li>
                             <li>
-                                <Link to="/store/JAPANESE">일식</Link>
+                                <Link to="/store/category/JAPANESE">일식</Link>
                             </li>
                             <li>
-                                <Link to="/store/CHINESE">중식</Link>
+                                <Link to="/store/category/CHINESE">중식</Link>
                             </li>
                             <li>
-                                <Link to="/store/NIGHT">야식</Link>
+                                <Link to="/store/category/NIGHT">야식</Link>
                             </li>
                             <li>
-                                <Link to="/store/CHICKEN">치킨</Link>
+                                <Link to="/store/category/CHICKEN">치킨</Link>
                             </li>
                             <li>
-                                <Link to="/store/PIZZA">피자</Link>
+                                <Link to="/store/category/PIZZA">피자</Link>
                             </li>
                         </ul>
                     </div>

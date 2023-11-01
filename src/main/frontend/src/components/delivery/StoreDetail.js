@@ -34,16 +34,30 @@ function StoreDetail() {
     return (
         <div>
             {store ? (
+                // 가게 정보 
                 <div>
-                    <h1>{store.sname}</h1>
-                    <p>주소: {store.saddress}</p>
-                    <p>평점: {store.sgrade}</p>
-                    <p>리뷰수: {store.sreview}</p>
-                    <p>최소 주문 금액: {formatNumberWithCommas(store.sorderMinimum)}원</p>
-                    <p>배달 요금: {formatNumberWithCommas(store.stip)} 원</p>
-                    <p>영업 시간: {store.sopen}</p>
-                    <p>배송 예상 시간: {store.stime}</p>
-                    <p>휴무일: {store.closedDay}</p>
+                    <div>
+                        <h1>{store.sname}</h1>
+                        <p>주소: {store.saddress}</p>
+                        <p>평점: {store.sgrade}</p>
+                        <p>리뷰수: {store.sreview}</p>
+                        <p>최소 주문 금액: {formatNumberWithCommas(store.sorderMinimum)}원</p>
+                        <p>배달 요금: {formatNumberWithCommas(store.stip)} 원</p>
+                        <p>영업 시간: {store.sopen}</p>
+                        <p>배송 예상 시간: {store.stime}</p>
+                        <p>휴무일: {store.closedDay}</p>
+                    </div>
+
+                    <div>
+                        <h1>메뉴</h1>
+                        <p>이름 :</p>
+                        <p>메뉴 설명 :</p>
+                        <p>가격 :</p>
+                    </div>
+                    
+                    <div>
+                        <h1>주문표</h1>
+                    </div>
                 </div>
             ) : (
                 <p>가게 상세 정보를 불러오는 중입니다...</p>

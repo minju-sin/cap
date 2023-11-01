@@ -1,7 +1,7 @@
 package com.cap.controller;
 
 /*
-* 가게 카테고리별 목록 페이지 /store/?category={category}
+* 가게 카테고리별 목록 페이지 /store/category?category={category}
 * 가게 상세 페이지 /store/{sname}
 */
 
@@ -23,7 +23,7 @@ public class StoreController {
     @Autowired private StoreRepository storeRepository;
 
     //  가게 카테고리 별 페이지
-    @GetMapping
+    @GetMapping("/category")
     public List<Store> getStoresByCategory(@RequestParam("category") StoreRole category) {
         // StoreService에서 가게 카테고리에 해당하는 가게 리스트를 가져오는 메서드 구현
         List<Store> stores = storeService.getStoresByCategory(category);
