@@ -6,15 +6,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.sql.Timestamp;
-import java.time.DayOfWeek;
-import java.util.Set;
 
 /* 가게 DB
-*   가게Id, 가게명, 주소, 전화번호, 소개글, 평점, 가게 사진
-*   음식카테고리(한,중,일식,치킨,피자 등), 최소주문금액,
-*   영업 시간, 휴무일, 배달지역
-*/
+ *   가게Id, 가게명, 주소, 전화번호, 소개글, 평점, 가게 사진
+ *   음식카테고리(한,중,일식,치킨,피자 등), 최소주문금액, 배송 예상 시간
+ *   영업 시간, 휴무일, 배달지역
+ */
 
 @Getter //  get 함수를 일괄적으로 만듦
 @Setter
@@ -32,50 +29,46 @@ public class Store {
     private String Saddress;    //  가게 주소
 
     @Column(nullable = false, length = 20)
-    private String Sphone;  //  가게 전화 번호
-
-    @Column(nullable = false, length = 50)
-    private String Sintro;  //  소개
-
-    @Column(nullable = false, length = 20)
     private String Sgrade;  //  평점
 
-    private Long SorderMinimum; //  주문 최소 금액
-
     @Column(nullable = false, length = 20)
+    private String Sreview; //  리뷰수
+
+    private Long SorderMinimum; //  최소 주문 금액
+
+    private Long Stip; //  배달요금
+
+
+    @Column(nullable = false, length = 50)
     private String Sopen; // 영업 시간
 
-    @Column(nullable = false, length = 20)
-    private String SdeliveryAreas; // 배달지역 정보 (문자열로 구분)
+    @Column(nullable = false, length = 50)
+    private String Stime; // 배송 예상 시간
 
     @Enumerated(EnumType.STRING)    //  열거형 타입을 문자열로 저장
     @Column(nullable = false, length = 20)
     private StoreRole store;  //  음식 카테고리
 
-
-    @ElementCollection(targetClass = DayOfWeek.class)
-    @Enumerated(EnumType.STRING)
-    @CollectionTable(name = "store_closed_days", joinColumns = @JoinColumn(name = "store_id"))
-    @Column(name = "day")
-    private Set<DayOfWeek> closedDay;   //  휴무일
+    @Column(length = 20)
+    private String closedDay;   //  휴무일
 
 
     @Builder
-    public Store(Long storeId, String Sname, String Saddress, String Sphone,
-                 String Sintro, String Sgrade, Long SorderMinimum,
-                 String Sopen, String SdeliveryAreas, StoreRole store,
-                 Set<DayOfWeek> closedDay) {
-       this.storeId = storeId;
-       this.Sname = Sname;
-       this.Saddress = Saddress;
-       this.Sphone = Sphone;
-       this.Sintro = Sintro;
-       this.Sgrade = Sgrade;
-       this.SorderMinimum =SorderMinimum ;
-       this.Sopen = Sopen;
-       this.SdeliveryAreas = SdeliveryAreas;
-       this.store =store;
-       this.closedDay = closedDay;
+    public Store(Long storeId, String Sname, String Saddress,
+                 String Sgrade, Long SorderMinimum, String Stime,
+                 String Sopen, StoreRole store, Long Stip,
+                 String Sreview, String closedDay) {
+        this.storeId = storeId;
+        this.Sname = Sname;
+        this.Saddress = Saddress;
+        this.Sgrade = Sgrade;
+        this.SorderMinimum = SorderMinimum;
+        this.Stime = Stime;
+        this.Stip = Stip;
+        this.Sreview = Sreview;
+        this.Sopen = Sopen;
+        this.store =store;
+        this.closedDay = closedDay;
     }
 
 }

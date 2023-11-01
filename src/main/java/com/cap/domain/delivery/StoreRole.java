@@ -4,7 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /* 음식 카테고리
-* 한식, 일식, 중식, 야식, 치킨, 피자로 가게 구별
+* 한식, 일식, 중식, 야식, 치킨, 피자로 가게
+* 구별
 */
 @AllArgsConstructor
 @Getter

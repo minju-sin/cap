@@ -68,6 +68,9 @@ function Home() {
                     <Link to="/board">게시판</Link>
                     <br />
                     <Link to="/notice">공지사항</Link>
+                    <div>
+                        <Link to="/delivery">음식점 페이지</Link>
+                    </div>
                 </div>
             ) : (
                 <div>
@@ -79,6 +82,9 @@ function Home() {
                     <Link to="/board">게시판</Link>
                     <br />
                     <Link to="/notice">공지사항</Link>
+                    <div>
+                        <Link to="/delivery">음식점 페이지</Link>
+                    </div>
                 </div>
             )}
         </div>
