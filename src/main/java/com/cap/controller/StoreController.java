@@ -33,7 +33,7 @@ public class StoreController {
         return stores;
     }
 
-    // 음식점 상세 페이지 - 가게 정보 + 메뉴
+    // 가게 상세 페이지 - 가게 정보 + 메뉴
     @GetMapping("/{storeId}")
     public List<Menu> getMenusByStore(@PathVariable Long storeId){
         // 해당 가게의 모든 메뉴 가져오기
