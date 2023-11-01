@@ -9,7 +9,7 @@ import lombok.Setter;
 
 /* 가게 DB
  *   가게Id, 가게명, 주소, 전화번호, 소개글, 평점, 가게 사진
- *   음식카테고리(한,중,일식,치킨,피자 등), 최소주문금액, 배송 예상 시간
+ *   음식카테고리(한,중,일식,치킨,피자 등), 최소주문금액, 배달 예상 시간
  *   영업 시간, 휴무일, 배달지역
  */
 
@@ -43,7 +43,7 @@ public class Store {
     private String Sopen; // 영업 시간
 
     @Column(nullable = false, length = 50)
-    private String Stime; // 배송 예상 시간
+    private String Stime; // 배달 예상 시간
 
     @Enumerated(EnumType.STRING)    //  열거형 타입을 문자열로 저장
     @Column(nullable = false, length = 20)

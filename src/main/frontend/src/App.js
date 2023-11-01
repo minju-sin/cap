@@ -17,6 +17,10 @@ import NoticeDetail from "./components/admin/notice/NoticeDetail";
 import NoticeShow from "./components/admin/notice/NoticeShow";
 import NoticeUpdate from "./components/admin/notice/NoticeUpdate";
 
+/* 배달 */
+import Store from "./components/delivery/Store";
+import StoreDetail from "./components/delivery/StoreDetail";
+
 
 function App() {
     return (
@@ -37,6 +41,9 @@ function App() {
                 <Route path="/noticeDetail" element={<NoticeDetail />} />
                 <Route path="/notice/:noticeId" element={<NoticeShow />} />
                 <Route path="/notice/:noticeId/update" element={<NoticeUpdate />} />
+
+                <Route path="/store/:category" element={<Store />} />
+                <Route path="/store/:storeId" element={<StoreDetail />} />
             </Routes>
         </BrowserRouter>
     );
