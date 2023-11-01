@@ -55,6 +55,7 @@ function StoreDetail({ match }) {
                         <h2>{menu.mname}</h2>
                         <p>{menu.mintro}</p>
                         <p>{formatNumberWithCommas(menu.mmoney)}원</p>
+                        <button>담기</button>
                     </div>
                 ))}
             </div>
