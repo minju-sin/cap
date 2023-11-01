@@ -38,7 +38,7 @@ function Store() {
                         <Link to={`/store/${store.storeId}`}>
                             <h2>{store.sname}</h2>
                             <p>평점 ⭐{store.sgrade}</p>
-                            <p>리뷰 {store.sreview}</p>
+                            <p>리뷰 {formatNumberWithCommas(store.sreview)}</p>
                             <p>최소 주문 금액: {formatNumberWithCommas(store.sorderMinimum)}원</p>
                             <p>배달 예상 시간: {store.stime}</p>
                         </Link>

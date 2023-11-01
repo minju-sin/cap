@@ -2,11 +2,13 @@ package com.cap.controller;
 
 /*
 * 가게 카테고리별 목록 페이지 /store/category?category={category}
-* 가게 상세 페이지 /store/{sname}
+* 가게 상세 페이지 /store/{storeId}
 */
 
+import com.cap.domain.delivery.Menu;
 import com.cap.domain.delivery.Store;
 import com.cap.domain.delivery.StoreRole;
+import com.cap.repository.MenuRepository;
 import com.cap.repository.StoreRepository;
 import com.cap.service.StoreService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,7 @@ public class StoreController {
 
     @Autowired private StoreService storeService;
     @Autowired private StoreRepository storeRepository;
+    @Autowired private MenuRepository menuRepository;
 
     //  가게 카테고리 별 페이지
     @GetMapping("/category")
@@ -30,11 +33,13 @@ public class StoreController {
         return stores;
     }
 
-    // 가게 상세 페이지
+    // 음식점 상세 페이지 - 가게 정보 + 메뉴
     @GetMapping("/{storeId}")
-    public Store getStoreDetails(@PathVariable Long storeId) {
-        // StoreService를 사용하여 가게 상세 정보를 가져옴
-        Store store = storeService.getStoreDetails(storeId);
-        return store;
+    public List<Menu> getMenusByStore(@PathVariable Long storeId){
+        // 해당 가게의 모든 메뉴 가져오기
+        List<Menu> menus = menuRepository.findByStoreStoreId(storeId);
+
+        return menus;
     }
+
 }

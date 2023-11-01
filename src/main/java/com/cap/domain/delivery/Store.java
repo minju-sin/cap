@@ -71,4 +71,5 @@ public class Store {
         this.closedDay = closedDay;
     }
 
+
 }

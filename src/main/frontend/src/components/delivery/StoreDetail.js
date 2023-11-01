@@ -9,59 +9,56 @@
 
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import {useParams} from "react-router-dom";
 
 // 숫자를 세 자리마다 콤마로 형식화하는 함수
 function formatNumberWithCommas(number) {
     return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
-function StoreDetail() {
-    const { storeId } = useParams(); // 파라미터로 가게 ID 가져오기
-    const [store, setStore] = useState(null);
+function StoreDetail({ match }) {
+    const [menus, setMenus] = useState([]);
+    const { storeId } = useParams();
 
     useEffect(() => {
-        // 서버로부터 해당 가게의 상세 정보 가져오기
         axios.get(`/store/${storeId}`)
             .then(response => {
-                setStore(response.data);
+                setMenus(response.data);
             })
             .catch(error => {
-                console.error('가게 상세 정보를 불러오는 중 오류가 발생했습니다:', error);
+                console.error('가게 메뉴를 불러오는 중 오류가 발생했습니다:', error);
             });
     }, [storeId]);
 
     return (
         <div>
-            {store ? (
-                // 가게 정보 
-                <div>
-                    <div>
-                        <h1>{store.sname}</h1>
-                        <p>주소: {store.saddress}</p>
-                        <p>평점: {store.sgrade}</p>
-                        <p>리뷰수: {store.sreview}</p>
-                        <p>최소 주문 금액: {formatNumberWithCommas(store.sorderMinimum)}원</p>
-                        <p>배달 요금: {formatNumberWithCommas(store.stip)} 원</p>
-                        <p>영업 시간: {store.sopen}</p>
-                        <p>배송 예상 시간: {store.stime}</p>
-                        <p>휴무일: {store.closedDay}</p>
-                    </div>
+            <div>
+                <h1>가게 정보</h1>
+                {/* 가게 이름, 평점, 리뷰수, 최소 주문 금액, 배달 요금,
+                    배달 예상 시간, 영업 시간, 휴무일, 주소 순서로 작성함 */}
+                {menus.length > 0 ? <p>{menus[0].store.sname}</p> : null}
+                {menus.length > 0 ? <p>⭐{menus[0].store.sgrade}</p> : null}
+                {menus.length > 0 ? <p>{formatNumberWithCommas(menus[0].store.sreview)}</p> : null}
+                {menus.length > 0 ? <p>{formatNumberWithCommas(menus[0].store.sorderMinimum)}원</p> : null}
+                {menus.length > 0 ? <p>{formatNumberWithCommas(menus[0].store.stip)}원</p> : null}
+                {menus.length > 0 ? <p>{menus[0].store.stime}</p> : null}
+                {menus.length > 0 ? <p>{menus[0].store.sopen}</p> : null}
+                {menus.length > 0 ? <p>{menus[0].store.closedDay}</p> : null}
+                {menus.length > 0 ? <p>{menus[0].store.saddress}</p> : null}
+            </div>
 
-                    <div>
-                        <h1>메뉴</h1>
-                        <p>이름 :</p>
-                        <p>메뉴 설명 :</p>
-                        <p>가격 :</p>
+            <h1>가게 메뉴 리스트</h1>
+            <div className="menu-list">
+                {menus.map(menu => (
+                    <div key={menu.menuId} className="menu-item">
+                        {/*  메뉴 이름 - 메뉴 소개 - 가격 순서로 작성함 */}
+                        <h2>{menu.mname}</h2>
+                        <p>{menu.mintro}</p>
+                        <p>{formatNumberWithCommas(menu.mmoney)}원</p>
                     </div>
-                    
-                    <div>
-                        <h1>주문표</h1>
-                    </div>
-                </div>
-            ) : (
-                <p>가게 상세 정보를 불러오는 중입니다...</p>
-            )}
+                ))}
+            </div>
+
         </div>
     );
 }
