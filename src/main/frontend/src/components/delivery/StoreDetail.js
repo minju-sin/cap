@@ -20,7 +20,8 @@ function formatNumberWithCommas(number) {
 function StoreDetail({ match }) {
     const [menus, setMenus] = useState([]);
     const [showModal, setShowModal] = useState(false); // 모달 상태 변수 추가
-    const [selectedMenu, setSelectedMenu] = useState(null); // 선택된 메뉴 정보
+    const [selectedMenu, setSelectedMenu] = useState(null); // 선택된 메뉴 정보 (모달창으로 보여줌)
+    const [orderItems, setOrderItems] = useState([]); // 주문 내역 관리
     const { storeId } = useParams();
 
     //  메뉴 선택하면 모달창 표시하는 함수
@@ -29,11 +30,71 @@ function StoreDetail({ match }) {
         setShowModal(!showModal);
     };
 
+    // 주문표 함수
     const addToCart = (menu) => {
-        // TODO: 선택한 메뉴를 장바구니에 추가하는 로직을 구현하기
-        // 이 부분은 장바구니 기능과 연동
-        console.log(`메뉴를 장바구니에 추가: ${menu.mname}`);
+        // 이미 주문 내역에 메뉴가 있는지 확인
+        const existingItem = orderItems.find((item) => item.menuId === menu.menuId);
+        if (existingItem) {
+            // 이미 주문 내역에 메뉴가 있는 경우, 수량 증가
+            const updatedOrderItems = orderItems.map((item) => {
+                if (item.menuId === menu.menuId) {
+                    return { ...item, quantity: item.quantity + 1 };
+                }
+                return item;
+            });
+            setOrderItems(updatedOrderItems);
+        } else {
+            // 주문 내역에 메뉴가 없는 경우, 새로 추가
+            setOrderItems([...orderItems, { ...menu, quantity: 1 }]);
+        }
+        setShowModal(false);
     };
+
+
+    //  메뉴 수량 증가 함수
+    const increaseQuantity = (menu) => {
+        const updatedOrderItems = orderItems.map((item) => {
+            if (item.menuId === menu.menuId) {
+                return { ...item, quantity: item.quantity + 1 };
+            }
+            return item;
+        });
+        setOrderItems(updatedOrderItems);
+    };
+
+    //  메뉴 수량 감소 함수
+    const decreaseQuantity = (menu) => {
+        const updatedOrderItems = orderItems.map((item) => {
+            if (item.menuId === menu.menuId && item.quantity > 1) {
+                return { ...item, quantity: item.quantity - 1 };
+            }
+            return item;
+        });
+        setOrderItems(updatedOrderItems);
+    };
+
+    //  주문표 총액
+    const calculateTotal = () => {
+        let total = 0;
+        orderItems.forEach((item) => {
+            total += item.mmoney * item.quantity;
+        });
+        total += menus.length > 0 ? menus[0].store.stip : 0; // 배달팁 추가
+        return total;
+    };
+
+    // 주문표 삭제
+    const removeFromCart = (menu) => {
+        // 해당 메뉴를 주문표에서 제거
+        const updatedOrderItems = orderItems.filter((item) => item.menuId !== menu.menuId);
+        setOrderItems(updatedOrderItems);
+    };
+
+    // 주문표 비우기
+    const clearCart = () => {
+        setOrderItems([]);
+    };
+
 
     useEffect(() => {
         axios.get(`/store/${storeId}`)
@@ -81,11 +142,38 @@ function StoreDetail({ match }) {
                     <h2>{selectedMenu.mname}</h2>
                     <p>{selectedMenu.mintro}</p>
                     <p>{formatNumberWithCommas(selectedMenu.mmoney)}원</p>
-                    {/* "담기" 버튼을 클릭하여 메뉴를 장바구니에 추가 */}
+                    {/* "담기" 버튼을 클릭하여 메뉴를 주문표에 추가 */}
                     <button onClick={() => addToCart(selectedMenu)}>담기</button>
                     <button onClick={() => setShowModal(false)}>닫기</button>
                 </div>
             )}
+
+            <div>
+                <h2 className="order">주문표<button>그룹주문</button></h2>
+                {orderItems.length > 0 ? (
+                    <button onClick={clearCart}>전체 메뉴 삭제</button>
+                    ) : null}
+                <ul>
+                    {orderItems.map((item) => (
+                        <li key={item.menuId}>
+                            {/* 메뉴 이름 - 가격 순서로 작성 */}
+                            {item.mname} - {formatNumberWithCommas(item.mmoney)}원
+                            {/* 수량 */}
+                            <button onClick={() => decreaseQuantity(item)}>-</button>
+                            {item.quantity}
+                            <button onClick={() => increaseQuantity(item)}>+</button>
+                            {/* 해당 메뉴와 수량 개수를 곱한 메뉴의 총 가격 */}
+                            {formatNumberWithCommas(item.mmoney * item.quantity)}원
+                            {/* 해당 메뉴 삭제 버튼 추가 */}
+                            <button onClick={() => removeFromCart(item)}>삭제</button>
+                        </li>
+                    ))}
+                </ul>
+                {menus.length > 0 ? <p>배달팁: {formatNumberWithCommas(menus[0].store.stip)}원</p> : null}
+                <p>총액: {formatNumberWithCommas(calculateTotal())}원</p>
+                <button>주문하기</button>
+            </div>
+
         </div>
     );
 }
