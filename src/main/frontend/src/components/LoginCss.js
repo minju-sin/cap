@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { Link } from "react-router-dom";
 export const Body = styled.div`
   box-sizing: border-box;
   display: flex;
@@ -19,6 +20,7 @@ export const BodyWrapper = styled.div`
   width: 500px;
   padding: 20px;
   box-shadow: 3px 3px 5px #bdbdbd;
+  background-color: white;
 `;
 
 export const TitleLogin = styled.h1`
@@ -173,4 +175,7 @@ export const ErrorTextFront_1 = styled.div`
   color: red;
   font-weight: 600;
   font-size: 11px;
+`;
+export const StyledLink = styled(Link)`
+  text-decoration: none;
 `;

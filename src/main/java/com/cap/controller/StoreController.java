@@ -42,4 +42,7 @@ public class StoreController {
         return menus;
     }
 
+    //  주문표 처리
+    // TODO : 주문 db 생성 -> 가게 id, 사용자 id,  주문내역, 주문 상태 주문 시간
+    // TODO : 주문내역 db -> 주문내역 id, 메뉴 id 주문 id  수량, 총가격
 }

@@ -14,8 +14,9 @@ import {
   ErrorTextFront,
   LoginButton,
   JoinWrapper,
+  StyledLink,
 } from "./LoginCss.js";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function Login() {
   const [userId, setUserId] = useState("");
@@ -95,7 +96,9 @@ function Login() {
         <ErrorTextFront>{errorMessage}</ErrorTextFront>
         <JoinWrapper>
           <LoginKeepLFont>아직 회원이 아닙니까?</LoginKeepLFont>
-          <Link to="/signup"><FindPasswordFont>회원가입</FindPasswordFont></Link>
+          <StyledLink to="/signup">
+            <FindPasswordFont>회원가입</FindPasswordFont>
+          </StyledLink>
         </JoinWrapper>
         {/* </form> */}
       </BodyWrapper>

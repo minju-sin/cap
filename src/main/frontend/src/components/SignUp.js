@@ -14,8 +14,9 @@ import {
   LoginButton_2,
   LoginButton_3,
   JoinWrapper,
+  StyledLink,
 } from "./LoginCss";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const DeuDepartment = [
   "국어국문학과",
@@ -220,7 +221,9 @@ function SignUp() {
         </form>
         <JoinWrapper>
           <LoginKeepLFont>이미 회원이십니까?</LoginKeepLFont>
-          <Link to="/login"><FindPasswordFont>로그인</FindPasswordFont></Link>
+          <StyledLink to="/login">
+            <FindPasswordFont>로그인</FindPasswordFont>
+          </StyledLink>
         </JoinWrapper>
       </BodyWrapper>
       <div>footer부분</div>

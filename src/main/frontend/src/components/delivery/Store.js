@@ -31,6 +31,14 @@ function Store() {
 
     return (
         <div>
+            <div>
+                <Link to="/store/category/KOREAN">한식</Link>
+                <Link to="/store/category/JAPANESE">일식</Link>
+                <Link to="/store/category/CHINESE">중식</Link>
+                <Link to="/store/category/NIGHT">야식</Link>
+                <Link to="/store/category/CHICKEN">치킨</Link>
+                <Link to="/store/category/PIZZA">피자</Link>
+            </div>
             <h1>{category} 카테고리 가게 목록</h1>
             <div className="store-list">
                 {stores.map(store => (

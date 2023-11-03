@@ -39,6 +39,9 @@ public class Store {
     private Long Stip; //  배달요금
 
 
+    @Column(length = 50)
+    private String Sphone;   //  전화번호
+
     @Column(nullable = false, length = 50)
     private String Sopen; // 영업 시간
 
@@ -49,15 +52,12 @@ public class Store {
     @Column(nullable = false, length = 20)
     private StoreRole store;  //  음식 카테고리
 
-    @Column(length = 20)
-    private String closedDay;   //  전화번호로 수정할 예정
-
 
     @Builder
     public Store(Long storeId, String Sname, String Saddress,
                  String Sgrade, Long SorderMinimum, String Stime,
                  String Sopen, StoreRole store, Long Stip,
-                 String Sreview, String closedDay) {
+                 String Sreview, String Sphone) {
         this.storeId = storeId;
         this.Sname = Sname;
         this.Saddress = Saddress;
@@ -68,7 +68,7 @@ public class Store {
         this.Sreview = Sreview;
         this.Sopen = Sopen;
         this.store =store;
-        this.closedDay = closedDay;
+        this.Sphone = Sphone;
     }
 
 
