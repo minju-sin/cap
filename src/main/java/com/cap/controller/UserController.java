@@ -91,7 +91,6 @@ public class UserController {
         return response;
     }
 
-    // 회원 가입 처리
     @PostMapping("/signup")
     public Map<String, String> signup(@RequestBody User user) {
         Map<String, String> response = new HashMap<>();
@@ -101,15 +100,43 @@ public class UserController {
                 // 이미 존재하는 아이디일 경우
                 response.put("message", "회원 가입 실패: 이미 존재하는 아이디입니다.");
             } else {
-                // 중복 아이디가 아닌 경우, 데이터베이스에 사용자 정보 저장
-                userRepository.save(user);
-                response.put("message", "회원 가입 성공");
+                // 비밀번호 강력성 검사
+                if (isPasswordStrong(user.getPassword())) {
+                    // 중복 아이디가 아니고, 비밀번호가 강력한 경우, 데이터베이스에 사용자 정보 저장
+                    userRepository.save(user);
+                    response.put("message", "회원 가입 성공");
+                } else {
+                    response.put("message", "회원 가입 실패: 비밀번호는 숫자, 대소문자, 특수문자를 모두 포함해야 합니다.");
+                }
             }
         } catch (Exception e) {
             response.put("message", "회원 가입 실패: " + e.getMessage());
         }
         return response;
     }
+
+    private boolean isPasswordStrong(String password) {
+        // 비밀번호가 숫자, 대문자, 소문자, 특수문자를 모두 포함하는지 검사
+        boolean hasDigit = false;
+        boolean hasUpperCase = false;
+        boolean hasLowerCase = false;
+        boolean hasSpecialChar = false;
+
+        for (char c : password.toCharArray()) {
+            if (Character.isDigit(c)) {
+                hasDigit = true;
+            } else if (Character.isUpperCase(c)) {
+                hasUpperCase = true;
+            } else if (Character.isLowerCase(c)) {
+                hasLowerCase = true;
+            } else if ("!@#$%^&*()_-+=<>?".contains(String.valueOf(c))) {
+                hasSpecialChar = true;
+            }
+        }
+
+        return hasDigit && hasUpperCase && hasLowerCase && hasSpecialChar;
+    }
+
 
     // 로그인 페이지
     @GetMapping("/login")
