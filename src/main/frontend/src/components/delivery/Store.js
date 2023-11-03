@@ -18,6 +18,7 @@ function formatNumberWithCommas(number) {
 function Store() {
     const { category } = useParams();
     const [stores, setStores] = useState([]);
+    const [searchTerm, setSearchTerm] = useState(''); // 검색어 상태
 
     useEffect(() => {
         axios.get(`/store/category?category=${category}`)
@@ -28,6 +29,18 @@ function Store() {
                 console.error('가게 목록을 불러오는 중 오류가 발생했습니다:', error);
             });
     }, [category]);
+
+    // 검색 요청 함수
+    const handleSearch = () => {
+        // 검색어를 사용하여 서버로 검색 요청을 보냄
+        axios.get(`/store/category?category=${category}&search=${searchTerm}`)
+            .then((response) => {
+                setStores(response.data);
+            })
+            .catch((error) => {
+                console.error('가게 검색 중 오류가 발생했습니다:', error);
+            });
+    };
 
     return (
         <div>
@@ -40,6 +53,15 @@ function Store() {
                 <Link to="/store/category/PIZZA">피자</Link>
             </div>
             <h1>{category} 카테고리 가게 목록</h1>
+            <div>
+                <input
+                    type="text"
+                    placeholder="가게를 검색하세요."
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                />
+                <button onClick={handleSearch}>검색</button>
+            </div>
             <div className="store-list">
                 {stores.map(store => (
                     <div key={store.storeId} className="store-item">

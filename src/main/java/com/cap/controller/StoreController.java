@@ -14,6 +14,7 @@ import com.cap.service.StoreService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -27,11 +28,26 @@ public class StoreController {
 
     //  가게 카테고리 별 페이지
     @GetMapping("/category")
-    public List<Store> getStoresByCategory(@RequestParam("category") StoreRole category) {
-        // StoreService에서 가게 카테고리에 해당하는 가게 리스트를 가져오는 메서드 구현
-        List<Store> stores = storeService.getStoresByCategory(category);
-        return stores;
+    public List<Store> getStoresByCategory(
+            @RequestParam("category") StoreRole category,
+            @RequestParam(name = "search", required = false) String search) {
+        List<Store> storesByCategory = storeService.getStoresByCategory(category);
+
+        if (search != null && !search.isEmpty()) {
+            // 검색어가 제공된 경우, 검색 결과를 필터링
+            List<Store> filteredStores = new ArrayList<>();
+            for (Store store : storesByCategory) {
+                if (store.getSname().contains(search)) {
+                    filteredStores.add(store);
+                }
+            }
+            return filteredStores;
+        } else {
+            // 검색어가 없는 경우, 해당 카테고리의 모든 가게 반환
+            return storesByCategory;
+        }
     }
+
 
     // 가게 상세 페이지 - 가게 정보 + 메뉴
     @GetMapping("/{storeId}")
