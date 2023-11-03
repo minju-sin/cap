@@ -50,7 +50,7 @@ public class Store {
     private StoreRole store;  //  음식 카테고리
 
     @Column(length = 20)
-    private String closedDay;   //  휴무일
+    private String closedDay;   //  전화번호로 수정할 예정
 
 
     @Builder

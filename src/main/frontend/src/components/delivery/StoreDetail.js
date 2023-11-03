@@ -35,7 +35,7 @@ function StoreDetail({ match }) {
             <div>
                 <h1>가게 정보</h1>
                 {/* 가게 이름, 평점, 리뷰수, 최소 주문 금액, 배달 요금,
-                    배달 예상 시간, 영업 시간, 휴무일, 주소 순서로 작성함 */}
+                    배달 예상 시간, 영업 시간, 전화번호, 주소 순서로 작성함 */}
                 {menus.length > 0 ? <p>{menus[0].store.sname}</p> : null}
                 {menus.length > 0 ? <p>⭐{menus[0].store.sgrade}</p> : null}
                 {menus.length > 0 ? <p>{formatNumberWithCommas(menus[0].store.sreview)}</p> : null}
@@ -55,7 +55,6 @@ function StoreDetail({ match }) {
                         <h2>{menu.mname}</h2>
                         <p>{menu.mintro}</p>
                         <p>{formatNumberWithCommas(menu.mmoney)}원</p>
-                        <button>담기</button>
                     </div>
                 ))}
             </div>
