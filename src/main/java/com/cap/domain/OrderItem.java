@@ -24,7 +24,7 @@ public class OrderItem {
 
     @JoinColumn(name = "orderId")    //  외래키 orderId 관련을 맺음
     @ManyToOne(optional = false)    //  다대일 관계
-    private Order order;
+    private OrderGeneral order;
     
 
     @JoinColumn(name = "menuId")    //  외래키 menuId 관련을 맺음
@@ -34,7 +34,7 @@ public class OrderItem {
     private int quantity;   //  주문한 메뉴의 수량
 
     @Builder
-    public OrderItem(Long orderItemId, Order order, Menu menu, int quantity) {
+    public OrderItem(Long orderItemId, OrderGeneral order, Menu menu, int quantity) {
         this.orderItemId = orderItemId;
         this.order = order;
         this.menu = menu;

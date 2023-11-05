@@ -20,7 +20,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor  //  기본 생성자 만들어 줌
 @Entity //  DB 테이블 역할
-public class Order {
+public class OrderGeneral {
     @Id() //  primary key
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long orderId;   //  주문 id
@@ -51,8 +51,8 @@ public class Order {
     private StatusRole statusRole;  //  주문 상태
 
     @Builder
-    public Order(Long orderId, Timestamp oTime, List<OrderItem> orderItems,
-                 User user, Store store, StatusRole statusRole){
+    public OrderGeneral(Long orderId, Timestamp oTime, List<OrderItem> orderItems,
+                        User user, Store store, StatusRole statusRole){
         this.orderId = orderId;
         this.oTime = oTime;
         this.orderItems = orderItems;

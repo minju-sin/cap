@@ -18,6 +18,7 @@ function formatNumberWithCommas(number) {
 }
 
 function StoreDetail({ match }) {
+    const [isAuthenticated, setIsAuthenticated] = useState(false); // 사용자 로그인 상태
     const [menus, setMenus] = useState([]);
     const [showModal, setShowModal] = useState(false); // 모달 상태 변수 추가
     const [selectedMenu, setSelectedMenu] = useState(null); // 선택된 메뉴 정보 (모달창으로 보여줌)
@@ -97,12 +98,26 @@ function StoreDetail({ match }) {
 
 
     useEffect(() => {
+        //  가게 메뉴 불러오기
         axios.get(`/store/${storeId}`)
             .then(response => {
                 setMenus(response.data);
             })
             .catch(error => {
                 console.error('가게 메뉴를 불러오는 중 오류가 발생했습니다:', error);
+            });
+
+        // 서버로 현재 사용자의 인증 상태 확인을 위한 요청 보내기
+        axios.get('/check-auth')
+            .then(response => {
+                if (response.data === 'authenticated') {
+                    setIsAuthenticated(true);
+                } else {
+                    setIsAuthenticated(false);
+                }
+            })
+            .catch(error => {
+                console.error('인증 상태 확인 중 오류가 발생했습니다:', error);
             });
     }, [storeId]);
 
@@ -143,7 +158,9 @@ function StoreDetail({ match }) {
                     <p>{selectedMenu.mintro}</p>
                     <p>{formatNumberWithCommas(selectedMenu.mmoney)}원</p>
                     {/* "담기" 버튼을 클릭하여 메뉴를 주문표에 추가 */}
-                    <button onClick={() => addToCart(selectedMenu)}>담기</button>
+                    {isAuthenticated && ( // 사용자가 로그인한 경우에만 버튼을 보이도록 함
+                        <button onClick={() => addToCart(selectedMenu)}>담기</button>
+                    )}
                     <button onClick={() => setShowModal(false)}>닫기</button>
                 </div>
             )}
