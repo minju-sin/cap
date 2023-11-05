@@ -115,12 +115,12 @@ function StoreDetail({ match }) {
                 {menus.length > 0 ? <p>{menus[0].store.sname}</p> : null}
                 {menus.length > 0 ? <p>⭐{menus[0].store.sgrade}</p> : null}
                 {menus.length > 0 ? <p>{formatNumberWithCommas(menus[0].store.sreview)}</p> : null}
-                {menus.length > 0 ? <p>{formatNumberWithCommas(menus[0].store.sorderMinimum)}원</p> : null}
-                {menus.length > 0 ? <p>{formatNumberWithCommas(menus[0].store.stip)}원</p> : null}
-                {menus.length > 0 ? <p>{menus[0].store.stime}</p> : null}
+                {menus.length > 0 ? <p>💰{formatNumberWithCommas(menus[0].store.sorderMinimum)}원</p> : null}
+                {menus.length > 0 ? <p>💲{formatNumberWithCommas(menus[0].store.stip)}원</p> : null}
+                {menus.length > 0 ? <p>⏰{menus[0].store.stime}</p> : null}
                 {menus.length > 0 ? <p>{menus[0].store.sopen}</p> : null}
-                {menus.length > 0 ? <p>{menus[0].store.sphone}</p> : null}
-                {menus.length > 0 ? <p>{menus[0].store.saddress}</p> : null}
+                {menus.length > 0 ? <p>☎️{menus[0].store.sphone}</p> : null}
+                {menus.length > 0 ? <p>🏠{menus[0].store.saddress}</p> : null}
             </div>
 
             <h1>가게 메뉴 리스트</h1>
@@ -156,8 +156,8 @@ function StoreDetail({ match }) {
                 <ul>
                     {orderItems.map((item) => (
                         <li key={item.menuId}>
-                            {/* 메뉴 이름 - 가격 순서로 작성 */}
-                            {item.mname} - {formatNumberWithCommas(item.mmoney)}원
+                            {/* 메뉴 이름 */}
+                            {item.mname}
                             {/* 수량 */}
                             <button onClick={() => decreaseQuantity(item)}>-</button>
                             {item.quantity}
