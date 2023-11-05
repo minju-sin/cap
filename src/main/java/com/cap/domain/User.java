@@ -43,7 +43,7 @@ public class User {
     private UserRole role = UserRole.USER;;  //  권한 확인
 
     @Builder
-    public User(String userId, String username, String department, String password, String phone, UserRole role, String profileImage) {
+    public User(String userId, String username, String department, String password, String phone, UserRole role) {
         this.userId = userId;
         this.username = username;
         this.department = department;
