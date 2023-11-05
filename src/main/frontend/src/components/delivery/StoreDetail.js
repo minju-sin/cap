@@ -22,118 +22,8 @@ function StoreDetail({ match }) {
     const [menus, setMenus] = useState([]);
     const [showModal, setShowModal] = useState(false); // 모달 상태 변수 추가
     const [selectedMenu, setSelectedMenu] = useState(null); // 선택된 메뉴 정보 (모달창으로 보여줌)
-    const [orderItems, setOrderItems] = useState([]); // 주문 내역 관리
     const { storeId } = useParams();
-    //  주문 항목을 보여주는 상태
-    const [orderItemsDisplay, setOrderItemsDisplay] = useState([]);
-    //  주문 항목의 수량을 관리하는 상태
-    const [itemQuantities, setItemQuantities] = useState({});
-    const [totalPrice, setTotalPrice] = useState(0);    //  총 주문 가격 상태
-
-
-    // 주문하기 버튼을 클릭할 때 호출되는 함수
-    const placeOrder = () => {
-        // 여기에서 주문을 서버로 보내는 로직을 구현할 수 있습니다.
-        // 주문 내역은 orderItems에, 총 주문 가격은 totalOrderPrice에 있습니다.
-        // 또한 배달팁도 totalOrderPrice에 반영되어야 합니다.
-        // 서버로 주문을 보내는 코드를 추가해주세요.
-    };
-
-    // 메뉴를 주문 항목에 추가하는 함수
-    const addToOrder = (menu) => {
-        setOrderItems((prevItems) => {
-            const existingItem = prevItems.find((item) => item.menuId === menu.menuId);
-            if (existingItem) {
-                // 메뉴가 이미 주문 항목에 있다면 수량만 증가
-                setItemQuantities((prevQuantities) => ({
-                    ...prevQuantities,
-                    [menu.menuId]: (prevQuantities[menu.menuId] || 1) + 1,
-                }));
-                return prevItems.map((item) =>
-                    item.menuId === menu.menuId
-                        ? { ...item, quantity: item.quantity + 1 }
-                        : item
-                );
-            } else {
-                // 새 메뉴를 주문 항목에 추가
-                setItemQuantities((prevQuantities) => ({
-                    ...prevQuantities,
-                    [menu.menuId]: 1,
-                }));
-                return [...prevItems, { ...menu, quantity: 1 }];
-            }
-        });
-        setShowModal(false); // 모달을 닫음
-    };
-
-    // 수량을 증가시키는 함수
-    const incrementQuantity = (menuId) => {
-        setItemQuantities((prevQuantities) => ({
-            ...prevQuantities,
-            [menuId]: (prevQuantities[menuId] || 1) + 1,
-        }));
-        setOrderItems((prevItems) =>
-            prevItems.map((item) =>
-                item.menuId === menuId
-                    ? { ...item, quantity: item.quantity + 1 }
-                    : item
-            )
-        );
-    };
-
-    // 수량을 감소시키는 함수
-    const decrementQuantity = (menuId) => {
-        setItemQuantities((prevQuantities) => ({
-            ...prevQuantities,
-            [menuId]: Math.max((prevQuantities[menuId] || 1) - 1, 1),
-        }));
-        setOrderItems((prevItems) =>
-            prevItems.map((item) =>
-                item.menuId === menuId
-                    ? { ...item, quantity: Math.max(item.quantity - 1, 1) }
-                    : item
-            )
-        );
-    };
-
-
-    // 주문 항목을 보여주는 함수
-    const displayOrderItems = () => {
-        setOrderItemsDisplay(
-            orderItems.map((item) => {
-                const itemQuantity = itemQuantities[item.menuId] || 1;
-                const itemTotalPrice = item.mmoney * itemQuantity;
-
-                return (
-                    <div key={item.menuId} className="order-item">
-                        <span>{item.mname}</span>
-                        <span>가격: {formatNumberWithCommas(itemTotalPrice)}원</span>
-                        <button onClick={() => decrementQuantity(item.menuId)}>-</button>
-                        <span>수량: {itemQuantity}</span>
-                        <button onClick={() => incrementQuantity(item.menuId)}>+</button>
-                    </div>
-                );
-            })
-        );
-    };
-
-
-    // 주문 항목이나 수량이 변경될 때마다 총 주문 가격을 업데이트하는 useEffect
-    useEffect(() => {
-        const newTotalPrice = orderItems.reduce((sum, item) => {
-            const itemTotalPrice = item.mmoney * (itemQuantities[item.menuId] || 1);
-            return sum + itemTotalPrice;
-        }, 0);
-
-        setTotalPrice(newTotalPrice);
-    }, [orderItems, itemQuantities]);
-
-
-    // 주문 항목을 보여주는 useEffect
-    useEffect(() => {
-        displayOrderItems();
-    }, [orderItems]);
-
+    const [groupOrderUrl, setGroupOrderUrl] = useState(''); // 그룹 주문 URL 상태
 
     //  메뉴 선택하면 모달창 표시하는 함수
     const toggleModal = (menu) => {
@@ -165,6 +55,23 @@ function StoreDetail({ match }) {
                 console.error('인증 상태 확인 중 오류가 발생했습니다:', error);
             });
     }, [storeId]);
+
+    // 그룹 주문 링크 함수
+    const createGroupOrder = () => {
+        axios.post('/order/create-group-order/' + storeId)
+            .then(response => {
+                const groupOrderLink = response.data;
+                setGroupOrderUrl(groupOrderLink);
+
+                // 클립보드에 링크 복사
+                navigator.clipboard.writeText(groupOrderLink).then(() => {
+                    alert('그룹 주문 링크가 클립보드에 복사되었습니다. 공유하세요!');
+                });
+            })
+            .catch(error => {
+                console.error('그룹 주문 생성 중 오류가 발생했습니다:', error);
+            });
+    };
 
     return (
         <div>
@@ -204,19 +111,19 @@ function StoreDetail({ match }) {
                     <p>{formatNumberWithCommas(selectedMenu.mmoney)}원</p>
                     {/* "담기" 버튼을 클릭하여 메뉴를 주문표에 추가 */}
                     {isAuthenticated && ( // 사용자가 로그인한 경우에만 버튼을 보이도록 함
-                        <button onClick={() => addToOrder(selectedMenu)}>담기</button>
+                        <button>담기</button>
                     )}
                     <button onClick={() => setShowModal(false)}>닫기</button>
                 </div>
             )}
 
             <div>
-                <h2 className="order">주문표<button>그룹주문</button></h2>
-                <div className="order-list">{orderItemsDisplay}</div>
+                <h2 className="order">주문표<button onClick={createGroupOrder}>그룹주문</button></h2>
+                <div className="order-list"></div>
                 <div className="total-price">
-                    <span>총 주문 가격: {formatNumberWithCommas(totalPrice + (menus.length > 0 ? menus[0].store.stip : 0))}원</span>
+                    <span>총 주문 가격: 원</span>
                 </div>
-                <button onClick={placeOrder}>주문하기</button>
+                <button>주문하기</button>
             </div>
 
         </div>

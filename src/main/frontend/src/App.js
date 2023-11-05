@@ -21,6 +21,7 @@ import NoticeUpdate from "./components/admin/notice/NoticeUpdate";
 import Store from "./components/delivery/Store";
 import StoreDetail from "./components/delivery/StoreDetail";
 
+import GroupOrderPage from './components/delivery/GroupOrderPage'; // 그룹 주문 페이지 컴포넌
 
 function App() {
     return (
@@ -44,6 +45,8 @@ function App() {
 
                 <Route path="/store/category/:category" element={<Store />} />
                 <Route path="/store/:storeId" element={<StoreDetail />} />
+
+                <Route path="/group-order/:groupOrderId" element={<GroupOrderPage />} />
             </Routes>
         </BrowserRouter>
     );
