@@ -73,6 +73,7 @@ function StoreDetail({ match }) {
             });
     };
 
+
     return (
         <div>
             <div>

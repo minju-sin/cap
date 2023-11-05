@@ -20,6 +20,7 @@ public class GroupOrderController {
     @PostMapping("/create-group-order/{storeId}")
     public ResponseEntity<String> createGroupOrderLink(@PathVariable Long storeId) {
         try {
+            
             String groupOrderLink = groupOrderService.generateGroupOrderLink(storeId);
             return ResponseEntity.ok(groupOrderLink);
         } catch (Exception e) {
