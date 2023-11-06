@@ -24,6 +24,8 @@ public class GroupOrder {
     @JoinColumn(name = "storeId")    //  외래키 storeId와 관련을 맺음
     private Store store;    //  가게
 
+    @Column(nullable = false)
+    private String groupOrderLink; // 그룹 주문 링크를 저장할 필드
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "organizerId")

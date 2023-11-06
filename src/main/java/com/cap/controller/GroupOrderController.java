@@ -48,6 +48,7 @@ public class GroupOrderController {
 
             groupOrder.setOrganizer(loggedInUser);  // 사용자 정보를 이용하여 그룹 주문의 호스트로 설정
             groupOrder.setStore(store); // 가게 정보 저장
+            groupOrder.setGroupOrderLink(groupOrderLink);
 
             // 그룹 주문 엔티티를 저장합니다.
             groupOrderRepository.save(groupOrder);
