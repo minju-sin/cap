@@ -10,6 +10,7 @@ function BoardUpdate() {
     const { articleId } = useParams(); // URL에서 articleId를 가져옴
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
+    const [orderLink, setorderLink] = useState('');
 
     useEffect(() => {
         // 게시글 수정을 위한 초기 데이터 로딩
@@ -17,6 +18,7 @@ function BoardUpdate() {
             .then((response) => {
                 const articleData = response.data;
                 setTitle(articleData.title);
+                setorderLink(articleData.orderLink);
                 setContent(articleData.content);
             })
             .catch((error) => {
@@ -50,6 +52,11 @@ function BoardUpdate() {
                 placeholder="제목"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
+            />
+            <textarea
+                placeholder="그룹주문링크"
+                value={orderLink}
+                onChange={e => setorderLink(e.target.value)}
             />
             <textarea
                 placeholder="본문"

@@ -29,6 +29,8 @@ public class Article {
     //  각 게시글은 하나의 사용자에 의해 작성되지만, 하나의 사용자는 여러 개의 게시글을 작성할 수 있다.
     private User user; // 아이디(학번)
 
+    @Column(length = 500)
+    private String orderLink; // 주문 링크
 
     @Column(nullable = false, length = 255)
     private String title;    //  제목
@@ -43,11 +45,12 @@ public class Article {
 
 
     @Builder
-    public Article(Long id, User user, String title, String content, Timestamp createdAt) {
+    public Article(Long id, User user, String title, String content, Timestamp createdAt, String orderLink) {
         this.id = id;
         this.user = user;
         this.title = title;
         this.content = content;
         this.createdAt = createdAt;
+        this.orderLink = orderLink;
     }
 }

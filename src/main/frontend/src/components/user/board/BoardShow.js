@@ -60,9 +60,13 @@ function BoardShow() {
             </Link>
             {article ? (
                 <div>
+                    {/* 제목, 작성자, 작성일, 그룹주문링크, 내용 순서로 나열 */}
                     <h2>{article.title}</h2>
                     <p>{article.user.username}</p>
                     <p>{new Date(article.createdAt).toLocaleTimeString('en-US', { hour12: false })}</p>
+                    <p>
+                        주문 링크: <a href={article.orderLink} target="_blank" rel="noopener noreferrer">{article.orderLink}</a>
+                    </p>
                     <p>{article.content}</p>
 
                     {/* 삭제 버튼을 보여줄지 여부를 확인하여 조건부 렌더링 */}

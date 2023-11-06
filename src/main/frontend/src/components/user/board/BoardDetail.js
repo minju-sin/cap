@@ -9,9 +9,10 @@ import axios from 'axios';
 function BoardDetail() {
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
+    const [orderLink, setorderLink] = useState('');
 
     const handleSubmit = () => {
-        const article = { title, content };
+        const article = { title, content, orderLink};
 
         // 서버로 게시글 데이터를 보내는 POST 요청
         axios.post('/board/detail', article)
@@ -35,6 +36,11 @@ function BoardDetail() {
                 placeholder="제목"
                 value={title}
                 onChange={e => setTitle(e.target.value)}
+            />
+            <textarea
+                placeholder="그룹주문링크"
+                value={orderLink}
+                onChange={e => setorderLink(e.target.value)}
             />
             <textarea
                 placeholder="본문"
