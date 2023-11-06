@@ -1,11 +1,13 @@
-package com.cap.domain;
+package com.cap.domain.delivery;
 
-import com.cap.domain.delivery.Store;
+
+import com.cap.domain.User;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.HashSet;
 import java.util.Set;
+
 
 @Getter
 @Setter

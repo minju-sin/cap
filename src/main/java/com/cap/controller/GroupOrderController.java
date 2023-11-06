@@ -1,6 +1,6 @@
 package com.cap.controller;
 
-import com.cap.domain.GroupOrder;
+import com.cap.domain.delivery.GroupOrder;
 import com.cap.domain.User;
 import com.cap.domain.delivery.Store;
 import com.cap.repository.GroupOrderRepository;
