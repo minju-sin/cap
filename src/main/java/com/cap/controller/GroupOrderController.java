@@ -1,30 +1,52 @@
 package com.cap.controller;
 
+import com.cap.domain.GroupOrder;
+import com.cap.domain.User;
+import com.cap.repository.GroupOrderRepository;
+import com.cap.repository.UserRepository;
 import com.cap.service.GroupOrderService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+
 
 @RestController
 @RequestMapping("/order")
 public class GroupOrderController {
 
-    private final GroupOrderService groupOrderService;
-
-    @Autowired
-    public GroupOrderController(GroupOrderService groupOrderService) {
-        this.groupOrderService = groupOrderService;
-    }
+    @Autowired private GroupOrderService groupOrderService;
+    @Autowired private GroupOrderRepository groupOrderRepository;
+    @Autowired private UserRepository userRepository;
 
     // 'storeId'를 경로 변수로 사용하여 그룹 주문 링크를 생성합니다.
+    //  그룹 주문 링크 생성한 사용자 -> 호스트
     @PostMapping("/create-group-order/{storeId}")
-    public ResponseEntity<String> createGroupOrderLink(@PathVariable Long storeId) {
+    public ResponseEntity<String> createGroupOrderLink(@PathVariable Long storeId, HttpSession session) {
         try {
-            
+            // 그룹 주문 링크 생성
             String groupOrderLink = groupOrderService.generateGroupOrderLink(storeId);
+
+            // 그룹 주문 엔티티 생성
+            GroupOrder groupOrder = new GroupOrder();
+
+            // 현재 로그인한 사용자 정보 가져오기
+            User loggedInUser = (User) session.getAttribute("user"); // 현재 로그인한 사용자 정보를 가져옴
+            if (loggedInUser == null) {
+                return ResponseEntity.badRequest().body("로그인한 사용자 정보를 가져올 수 없습니다.");
+            }
+
+            // 사용자 정보를 이용하여 그룹 주문의 호스트로 설정
+            groupOrder.setOrganizer(loggedInUser);
+
+            // 그룹 주문 엔티티를 저장합니다.
+            groupOrderRepository.save(groupOrder);
+
+            // 생성된 그룹 주문 링크 반환
             return ResponseEntity.ok(groupOrderLink);
         } catch (Exception e) {
-            // 오류 처리 로직을 적절히 구현합니다.
+            // 오류 처리 로직을 적절히 구현
             return ResponseEntity.badRequest().body("그룹 주문 링크 생성에 실패했습니다.");
         }
     }

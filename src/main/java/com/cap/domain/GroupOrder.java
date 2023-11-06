@@ -25,7 +25,7 @@ public class GroupOrder {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "organizerId")
-    private User organizer; // 그룹 주문을 생성한 사용자
+    private User organizer; // 그룹 주문을 생성한 사용자 (호스트)
 
 
     @ManyToMany(fetch = FetchType.LAZY) // 참가자와 다대다 관계
