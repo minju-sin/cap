@@ -106,7 +106,7 @@ function StoreDetail({ match }) {
 
             {/* 모달 내용 추가 */}
             {showModal && selectedMenu && (
-                <div className="menu-modal">ㅐㄱ
+                <div className="menu-modal">
                     <h2>{selectedMenu.mname}</h2>
                     <p>{selectedMenu.mintro}</p>
                     <p>{formatNumberWithCommas(selectedMenu.mmoney)}원</p>
@@ -119,7 +119,11 @@ function StoreDetail({ match }) {
             )}
 
             <div>
-                <h2 className="order">주문표<button onClick={createGroupOrder}>그룹주문</button></h2>
+                <h2 className="order">주문표
+                    {isAuthenticated && (
+                        <button onClick={createGroupOrder}>그룹주문</button>
+                    )}
+                </h2>
                 {groupOrderUrl && (
                     <p>그룹 주문 링크: {groupOrderUrl}</p>
                 )}
