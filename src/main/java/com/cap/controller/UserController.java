@@ -164,7 +164,7 @@ public class UserController {
         return "로그인 실패";
     }
 
-    // 로그인 성공 후 사용자 이름 얻어옴
+    // 로그인 성공 후 사용자 아이디 얻어옴
     @GetMapping("/get-user-id")
     public ResponseEntity<String> getUserId(HttpServletRequest request) {
         User user = (User) request.getSession().getAttribute("user");
@@ -176,6 +176,17 @@ public class UserController {
         }
     }
 
+    // 로그인 성공 후 사용자 이름 얻어옴
+    @GetMapping("/get-user-name")
+    public ResponseEntity<String> getUsername(HttpServletRequest request) {
+        User user = (User) request.getSession().getAttribute("user");
+
+        if (user != null) {
+            return ResponseEntity.ok(user.getUsername());
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("사용자 아이디 없음");
+        }
+    }
 
     // 로그아웃 처리
     @GetMapping("/logout")
