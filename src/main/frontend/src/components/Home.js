@@ -40,6 +40,7 @@ import menuImage6 from "./images/ChinesePicture.jpg";
 function Home() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [userId, setUserId] = useState("");
+  const [username, setUsername] = useState("");
 
   useEffect(() => {
     // 서버로 현재 사용자의 인증 상태 확인을 위한 요청 보내기
@@ -58,6 +59,16 @@ function Home() {
             .catch((error) => {
               // 에러 처리
             });
+
+          // 사용자 ID를 가져와 상태에 저장
+          axios
+              .get("/get-user-name")
+              .then((response) => {
+                setUsername(response.data);
+              })
+              .catch((error) => {
+                // 에러 처리
+              });
         } else {
           setIsAuthenticated(false);
         }
@@ -88,7 +99,7 @@ function Home() {
       {isAuthenticated ? (
         <div>
           <p>로그인 후 메인 화면</p>
-          <p>{userId}님 환영합니다!</p>
+          <p>{userId}{username}님 환영합니다!</p>
           {userId === "admin" ? (
             // 관리자 메인 화면 페이지
             <Link to="/management">사용자 관리</Link>

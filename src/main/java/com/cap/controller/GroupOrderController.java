@@ -8,9 +8,10 @@ import com.cap.repository.StoreRepository;
 import com.cap.service.GroupOrderService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
+import org.springframework.web.server.ResponseStatusException;
 
 
 @RestController
@@ -60,5 +61,12 @@ public class GroupOrderController {
             return ResponseEntity.badRequest().body("그룹 주문 링크 생성에 실패했습니다.");
         }
     }
+
+
+    //  그룹주문 참가자 저장 처리
+    // 게시판에 있는 그룹주문 링크 클릭 -> 게시글에 저장된 링크 주소와 groupOrder.groupOrderLink가 동일한지 확인
+    //        -> 동일 하다면 해당 링크 주소의 그룹 아이디 가져옴
+    //@PostMapping("/join")
+
 
 }

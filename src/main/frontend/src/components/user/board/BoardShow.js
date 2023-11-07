@@ -65,7 +65,7 @@ function BoardShow() {
                     <p>{article.user.username}</p>
                     <p>{new Date(article.createdAt).toLocaleTimeString('en-US', { hour12: false })}</p>
                     <p>
-                        주문 링크: <a href={article.orderLink} target="_blank" rel="noopener noreferrer">{article.orderLink}</a>
+                        주문 링크: <a href={article.orderLink} rel="noopener noreferrer">{article.orderLink}</a>
                     </p>
                     <p>{article.content}</p>
 
