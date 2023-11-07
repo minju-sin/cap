@@ -49,6 +49,18 @@ function BoardShow() {
         }
     };
 
+    // 주문 링크 클릭을 처리하는 함수
+    const handleJoinGroupOrder = () => {
+        axios.post(`/order/join`, { orderLink: article.orderLink })
+            .then(response => {
+                alert('그룹 주문에 참가했습니다!');
+            })
+            .catch(error => {
+                console.error('그룹 주문 참가 중 오류가 발생했습니다:', error);
+            });
+    };
+
+
     return (
         <div>
             <h1>게시글 상세 페이지</h1>
@@ -65,7 +77,10 @@ function BoardShow() {
                     <p>{article.user.username}</p>
                     <p>{new Date(article.createdAt).toLocaleTimeString('en-US', { hour12: false })}</p>
                     <p>
-                        주문 링크: <a href={article.orderLink} rel="noopener noreferrer">{article.orderLink}</a>
+                        주문 링크:
+                        <a href={article.orderLink} onClick={handleJoinGroupOrder} rel="noopener noreferrer">
+                            {article.orderLink}
+                        </a>
                     </p>
                     <p>{article.content}</p>
 
