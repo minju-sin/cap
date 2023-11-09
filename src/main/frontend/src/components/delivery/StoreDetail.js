@@ -12,6 +12,80 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import {Link, useParams} from "react-router-dom";
 
+// 스타일 태그 내의 CSS - 모달창 디자인
+const modalStyle = `
+        .modal-backdrop {
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1040;
+            width: 100vw;
+            height: 100vh;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+        
+        .menu-modal {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 30%;
+            background-color: white;
+            padding: 20px;
+            z-index: 1050;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+        }
+        
+        .menu-modal h2 {
+            margin-top: 0;
+            color: #333;
+            font-size: 1.5rem;
+        }
+        
+        .menu-modal p {
+            color: #666;
+            font-size: 1rem;
+        }
+        
+        .menu-modal button {
+            margin-top: 10px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        
+        .menu-modal button:hover {
+            background-color: #0056b3;
+        }
+        
+        .menu-modal .close-button {
+            background-color: #6c757d;
+        }
+        
+        .menu-modal .close-button:hover {
+            background-color: #545b62;
+        }
+        
+        @media (max-width: 768px) {
+            .menu-modal {
+                width: 80%;
+                padding: 10px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .menu-modal {
+                width: 90%;
+                padding: 5px;
+            }
+        }
+    `;
+
 // 숫자를 세 자리마다 콤마로 형식화하는 함수
 function formatNumberWithCommas(number) {
     return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -75,6 +149,7 @@ function StoreDetail({ match }) {
 
 
     return (
+        <><style>{modalStyle}</style>
         <div>
             <div>
                 <h1>가게 정보</h1>
@@ -135,6 +210,7 @@ function StoreDetail({ match }) {
             </div>
 
         </div>
+        </>
     );
 }
 
