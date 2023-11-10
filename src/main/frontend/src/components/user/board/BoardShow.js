@@ -50,15 +50,33 @@ function BoardShow() {
     };
 
     // 주문 링크 클릭을 처리하는 함수
-    const handleJoinGroupOrder = () => {
+    const handleJoinGroupOrder = (event) => {
+        event.preventDefault(); //  링크 이동을 막는 함수
         axios.post(`/order/join`, { orderLink: article.orderLink })
             .then(response => {
-                alert('그룹 주문에 참가했습니다!');
+                // 성공 응답을 받았을 때 링크로 이동합니다.
+                window.location.href = article.orderLink;
+                // 백엔드가 어떤 종류의 응답 메시지를 보낸다고 가정합니다.
+                alert(response.data.message || '그룹 주문에 참가했습니다!');
             })
             .catch(error => {
-                console.error('그룹 주문 참가 중 오류가 발생했습니다:', error);
+                if (error.response) {
+                    // 요청은 이루어졌지만 서버가 2xx 범위를 벗어나는 상태 코드로 응답했습니다.
+                    console.error('Error response:', error.response.data);
+                    // 에러 메시지를 알림으로 표시합니다.
+                    alert(error.response.data.message || '참가자 수가 최대라 참여할 수 없습니다.');
+                } else if (error.request) {
+                    // 요청은 이루어졌지만 응답을 받지 못했습니다.
+                    console.error('Error request:', error.request);
+                    alert('서버로부터 응답이 없습니다. 네트워크 상태를 확인해주세요.');
+                } else {
+                    // 요청을 설정하는 과정에서 오류가 발생했습니다.
+                    console.error('Error message:', error.message);
+                    alert('요청 중 오류가 발생했습니다.');
+                }
             });
     };
+
 
 
     return (
@@ -78,10 +96,11 @@ function BoardShow() {
                     <p>{new Date(article.createdAt).toLocaleTimeString('en-US', { hour12: false })}</p>
                     <p>
                         주문 링크:
-                        <a href={article.orderLink} onClick={handleJoinGroupOrder} rel="noopener noreferrer">
+                        <a href={article.orderLink} onClick={(event) => handleJoinGroupOrder(event)} rel="noopener noreferrer">
                             {article.orderLink}
                         </a>
                     </p>
+
                     <p>{article.content}</p>
 
                     {/* 삭제 버튼을 보여줄지 여부를 확인하여 조건부 렌더링 */}
