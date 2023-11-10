@@ -6,13 +6,11 @@ import com.cap.domain.delivery.Store;
 import com.cap.repository.GroupOrderRepository;
 import com.cap.repository.StoreRepository;
 import com.cap.service.GroupOrderService;
-import jakarta.persistence.EntityNotFoundException;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Map;
 
@@ -49,10 +47,13 @@ public class GroupOrderController {
                 return ResponseEntity.badRequest().body("해당 가게 정보를 찾을 수 없습니다.");
             }
 
-
             groupOrder.setOrganizer(loggedInUser);  // 사용자 정보를 이용하여 그룹 주문의 호스트로 설정
             groupOrder.setStore(store); // 가게 정보 저장
             groupOrder.setGroupOrderLink(groupOrderLink);
+
+            // 여기서 최대 참가자 수를 설정합니다. - 이 부분을 추가합니다.
+            groupOrder.setMaxParticipants(GroupOrder.MAX_PARTICIPANTS);
+
 
             // 그룹 주문 엔티티를 저장합니다.
             groupOrderRepository.save(groupOrder);
@@ -82,10 +83,14 @@ public class GroupOrderController {
         }
 
         if (groupOrder != null) {
-
-            groupOrder.addParticipant(loggedInUser);
-            groupOrderRepository.save(groupOrder);
-            return ResponseEntity.ok("그룹 주문에 참가하셨습니다.");
+            // addParticipant 메소드를 호출하여 참가자를 추가하려고 시도
+            if (groupOrder.addParticipant(loggedInUser)) {
+                groupOrderRepository.save(groupOrder);
+                return ResponseEntity.ok("그룹 주문에 성공적으로 참가하였습니다.");
+            } else {
+                // 참가자 수가 최대에 도달했을 경우
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("참가자 수가 최대를 초과했습니다.");
+            }
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("해당 링크의 그룹 주문을 찾을 수 없습니다.");
         }

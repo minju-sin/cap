@@ -16,6 +16,9 @@ import java.util.Set;
 @Entity
 @Builder
 public class GroupOrder {
+
+    public static final int MAX_PARTICIPANTS = 4;
+
     @Id() //  primary key
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;  // 그룹주문 id
@@ -40,18 +43,33 @@ public class GroupOrder {
     )
     private Set<User> participants = new HashSet<>(); // 그룹 주문 참가자 목록
 
+
     //private List<OrderItem> orderItems; // 주문된 항목 목록
     //private OrderStatus status;
 
-    public void addParticipant(User user) {
-        participants.add(user);
-        // 선택적으로 참가자 수가 제한을 초과하지 않는지 확인할 수 있습니다.
+    @Column(name = "max_participants")
+    public static int maxParticipants = MAX_PARTICIPANTS; // 최대 참가자 수 설정 (호스트 제외)
+
+    public boolean addParticipant(User user) {
+        if (participants.size() < maxParticipants) {
+            participants.add(user);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public GroupOrder(Long id, Store store, String groupOrderLink, User organizer, Set<User> participants, int maxParticipants){
+        this.id = id;
+        this.store = store;
+        this.groupOrderLink = groupOrderLink;
+        this.organizer = organizer;
+        this.participants = participants != null ? participants : new HashSet<>();
+        this.maxParticipants = maxParticipants;
     }
 
 
-    public GroupOrder(Long id, Store store, Set<User> participants){
-        this.id = id;
-        this.store = store;
-        this.participants = participants;
+    public void setMaxParticipants(int maxParticipants) {
+        this.maxParticipants = maxParticipants;
     }
 }
