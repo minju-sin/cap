@@ -147,10 +147,7 @@ function GroupOrderPage() {
         }
     };
 
-    // 총 가격 계산할 때 배달팁도 포함시키기
-    const calculateTotalPriceIncludingTip = () => {
-        return totalPrice + deliveryTip;
-    };
+
 
     //  메뉴 선택하면 모달창 표시하는 함수
     const toggleModal = (menu) => {
@@ -259,21 +256,7 @@ function GroupOrderPage() {
 
             <div>
                 <h2 className="order">주문표</h2>
-                <div className="order-list">
-                    {orders.map(order => (
-                        <div key={order.menuId}>
-                            <span>{order.mname}  수량: {order.quantity}개  {formatNumberWithCommas(order.mmoney * order.quantity)}원</span>
-                        </div>
-                    ))}
-                </div>
-                {orders.length > 0 && (
-                    <div className="delivery-tip">
-                        <span>배달팁: {formatNumberWithCommas(deliveryTip)}원</span>
-                    </div>
-                )}
-                <div className="total-price">
-                    <span>총 주문 가격: {formatNumberWithCommas(calculateTotalPriceIncludingTip())}원</span>
-                </div>
+
                 <button>주문하기</button>
             </div>
         </div>
