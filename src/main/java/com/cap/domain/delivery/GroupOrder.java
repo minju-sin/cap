@@ -5,7 +5,9 @@ import com.cap.domain.User;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 
@@ -44,12 +46,13 @@ public class GroupOrder {
     private Set<User> participants = new HashSet<>(); // 그룹 주문 참가자 목록
 
 
-    //private List<OrderItem> orderItems; // 주문된 항목 목록
-    //private OrderStatus status;
-
     @Column(name = "max_participants")
     public static int maxParticipants = MAX_PARTICIPANTS; // 최대 참가자 수 설정 (호스트 제외)
 
+    @OneToMany(mappedBy = "groupOrder", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<OrderItem> orderItems = new ArrayList<>();
+
+    //  참가자 추가하는 메서드
     public boolean addParticipant(User user) {
         if (participants.size() < maxParticipants) {
             participants.add(user);
@@ -59,6 +62,17 @@ public class GroupOrder {
         }
     }
 
+    // 주문 항목 추가 메소드
+    public void addOrderItem(OrderItem item) {
+        item.setGroupOrder(this);
+        this.orderItems.add(item);
+    }
+
+    // 주문 항목 제거 메소드
+    public void removeOrderItem(OrderItem item) {
+        item.setGroupOrder(null);
+        this.orderItems.remove(item);
+    }
     public GroupOrder(Long id, Store store, String groupOrderLink, User organizer, Set<User> participants, int maxParticipants){
         this.id = id;
         this.store = store;

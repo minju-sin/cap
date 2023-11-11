@@ -2,10 +2,16 @@ package com.cap.controller;
 
 import com.cap.domain.delivery.GroupOrder;
 import com.cap.domain.User;
+import com.cap.domain.delivery.Menu;
+import com.cap.domain.delivery.OrderItem;
 import com.cap.domain.delivery.Store;
+import com.cap.dto.OrderItemDto;
 import com.cap.repository.GroupOrderRepository;
+import com.cap.repository.MenuRepository;
+import com.cap.repository.OrderItemRepository;
 import com.cap.repository.StoreRepository;
 import com.cap.service.GroupOrderService;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,6 +28,8 @@ public class GroupOrderController {
     @Autowired private GroupOrderService groupOrderService;
     @Autowired private GroupOrderRepository groupOrderRepository;
     @Autowired private StoreRepository storeRepository;
+    @Autowired private MenuRepository menuRepository;
+    @Autowired private OrderItemRepository orderItemRepository;
 
 
     // 'storeId'를 경로 변수로 사용하여 그룹 주문 링크를 생성합니다.
@@ -96,4 +104,48 @@ public class GroupOrderController {
         }
     }
 
+    //  groupOrderId를 얻어오는 처리
+    @GetMapping("/get-group-order-id")
+    public ResponseEntity<?> getGroupOrderId(@RequestParam String groupOrderLink) {
+        try {
+            GroupOrder groupOrder = groupOrderService.findByGroupOrderLink(groupOrderLink);
+            Long groupOrderId = groupOrder.getId(); // GroupOrder 객체에서 ID를 가져옵니다.
+            return ResponseEntity.ok(groupOrderId);
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
+    }
+
+    //  주문표에 메뉴 추가 처리
+    // 메뉴 아이템 추가 요청 처리
+    @PostMapping("/add-item/{groupOrderId}")
+    public ResponseEntity<?> addItemToGroupOrder(@PathVariable Long groupOrderId, @RequestBody OrderItemDto orderItemDto, HttpSession session) {
+        try {
+            // 현재 로그인한 사용자 정보 확인
+            User loggedInUser = (User) session.getAttribute("user");
+            if (loggedInUser == null) {
+                return ResponseEntity.badRequest().body("로그인한 사용자 정보를 가져올 수 없습니다.");
+            }
+
+            // 해당 그룹 주문 찾기
+            GroupOrder groupOrder = groupOrderRepository.findById(groupOrderId).orElse(null);
+            if (groupOrder == null) {
+                return ResponseEntity.badRequest().body("해당 그룹 주문을 찾을 수 없습니다.");
+            }
+
+            // OrderItem 객체 생성 및 설정
+            OrderItem orderItem = new OrderItem();
+            orderItem.setUser(loggedInUser);
+            orderItem.setMenu(menuRepository.findById(orderItemDto.getMenuId()).orElse(null));
+            orderItem.setQuantity(orderItemDto.getQuantity());
+            orderItem.setGroupOrder(groupOrder);
+
+            // OrderItem 저장
+            orderItemRepository.save(orderItem);
+
+            return ResponseEntity.ok("메뉴 아이템이 그룹 주문에 추가되었습니다.");
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("메뉴 아이템 추가에 실패했습니다.");
+        }
+    }
 }

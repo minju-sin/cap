@@ -89,11 +89,74 @@ function GroupOrderPage() {
     const queryParams = new URLSearchParams(location.search);
     const storeId = queryParams.get('storeId'); // 쿼리 파라미터에서 storeId를 가져옴
     const [menus, setMenus] = useState([]);
+    // 모달창 내부에 수량을 관리할 상태 변수를 추가
+    const [quantity, setQuantity] = useState(1);
+    const [orders, setOrders] = useState([]); // 주문 목록 상태 변수
+    const [totalPrice, setTotalPrice] = useState(0); // 주문 총 가격 상태 변수
+    const [deliveryTip, setDeliveryTip] = useState(0); // 배달팁 상태 변수
+    const [groupOrderId, setGroupOrderId] = useState(null); // groupOrderId 상태 추가
+
+    // 수량 증가 함수
+    const increaseQuantity = () => {
+        setQuantity(prevQuantity => prevQuantity + 1);
+    };
+
+    // 수량 감소 함수
+    const decreaseQuantity = () => {
+        setQuantity(prevQuantity => (prevQuantity > 1 ? prevQuantity - 1 : 1));
+    };
+
+    // 주문 목록에 메뉴를 추가하는 함수
+    const addToOrder = async (menu, quantity) => {
+        if (!groupOrderId) {
+            console.error('그룹 주문 ID가 없습니다.');
+            return; // groupOrderId가 없으면 early return 처리
+        }
+
+        // 백엔드에 전송할 주문 데이터
+        const orderData = {
+            menuId: menu.menuId,
+            quantity: quantity
+        };
+
+        try {
+            // 백엔드에 주문 아이템 추가 요청
+            await axios.post(`/order/add-item/${groupOrderId}`, orderData);
+
+            // 성공적으로 추가된 경우, UI에 반영
+            setOrders(currentOrders => [...currentOrders, {
+                menuId: menu.menuId,
+                mname: menu.mname,
+                mmoney: menu.mmoney,
+                quantity: quantity
+            }]);
+
+            // 총 가격 업데이트
+            setTotalPrice(prevTotal => prevTotal + (menu.mmoney * quantity));
+
+            // 주문이 처음 추가될 때만 배달팁을 적용
+            if (orders.length === 0 && menus.length > 0) {
+                setDeliveryTip(menus[0].store.stip);
+            }
+
+            // 모달창 닫기
+            setShowModal(false);
+        } catch (error) {
+            // 오류 처리
+            console.error('주문 아이템 추가 중 오류 발생:', error);
+        }
+    };
+
+    // 총 가격 계산할 때 배달팁도 포함시키기
+    const calculateTotalPriceIncludingTip = () => {
+        return totalPrice + deliveryTip;
+    };
 
     //  메뉴 선택하면 모달창 표시하는 함수
     const toggleModal = (menu) => {
         setSelectedMenu(menu);
         setShowModal(!showModal);
+        setQuantity(1);
     };
 
     useEffect(() => {
@@ -118,6 +181,27 @@ function GroupOrderPage() {
             .catch(error => {
                 console.error('인증 상태 확인 중 오류가 발생했습니다:', error);
             });
+
+        //  groupOrderId 가져옴
+        const fetchGroupOrderId = async () => {
+            try {
+                // 페이지 URL에서 groupOrderLink 추출 (실제 로직에 맞게 조정해야 함)
+                const groupOrderLink = window.location.href;
+
+                // 백엔드에 groupOrderLink를 이용해 groupOrderId 요청
+                const response = await axios.get('/order/get-group-order-id', {
+                    params: { groupOrderLink }
+                });
+
+                // 응답으로 받은 groupOrderId를 상태에 저장
+                setGroupOrderId(response.data);
+            } catch (error) {
+                console.error('그룹 주문 ID를 가져오는 중 오류가 발생했습니다:', error);
+                // 에러 핸들링 로직 추가
+            }
+        };
+
+        fetchGroupOrderId(); // 함수 호출
     }, [storeId]);
 
 
@@ -161,9 +245,13 @@ function GroupOrderPage() {
                     <h2>{selectedMenu.mname}</h2>
                     <p>{selectedMenu.mintro}</p>
                     <p>{formatNumberWithCommas(selectedMenu.mmoney)}원</p>
-                    {/* "담기" 버튼을 클릭하여 메뉴를 주문표에 추가 */}
-                    {isAuthenticated && ( // 사용자가 로그인한 경우에만 버튼을 보이도록 함
-                        <button>담기</button>
+                    <div className="quantity-selector">
+                        <button onClick={decreaseQuantity}>-</button>
+                        <span>{quantity}</span>
+                        <button onClick={increaseQuantity}>+</button>
+                    </div>
+                    {isAuthenticated && (
+                        <button onClick={() => addToOrder(selectedMenu, quantity)}>담기</button>
                     )}
                     <button onClick={() => setShowModal(false)}>닫기</button>
                 </div>
@@ -171,9 +259,20 @@ function GroupOrderPage() {
 
             <div>
                 <h2 className="order">주문표</h2>
-                <div className="order-list"></div>
+                <div className="order-list">
+                    {orders.map(order => (
+                        <div key={order.menuId}>
+                            <span>{order.mname}  수량: {order.quantity}개  {formatNumberWithCommas(order.mmoney * order.quantity)}원</span>
+                        </div>
+                    ))}
+                </div>
+                {orders.length > 0 && (
+                    <div className="delivery-tip">
+                        <span>배달팁: {formatNumberWithCommas(deliveryTip)}원</span>
+                    </div>
+                )}
                 <div className="total-price">
-                    <span>총 주문 가격: 원</span>
+                    <span>총 주문 가격: {formatNumberWithCommas(calculateTotalPriceIncludingTip())}원</span>
                 </div>
                 <button>주문하기</button>
             </div>
