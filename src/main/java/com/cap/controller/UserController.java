@@ -218,7 +218,7 @@ public class UserController {
             response.put("department", user.getDepartment()); // 학과
             response.put("phone", user.getPhone()); // 전화 번호
             response.put("address", user.getAddress()); // 도로명 주소
-            response.put("detailAddress", user.getDetailsAddress()); // 상세 주소
+            response.put("detailsAddress", user.getDetailsAddress()); // 상세 주소
         } else {
             // 로그인되지 않은 경우, 로그인 페이지로 리다이렉트
             response.put("message", "로그인이 필요한 페이지입니다.");
