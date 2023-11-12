@@ -170,17 +170,20 @@ function GroupOrderPage() {
         setQuantity(1);
     };
 
-    // 주문 목록을 사용자 ID별로 그룹화하는 함수
+    // 주문 목록을 사용자 ID별로 그룹화하고 총액을 계산하는 함수
     const groupOrdersByUserId = (orders) => {
         return orders.reduce((acc, order) => {
             // 사용자 ID를 기준으로 그룹화
             if (!acc[order.userId]) {
                 acc[order.userId] = {
                     username: order.username,
-                    orders: []
+                    orders: [],
+                    totalAmount: 0
                 };
             }
             acc[order.userId].orders.push(order);
+            // 총액 계산
+            acc[order.userId].totalAmount += order.mmoney * order.quantity;
             return acc;
         }, {});
     };
@@ -304,12 +307,14 @@ function GroupOrderPage() {
                 <div className="order-list">
                     {Object.entries(groupedOrders).map(([userId, group]) => (
                         <div key={userId}>
-                            <h3>{group.username} (User ID: {userId})</h3>
+                            <h3>{group.username} (학번: {userId})</h3>
                             {group.orders.map((order, index) => (
                                 <div key={index}>
                                     <span>{order.mname} - 수량: {order.quantity}개 - 총액: {formatNumberWithCommas(order.mmoney * order.quantity)}원</span>
+                                    <button>삭제</button>
                                 </div>
                             ))}
+                            <p>총액: {formatNumberWithCommas(group.totalAmount)}원</p>
                         </div>
                     ))}
                 </div>
