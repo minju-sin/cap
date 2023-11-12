@@ -20,9 +20,7 @@ function Profile() {
     });
 
     const [isEditing, setIsEditing] = useState(false);
-
     // address 상태와 이를 업데이트할 setAddress 함수
-    const [address, setAddress] = useState('');
     const [selectedAddress, setSelectedAddress] = useState('');
 
 
@@ -79,7 +77,7 @@ function Profile() {
                 // 선택한 주소를 selectedAddress 상태에 설정
                 setSelectedAddress(data.address);
                 // 도로명 주소를 user 상태에 설정
-                setUser({ ...user, address: data.address });
+                setUser({ ...user, address: data.address});
             },
         }).open();
     };
@@ -137,9 +135,9 @@ function Profile() {
                 <div>
                     <label>상세 주소:</label>
                     {isEditing ? (
-                        <input type="text" value={user.detailsAddress} onChange={(e) => setUser({ ...user, detailsAddress: e.target.value })} />
+                        <input type="text" value={user.detailsAddress || ''} onChange={(e) => setUser({ ...user, detailsAddress: e.target.value })} />
                     ) : (
-                        <input type="text" value={user.detailsAddress} readOnly />
+                        <input type="text" value={user.detailsAddress || ''} readOnly />
                     )}
                 </div>
                 {isEditing ? (

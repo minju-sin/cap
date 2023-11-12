@@ -245,6 +245,8 @@ public class UserController {
         User updatedUserInfo = userService.updateUserProfile(updatedUser);
 
         if (updatedUserInfo != null) {
+            // 세션에도 업데이트된 사용자 정보를 저장
+            request.getSession().setAttribute("user", updatedUserInfo);
             return ResponseEntity.ok(updatedUserInfo);
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
