@@ -92,9 +92,9 @@ function GroupOrderPage() {
     // 모달창 내부에 수량을 관리할 상태 변수를 추가
     const [quantity, setQuantity] = useState(1);
     const [orders, setOrders] = useState([]); // 주문 목록 상태 변수
-    const [totalPrice, setTotalPrice] = useState(0); // 주문 총 가격 상태 변수
-    const [deliveryTip, setDeliveryTip] = useState(0); // 배달팁 상태 변수
     const [groupOrderId, setGroupOrderId] = useState(null); // groupOrderId 상태 추가
+    // 그룹화된 주문 목록을 상태에 저장
+    const [groupedOrders, setGroupedOrders] = useState({});
 
     // 수량 증가 함수
     const increaseQuantity = () => {
@@ -131,13 +131,6 @@ function GroupOrderPage() {
                 quantity: quantity
             }]);
 
-            // 총 가격 업데이트
-            setTotalPrice(prevTotal => prevTotal + (menu.mmoney * quantity));
-
-            // 주문이 처음 추가될 때만 배달팁을 적용
-            if (orders.length === 0 && menus.length > 0) {
-                setDeliveryTip(menus[0].store.stip);
-            }
 
             // 모달창 닫기
             setShowModal(false);
@@ -170,26 +163,38 @@ function GroupOrderPage() {
         setQuantity(1);
     };
 
-    // 주문 목록을 사용자 ID별로 그룹화하고 총액을 계산하는 함수
-    const groupOrdersByUserId = (orders) => {
-        return orders.reduce((acc, order) => {
-            // 사용자 ID를 기준으로 그룹화
+    // 주문 목록을 그룹화하고 총액을 계산하는 함수
+    const groupOrdersByUserId = (orders, deliveryTip) => {
+        const groupedOrders = orders.reduce((acc, order) => {
+            // 사용자 ID별로 주문을 그룹화
             if (!acc[order.userId]) {
                 acc[order.userId] = {
                     username: order.username,
+                    userId: order.userId,
                     orders: [],
-                    totalAmount: 0
+                    totalAmount: 0,
+                    tipAmount: 0
                 };
             }
             acc[order.userId].orders.push(order);
-            // 총액 계산
+            // 각 주문의 총액을 누적
             acc[order.userId].totalAmount += order.mmoney * order.quantity;
             return acc;
         }, {});
+
+        // 사용자별로 나눈 배달팁 계산
+        const userCount = Object.keys(groupedOrders).length;
+        const tipPerUser = deliveryTip / userCount;
+
+        // 각 사용자의 총액에 배달팁을 더함
+        Object.values(groupedOrders).forEach(group => {
+            group.tipAmount = tipPerUser;
+            group.totalAmount += tipPerUser;
+        });
+
+        return groupedOrders;
     };
 
-    // 그룹화된 주문 목록을 상태에 저장
-    const [groupedOrders, setGroupedOrders] = useState({});
 
     useEffect(() => {
         //  가게 메뉴 불러오기
@@ -243,12 +248,11 @@ function GroupOrderPage() {
 
     // 주문 목록 상태가 바뀔 때마다 주문 목록을 그룹화
     useEffect(() => {
-        if (Array.isArray(orders)) {
-            const grouped = groupOrdersByUserId(orders);
+        if (Array.isArray(orders) && menus.length > 0) {
+            const grouped = groupOrdersByUserId(orders, menus[0].store.stip);
             setGroupedOrders(grouped);
         }
-    }, [orders]);
-
+    }, [orders, menus]);
 
     return (
         <>
