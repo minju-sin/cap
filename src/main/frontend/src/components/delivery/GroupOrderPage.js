@@ -147,7 +147,21 @@ function GroupOrderPage() {
         }
     };
 
-
+    // 주문 목록을 불러오는 함수
+    const fetchOrderItems = async () => {
+        if (groupOrderId) {
+            try {
+                const response = await axios.get(`/order/items/${groupOrderId}`);
+                if (Array.isArray(response.data)) {
+                    setOrders(response.data);
+                } else {
+                    console.error('주문 목록이 배열이 아닙니다, 받은 데이터:', response.data);
+                }
+            } catch (error) {
+                console.error('주문 항목을 가져오는 중 오류가 발생했습니다:', error);
+            }
+        }
+    };
 
     //  메뉴 선택하면 모달창 표시하는 함수
     const toggleModal = (menu) => {
@@ -155,6 +169,24 @@ function GroupOrderPage() {
         setShowModal(!showModal);
         setQuantity(1);
     };
+
+    // 주문 목록을 사용자 ID별로 그룹화하는 함수
+    const groupOrdersByUserId = (orders) => {
+        return orders.reduce((acc, order) => {
+            // 사용자 ID를 기준으로 그룹화
+            if (!acc[order.userId]) {
+                acc[order.userId] = {
+                    username: order.username,
+                    orders: []
+                };
+            }
+            acc[order.userId].orders.push(order);
+            return acc;
+        }, {});
+    };
+
+    // 그룹화된 주문 목록을 상태에 저장
+    const [groupedOrders, setGroupedOrders] = useState({});
 
     useEffect(() => {
         //  가게 메뉴 불러오기
@@ -200,6 +232,19 @@ function GroupOrderPage() {
 
         fetchGroupOrderId(); // 함수 호출
     }, [storeId]);
+
+    useEffect(() => {
+        // ... (기존 useEffect 로직)
+        fetchOrderItems(); // 주문 목록을 불러옵니다.
+    }, [groupOrderId]);
+
+    // 주문 목록 상태가 바뀔 때마다 주문 목록을 그룹화
+    useEffect(() => {
+        if (Array.isArray(orders)) {
+            const grouped = groupOrdersByUserId(orders);
+            setGroupedOrders(grouped);
+        }
+    }, [orders]);
 
 
     return (
@@ -256,7 +301,18 @@ function GroupOrderPage() {
 
             <div>
                 <h2 className="order">주문표</h2>
-
+                <div className="order-list">
+                    {Object.entries(groupedOrders).map(([userId, group]) => (
+                        <div key={userId}>
+                            <h3>{group.username} (User ID: {userId})</h3>
+                            {group.orders.map((order, index) => (
+                                <div key={index}>
+                                    <span>{order.mname} - 수량: {order.quantity}개 - 총액: {formatNumberWithCommas(order.mmoney * order.quantity)}원</span>
+                                </div>
+                            ))}
+                        </div>
+                    ))}
+                </div>
                 <button>주문하기</button>
             </div>
         </div>

@@ -18,7 +18,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 
 @RestController
@@ -146,20 +148,46 @@ public class GroupOrderController {
             orderItemRepository.save(orderItem);
 
 
-            // 저장된 OrderItem의 정보를 반환하는 것은 일반적으로 좋은 RESTful API 디자인입니다.
-            // 클라이언트가 POST 요청에 대한 응답으로 생성된 리소스의 상태를 알 수 있습니다.
-            OrderItemDto responseDto = new OrderItemDto(
-                    orderItem.getUser().getUserId(),
-                    orderItem.getUser().getUsername(),
-                    orderItem.getMenu().getMenuId(),
-                    orderItem.getMenu().getMname(),
-                    orderItem.getMenu().getMmoney(),
-                    orderItem.getQuantity()
-            );
-
-            return ResponseEntity.ok(responseDto);
+            return ResponseEntity.ok("메뉴 아이템이 그룹 주문에 추가되었습니다.");
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("메뉴 아이템 추가에 실패했습니다.");
         }
     }
+
+    @GetMapping("/items/{groupOrderId}")
+    public ResponseEntity<List<OrderItemDto>> getOrderItemsByGroupOrderId(@PathVariable Long groupOrderId) {
+        List<OrderItem> orderItems = orderItemRepository.findByGroupOrderId(groupOrderId);
+        if (orderItems.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+
+        List<OrderItemDto> orderItemDtos = orderItems.stream()
+                .map(this::convertToDto)
+                .collect(Collectors.toList());
+
+        return ResponseEntity.ok(orderItemDtos);
+    }
+
+    private OrderItemDto convertToDto(OrderItem orderItem) {
+        // 메뉴 이름과 가격 정보를 포함하여 DTO 생성
+        OrderItemDto dto = new OrderItemDto();
+        User user = orderItem.getUser();
+        Menu menu = orderItem.getMenu();
+
+        if (user != null && menu != null) {
+            dto.setUserId(user.getUserId());
+            dto.setUsername(user.getUsername());
+        }
+        if (menu != null) {
+            dto.setMenuId(menu.getMenuId());
+            dto.setMname(menu.getMname());
+            dto.setMmoney(menu.getMmoney());
+        }
+
+        // orderItem에서 수량을 가져와 DTO에 설정
+        dto.setQuantity(orderItem.getQuantity());
+
+        return dto;
+    }
+
 }
