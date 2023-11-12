@@ -89,11 +89,27 @@ function GroupOrderPage() {
     const queryParams = new URLSearchParams(location.search);
     const storeId = queryParams.get('storeId'); // 쿼리 파라미터에서 storeId를 가져옴
     const [menus, setMenus] = useState([]);
+    const [user, setUser] = useState([]);
     const [quantity, setQuantity] = useState(1); // 모달창 내부에 수량을 관리할 상태 변수를 추가
     const [orders, setOrders] = useState([]); // 주문 목록 상태 변수
     const [groupOrderId, setGroupOrderId] = useState(null); // groupOrderId 상태 추가
     const [groupedOrders, setGroupedOrders] = useState({}); // 그룹화된 주문 목록을 상태에 저장
-    
+
+    // 로그인 후 사용자 정보를 가져오는 함수
+    const fetchUserInfo = async () => {
+        try {
+            const userIdResponse = await axios.get('/get-user-id');
+            const usernameResponse = await axios.get('/get-user-name');
+
+            setUser({
+                userId: userIdResponse.data,
+                username: usernameResponse.data
+            });
+        } catch (error) {
+            console.error('사용자 정보를 가져오는 중 오류가 발생했습니다:', error);
+        }
+    };
+
     // 수량 증가 함수
     const increaseQuantity = () => {
         setQuantity(prevQuantity => prevQuantity + 1);
@@ -106,27 +122,32 @@ function GroupOrderPage() {
 
     // 주문 목록에 메뉴를 추가하는 함수
     const addToOrder = async (menu, quantity) => {
-        if (!groupOrderId) {
-            console.error('그룹 주문 ID가 없습니다.');
+        if (!groupOrderId || !user.userId) {
+            console.error('그룹 주문 ID가 없거나 사용자가 인증되지 않았습니다.');
             return; // groupOrderId가 없으면 early return 처리
         }
 
         // 백엔드에 전송할 주문 데이터
         const orderData = {
             menuId: menu.menuId,
-            quantity: quantity
+            quantity: quantity,
+            userId: user.userId, // 사용자 ID를 주문 데이터에 포함
+            username: user.username // 사용자 이름을 주문 데이터에 포함
         };
 
         try {
             // 백엔드에 주문 아이템 추가 요청
             await axios.post(`/order/add-item/${groupOrderId}`, orderData);
 
+
             // 성공적으로 추가된 경우, UI에 반영
             setOrders(currentOrders => [...currentOrders, {
                 menuId: menu.menuId,
                 mname: menu.mname,
                 mmoney: menu.mmoney,
-                quantity: quantity
+                quantity: quantity,
+                userId: user.userId,
+                username: user.username
             }]);
 
             // 모달창 닫기
@@ -251,6 +272,11 @@ function GroupOrderPage() {
         }
     }, [orders, menus]);
 
+    useEffect(() => {
+        fetchUserInfo(); // 사용자 정보를 가져옵니다.
+    }, []); // 빈 배열은 컴포넌트가 마운트될 때 한 번만 실행되도록 합니다.
+
+
     return (
         <>
         <style>{modalStyle}</style>
@@ -317,7 +343,7 @@ function GroupOrderPage() {
                             ))}
                             <p>총액(배달팁 포함): {formatNumberWithCommas(group.totalAmount)}원</p>
                             {/* 개별적으로 결제한 뒤 모두 결제 성공하면 주문하기 누를 수 있음 */}
-                            <button>결제하기</button>
+                            <button>결제</button>
                         </div>
                     ))}
                 </div>
