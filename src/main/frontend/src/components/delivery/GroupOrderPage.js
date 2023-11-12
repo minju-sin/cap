@@ -89,13 +89,11 @@ function GroupOrderPage() {
     const queryParams = new URLSearchParams(location.search);
     const storeId = queryParams.get('storeId'); // 쿼리 파라미터에서 storeId를 가져옴
     const [menus, setMenus] = useState([]);
-    // 모달창 내부에 수량을 관리할 상태 변수를 추가
-    const [quantity, setQuantity] = useState(1);
+    const [quantity, setQuantity] = useState(1); // 모달창 내부에 수량을 관리할 상태 변수를 추가
     const [orders, setOrders] = useState([]); // 주문 목록 상태 변수
     const [groupOrderId, setGroupOrderId] = useState(null); // groupOrderId 상태 추가
-    // 그룹화된 주문 목록을 상태에 저장
-    const [groupedOrders, setGroupedOrders] = useState({});
-
+    const [groupedOrders, setGroupedOrders] = useState({}); // 그룹화된 주문 목록을 상태에 저장
+    
     // 수량 증가 함수
     const increaseQuantity = () => {
         setQuantity(prevQuantity => prevQuantity + 1);
@@ -130,7 +128,6 @@ function GroupOrderPage() {
                 mmoney: menu.mmoney,
                 quantity: quantity
             }]);
-
 
             // 모달창 닫기
             setShowModal(false);
@@ -318,7 +315,7 @@ function GroupOrderPage() {
                                     <button>삭제</button>
                                 </div>
                             ))}
-                            <p>총액: {formatNumberWithCommas(group.totalAmount)}원</p>
+                            <p>총액(배달팁 포함): {formatNumberWithCommas(group.totalAmount)}원</p>
                         </div>
                     ))}
                 </div>
