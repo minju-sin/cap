@@ -94,6 +94,8 @@ function GroupOrderPage() {
     const [orders, setOrders] = useState([]); // 주문 목록 상태 변수
     const [groupOrderId, setGroupOrderId] = useState(null); // groupOrderId 상태 추가
     const [groupedOrders, setGroupedOrders] = useState({}); // 그룹화된 주문 목록을 상태에 저장
+    const [totalOrderPrice, setTotalOrderPrice] = useState(0);
+
 
     // 로그인 후 사용자 정보를 가져오는 함수
     const fetchUserInfo = async () => {
@@ -276,6 +278,18 @@ function GroupOrderPage() {
         fetchUserInfo(); // 사용자 정보를 가져옵니다.
     }, []); // 빈 배열은 컴포넌트가 마운트될 때 한 번만 실행되도록 합니다.
 
+    useEffect(() => {
+        const calculateTotalOrderPrice = () => {
+            const total = Object.values(groupedOrders).reduce((sum, group) => {
+                return sum + group.totalAmount;
+            }, 0);
+            setTotalOrderPrice(total);
+        };
+
+        if (Object.keys(groupedOrders).length > 0) {
+            calculateTotalOrderPrice();
+        }
+    }, [groupedOrders]);
 
     return (
         <>
@@ -348,6 +362,12 @@ function GroupOrderPage() {
                     ))}
                 </div>
                 {/* 호스트(방장)만 버튼 누를 수 있도록 함 */}
+                {menus.length > 0 && totalOrderPrice > 0 && (
+                    <>
+                        <p>배달팁: {formatNumberWithCommas(menus[0].store.stip)}원</p>
+                        <p>주문표 총 가격: {formatNumberWithCommas(totalOrderPrice)}원</p>
+                    </>
+                )}
                 <button>주문하기</button>
             </div>
         </div>
