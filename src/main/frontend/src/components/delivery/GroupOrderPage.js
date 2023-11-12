@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useLocation } from 'react-router-dom';
 import axios from 'axios'; // axios 라이브러리 import
 
-// 스타일 태그 내의 CSS - 모달창 디자인 
+// 스타일 태그 내의 CSS - 모달창 디자인 (프론트엔드는 이부분 디자인 수정해야함)
 const modalStyle = `
         .modal-backdrop {
             position: fixed;
@@ -316,9 +316,12 @@ function GroupOrderPage() {
                                 </div>
                             ))}
                             <p>총액(배달팁 포함): {formatNumberWithCommas(group.totalAmount)}원</p>
+                            {/* 개별적으로 결제한 뒤 모두 결제 성공하면 주문하기 누를 수 있음 */}
+                            <button>결제하기</button>
                         </div>
                     ))}
                 </div>
+                {/* 호스트(방장)만 버튼 누를 수 있도록 함 */}
                 <button>주문하기</button>
             </div>
         </div>
