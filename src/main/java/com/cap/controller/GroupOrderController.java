@@ -119,7 +119,9 @@ public class GroupOrderController {
     //  주문표에 메뉴 추가 처리
     // 메뉴 아이템 추가 요청 처리
     @PostMapping("/add-item/{groupOrderId}")
-    public ResponseEntity<?> addItemToGroupOrder(@PathVariable Long groupOrderId, @RequestBody OrderItemDto orderItemDto, HttpSession session) {
+    public ResponseEntity<?> addItemToGroupOrder(@PathVariable Long groupOrderId,
+                                                 @RequestBody OrderItemDto orderItemDto,
+                                                 HttpSession session) {
         try {
             // 현재 로그인한 사용자 정보 확인
             User loggedInUser = (User) session.getAttribute("user");
@@ -143,7 +145,19 @@ public class GroupOrderController {
             // OrderItem 저장
             orderItemRepository.save(orderItem);
 
-            return ResponseEntity.ok("메뉴 아이템이 그룹 주문에 추가되었습니다.");
+
+            // 저장된 OrderItem의 정보를 반환하는 것은 일반적으로 좋은 RESTful API 디자인입니다.
+            // 클라이언트가 POST 요청에 대한 응답으로 생성된 리소스의 상태를 알 수 있습니다.
+            OrderItemDto responseDto = new OrderItemDto(
+                    orderItem.getUser().getUserId(),
+                    orderItem.getUser().getUsername(),
+                    orderItem.getMenu().getMenuId(),
+                    orderItem.getMenu().getMname(),
+                    orderItem.getMenu().getMmoney(),
+                    orderItem.getQuantity()
+            );
+
+            return ResponseEntity.ok(responseDto);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("메뉴 아이템 추가에 실패했습니다.");
         }
