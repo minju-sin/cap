@@ -331,6 +331,13 @@ function GroupOrderPage() {
         }));
     };
 
+    // 모든 사용자의 결제가 완료되었는지 확인하는 함수
+    const allPaymentsCompleted = () => {
+        return Object.keys(groupedOrders).every(
+            userId => paymentStatus[userId] === true
+        );
+    };
+
     // 아임포트 결제 모듈 초기화
     useEffect(() => {
         const script = document.createElement('script');
@@ -451,7 +458,10 @@ function GroupOrderPage() {
                         <p>주문표 총 가격: {formatNumberWithCommas(totalOrderPrice)}원</p>
                     </>
                 )}
-                <button>주문하기</button>
+                {/* 주문하기 버튼 */}
+                <button disabled={!allPaymentsCompleted()}>
+                    주문하기
+                </button>
             </div>
         </div>
         </>
