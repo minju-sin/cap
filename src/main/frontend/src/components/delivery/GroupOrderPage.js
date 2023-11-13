@@ -97,8 +97,7 @@ function GroupOrderPage() {
     const [totalOrderPrice, setTotalOrderPrice] = useState(0);
     const [loggedInUserId, setLoggedInUserId] = useState(null);
     const [paymentStatus, setPaymentStatus] = useState(() => {
-        // 컴포넌트가 마운트될 때 로컬 스토리지에서 상태를 읽어옴
-        const savedStatus = localStorage.getItem('paymentStatus');
+        const savedStatus = localStorage.getItem(`paymentStatus_${groupOrderId}`);
         return savedStatus ? JSON.parse(savedStatus) : {};
     });
 
@@ -307,9 +306,21 @@ function GroupOrderPage() {
     }, [groupedOrders]);
 
     useEffect(() => {
+        // groupOrderId가 설정되면 로컬 스토리지에서 해당 그룹의 결제 상태를 로드
+        if (groupOrderId) {
+            const savedStatus = localStorage.getItem(`paymentStatus_${groupOrderId}`);
+            if (savedStatus) {
+                setPaymentStatus(JSON.parse(savedStatus));
+            }
+        }
+    }, [groupOrderId]);
+
+    useEffect(() => {
         // 결제 상태가 변경될 때마다 로컬 스토리지에 저장
-        localStorage.setItem('paymentStatus', JSON.stringify(paymentStatus));
-    }, [paymentStatus]);
+        if (groupOrderId) {
+            localStorage.setItem(`paymentStatus_${groupOrderId}`, JSON.stringify(paymentStatus));
+        }
+    }, [paymentStatus, groupOrderId]);
     
 
     // 결제 성공 처리 함수
