@@ -96,6 +96,11 @@ function GroupOrderPage() {
     const [groupedOrders, setGroupedOrders] = useState({}); // 그룹화된 주문 목록을 상태에 저장
     const [totalOrderPrice, setTotalOrderPrice] = useState(0);
     const [loggedInUserId, setLoggedInUserId] = useState(null);
+    const [paymentStatus, setPaymentStatus] = useState(() => {
+        // 컴포넌트가 마운트될 때 로컬 스토리지에서 상태를 읽어옴
+        const savedStatus = localStorage.getItem('paymentStatus');
+        return savedStatus ? JSON.parse(savedStatus) : {};
+    });
 
     // 로그인 후 사용자 정보를 가져오는 함수
     const fetchUserInfo = async () => {
@@ -301,6 +306,19 @@ function GroupOrderPage() {
         }
     }, [groupedOrders]);
 
+    useEffect(() => {
+        // 결제 상태가 변경될 때마다 로컬 스토리지에 저장
+        localStorage.setItem('paymentStatus', JSON.stringify(paymentStatus));
+    }, [paymentStatus]);
+    
+
+    // 결제 성공 처리 함수
+    const handlePaymentSuccess = (userId) => {
+        setPaymentStatus(prevStatus => ({
+            ...prevStatus,
+            [userId]: true
+        }));
+    };
 
     // 아임포트 결제 모듈 초기화
     useEffect(() => {
@@ -313,7 +331,7 @@ function GroupOrderPage() {
     }, []);
 
     // 결제 처리 함수
-    const handlePayment = (totalAmount, username) => {
+    const handlePayment = (userId, totalAmount, username) => {
         const { IMP } = window; // 아임포트 모듈
         const paymentData = {
             pg: 'html5_inicis', // PG사
@@ -328,12 +346,15 @@ function GroupOrderPage() {
             if (response.success) {
                 // 결제 성공 시 로직
                 console.log('결제 성공', response);
+                handlePaymentSuccess(userId)
             } else {
                 // 결제 실패 시 로직
                 console.error('결제 실패', response);
             }
         });
     };
+
+
 
     return (
         <>
@@ -392,7 +413,12 @@ function GroupOrderPage() {
                 <div className="order-list">
                     {Object.entries(groupedOrders).map(([userId, group]) => (
                         <div key={userId}>
-                            <h3>{group.username} (학번: {userId})</h3>
+                            <input
+                                type="checkbox"
+                                checked={paymentStatus[userId] === true}
+                                readOnly
+                            />
+                            <span>{group.username} (학번: {userId})</span>
                             {group.orders.map((order, index) => (
                                 <div key={index}>
                                     <span>{order.mname} - 수량: {order.quantity}개 - 총액: {formatNumberWithCommas(order.mmoney * order.quantity)}원</span>
@@ -402,7 +428,7 @@ function GroupOrderPage() {
                             <p>총액(배달팁 포함): {formatNumberWithCommas(group.totalAmount)}원</p>
                             {/* 개별적으로 결제한 뒤 모두 결제 성공하면 주문하기 누를 수 있음 */}
                             {loggedInUserId == userId && (
-                                <button onClick={() => handlePayment(group.totalAmount, group.username)}>결제</button>
+                                <button onClick={() => handlePayment(userId, group.totalAmount, group.username)}>결제</button>
                             )}
                         </div>
                     ))}
