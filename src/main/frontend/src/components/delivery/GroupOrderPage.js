@@ -303,13 +303,13 @@ function GroupOrderPage() {
     }, []);
 
     // 결제 처리 함수
-    const handlePayment = () => {
+    const handlePayment = (totalAmount) => {
         const { IMP } = window; // 아임포트 모듈
         const paymentData = {
             pg: 'html5_inicis', // PG사
             pay_method: 'card', // 결제수단
             merchant_uid: `mid_${new Date().getTime()}`, // 주문번호
-            amount: totalOrderPrice, // 결제금액
+            amount: totalAmount, // 결제금액
             name: '그룹 주문 결제', // 주문명
             buyer_name: "user.username", // 구매자 이름
             buyer_tel: '010-1234-5678', // 구매자 전화번호
@@ -395,7 +395,7 @@ function GroupOrderPage() {
                             ))}
                             <p>총액(배달팁 포함): {formatNumberWithCommas(group.totalAmount)}원</p>
                             {/* 개별적으로 결제한 뒤 모두 결제 성공하면 주문하기 누를 수 있음 */}
-                            <button onClick={handlePayment}>결제</button>
+                            <button onClick={() => handlePayment(group.totalAmount)}>결제</button>
                         </div>
                     ))}
                 </div>
