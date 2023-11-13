@@ -95,7 +95,7 @@ function GroupOrderPage() {
     const [groupOrderId, setGroupOrderId] = useState(null); // groupOrderId 상태 추가
     const [groupedOrders, setGroupedOrders] = useState({}); // 그룹화된 주문 목록을 상태에 저장
     const [totalOrderPrice, setTotalOrderPrice] = useState(0);
-
+    const [loggedInUserId, setLoggedInUserId] = useState(null);
 
     // 로그인 후 사용자 정보를 가져오는 함수
     const fetchUserInfo = async () => {
@@ -217,6 +217,16 @@ function GroupOrderPage() {
 
 
     useEffect(() => {
+        axios.get('/get-user-id')
+            .then(response => {
+                if (response.status === 200) {
+                    setLoggedInUserId(response.data);
+                }
+            })
+            .catch(error => {
+                console.error('사용자 ID를 가져오는 중 오류 발생:', error);
+            });
+
         //  가게 메뉴 불러오기
         axios.get(`/store/${storeId}`)
             .then(response => {
@@ -395,7 +405,9 @@ function GroupOrderPage() {
                             ))}
                             <p>총액(배달팁 포함): {formatNumberWithCommas(group.totalAmount)}원</p>
                             {/* 개별적으로 결제한 뒤 모두 결제 성공하면 주문하기 누를 수 있음 */}
-                            <button onClick={() => handlePayment(group.totalAmount)}>결제</button>
+                            {loggedInUserId == userId && (
+                                <button onClick={() => handlePayment(group.totalAmount)}>결제</button>
+                            )}
                         </div>
                     ))}
                 </div>
