@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 
 /*
@@ -52,6 +53,16 @@ public class ArticleController {
         }
     }
 
+    //  그룹 주문 링크를 포함하는 게시글만 보여주는 처리
+    @GetMapping("/orderLink")
+    public List<Article> getArticlesOrderLink() {
+        List<Article> articles = articleService.getAllArticles(); // 모든 게시글 가져오기
+
+        // orderLink가 null이 아닌 게시글만 필터링하여 반환
+        return articles.stream()
+                .filter(article -> article.getOrderLink() != null)
+                .collect(Collectors.toList());
+    }
 
 
     //  게시글 작성 페이지

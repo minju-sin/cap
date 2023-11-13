@@ -98,6 +98,7 @@ function StoreDetail({ match }) {
     const [selectedMenu, setSelectedMenu] = useState(null); // 선택된 메뉴 정보 (모달창으로 보여줌)
     const { storeId } = useParams();
     const [groupOrderUrl, setGroupOrderUrl] = useState(''); // 그룹 주문 URL 상태
+    const [articles, setArticles] = useState([]);
 
     //  메뉴 선택하면 모달창 표시하는 함수
     const toggleModal = (menu) => {
@@ -128,6 +129,14 @@ function StoreDetail({ match }) {
             .catch(error => {
                 console.error('인증 상태 확인 중 오류가 발생했습니다:', error);
             });
+
+        axios.get('/board/orderLink')
+            .then(response => {
+                setArticles(response.data);
+            })
+            .catch(error => {
+                console.error('게시글 목록을 가져오는 중 오류가 발생했습니다:', error);
+            });
     }, [storeId]);
 
     // 그룹 주문 링크 함수
@@ -145,6 +154,7 @@ function StoreDetail({ match }) {
             .catch(error => {
                 console.error('그룹 주문 생성 중 오류가 발생했습니다:', error);
             });
+
     };
 
 
@@ -208,7 +218,22 @@ function StoreDetail({ match }) {
                 </div>
                 <button>주문하기</button>
             </div>
-
+            
+            <div>
+                <h1> 같이먹어요 - 게시판</h1>
+            {/* 그룹 주문 링크가 있는 게시판만 보여주도록 구현했습니다. */}
+                {/*프론트 구현은 -> 보여주는 게시글이 랜덤으로 5개씩 나오도록 해주세요 */}
+                <div>
+                    {articles.map((article, index) => (
+                        <p key={article.id}>
+                            <p>
+                                {/* 해당 게시글의 상세 페이지로 이동 */}
+                                <Link to={`/board/${article.id}`}>{article.title}</Link>
+                            </p>
+                        </p>
+                    ))}
+                </div>
+            </div>
         </div>
         </>
     );
