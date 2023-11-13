@@ -51,6 +51,19 @@ export const StyledLink2 = styled(Link)`
   font-size: 18px;
 `;
 
+export const StyledLink3 = styled(Link)`
+  text-decoration: none;
+  color: white;
+`;
+
+export const StyledLink4 = styled(Link)`
+  text-decoration: none;
+  color: #BDBDBD;
+  font-weight: 700;
+  font-size: 14px;
+  margin-left:20px;
+`;
+
 export const Login = styled.div`
   height: 44px;
   display: flex;
@@ -182,7 +195,7 @@ export const ContentsBox = styled.div`
   width: 330px;
   height: 330px;
   border-radius: 20px;
-  background-color: yellow;
+  background-color: white;
   margin-bottom: 50px;
   overflow: hidden;
   cursor: pointer;
@@ -225,6 +238,131 @@ export const ContentsText4 = styled.div`
   left: 30px;
   z-index: 3;
   text-shadow: 1px 1px 5px #000000;
+  
 `;
 
 export const ContentsText5 = styled.div``;
+
+export const HeaderProImage = styled.img`
+  margin: 0px;
+  padding: 0px;
+  object-fit: cover; /* 이미지를 자르지 않고 확대/축소하여 채우기 */
+  width: 45px;
+  height: 45px;
+  //position: relative;
+  //z-index: 0;
+`;
+
+export const HeaderProImage2 = styled.img`
+  margin: 0px;
+  padding: 0px;
+  object-fit: cover; /* 이미지를 자르지 않고 확대/축소하여 채우기 */
+  width: 70px;
+  height: 70px;
+ margin-bottom: 20px;
+`;
+
+export const HeaderProButtonImage = styled.img`
+  margin: 0px;
+  padding: 0px;
+  object-fit: cover; /* 이미지를 자르지 않고 확대/축소하여 채우기 */
+  margin-right: 80px;
+  position: relative;
+  cursor: pointer;
+  
+  //z-index: 0;
+`;
+
+export const MyproImage = styled.img`
+  margin: 0px;
+  padding: 0px;
+  object-fit: cover; /* 이미지를 자르지 않고 확대/축소하여 채우기 */
+  //z-index: 0;
+`;
+
+
+export const HeaderProBox = styled.div`
+  position: absolute;
+  margin: 0px;
+  top: 40px;
+  right: 20%;
+  z-index: 3;
+  transition: opacity 0.3s ease;
+  opacity: ${(props) => (props.isVisible ? 0 : 1)};
+`;
+
+export const HeaderProButtonClick = styled.img`
+  margin: 0px;
+  padding: 0px;
+  object-fit: cover; /* 이미지를 자르지 않고 확대/축소하여 채우기 */
+  margin-right: 74px;
+`;
+export  const HeaderProBoxSection =styled.div`
+  position: absolute;
+  top:50px;
+  right:120px;
+ `
+
+export const ProBox = styled.div`
+display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: start;
+  width:200px;
+  
+`
+export  const HeaderProText =styled.div`
+  font-size: 16px;
+  font-weight: 700;
+  margin-left: 15px;
+`
+export  const Hr=styled.hr`
+font-size: 20px;
+
+`
+export  const Hr2=styled.hr`
+font-size: 20px;
+`
+export  const BoxLayout = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content:start;
+  margin-top:20px;
+`
+export  const Footer = styled.div`
+  background: #F5EEE2;
+  width: 100%;
+  height: 300px;
+`
+export  const Footer1 = styled.div`
+  margin-top: 3%;
+  margin-left: 17%;
+  margin-right: 17%;
+`
+export  const FooterText = styled.div`
+  font-weight: 900;
+  font-size: 18px;
+  color:#828282;
+  margin-bottom: 30px;
+`
+export  const FooterText2 = styled.div`
+  font-weight: 600;
+  font-size: 12px;
+  color:#828282;
+  margin-top: 7px;
+  margin-left: 15%;
+`
+export const FooterImage = styled.img`
+  margin: 10px;
+  padding: 0px;
+  object-fit: cover; /* 이미지를 자르지 않고 확대/축소하여 채우기 */
+`;
+
+export  const FooterImages=styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+`
+

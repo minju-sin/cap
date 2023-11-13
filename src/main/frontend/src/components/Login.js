@@ -14,7 +14,8 @@ import {
   ErrorTextFront,
   LoginButton,
   JoinWrapper,
-  StyledLink,
+  StyledLink, Logo, FooterText2,
+
 } from "./LoginCss.js";
 import { Link } from "react-router-dom";
 
@@ -54,7 +55,7 @@ function Login() {
 
   return (
     <Body>
-      <div>사이트 로고</div>
+      <Logo>MatNaMo</Logo>
       <BodyWrapper>
         <TitleLogin>로그인</TitleLogin>
         {/* <form> */}
@@ -102,7 +103,7 @@ function Login() {
         </JoinWrapper>
         {/* </form> */}
       </BodyWrapper>
-      <div>footer 부분</div>
+      <FooterText2>@2023 Capstone Project MatNaMo</FooterText2>
     </Body>
   );
 }

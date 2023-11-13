@@ -179,3 +179,25 @@ export const ErrorTextFront_1 = styled.div`
 export const StyledLink = styled(Link)`
   text-decoration: none;
 `;
+
+export  const Logo = styled.div`
+font-size: 45px;
+  font-weight: 900;
+  color: white;
+  text-shadow: 3px 3px 5px gray;
+  margin-top: 100px;
+`
+
+export  const Logo2 = styled.div`
+font-size: 45px;
+  font-weight: 900;
+  color: white;
+  text-shadow: 3px 3px 5px gray;
+`
+
+export  const FooterText2 = styled.div`
+  font-weight: 600;
+  font-size: 12px;
+  color:#828282;
+
+`

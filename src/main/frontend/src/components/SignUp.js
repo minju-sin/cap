@@ -14,7 +14,7 @@ import {
   LoginButton_2,
   LoginButton_3,
   JoinWrapper,
-  StyledLink,
+  StyledLink, Logo2, FooterText2,
 } from "./LoginCss";
 import { Link } from "react-router-dom";
 
@@ -155,7 +155,7 @@ function SignUp() {
 
   return (
     <Body>
-      <div>사이트 로고</div>
+      <Logo2>MatNaMo</Logo2>
       <BodyWrapper>
         <TitleLogin>회원 가입</TitleLogin>
         <form onSubmit={handleSubmit}>
@@ -226,7 +226,7 @@ function SignUp() {
           </StyledLink>
         </JoinWrapper>
       </BodyWrapper>
-      <div>footer부분</div>
+      <FooterText2>@2023 Capstone Project MatNaMo</FooterText2>
     </Body>
   );
 }
