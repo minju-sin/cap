@@ -8,23 +8,25 @@ function formatNumberWithCommas(number) {
 
 function GroupOrderDetail() {
     const [groupedOrders, setGroupedOrders] = useState({});
-    const { groupOrderId } = useParams(); // useParams 훅을 사용하여 URL에서 groupOrderId 추출
+    const { groupOrderId } = useParams();
 
-    // 주문 목록을 사용자 ID별로 그룹화하는 함수
     const groupOrdersByUserId = (orders) => {
         return orders.reduce((acc, order) => {
+            const orderTotal = order.mmoney * order.quantity;
             if (!acc[order.userId]) {
                 acc[order.userId] = {
                     username: order.username,
-                    orders: []
+                    orders: [order],
+                    totalAmount: orderTotal
                 };
+            } else {
+                acc[order.userId].orders.push(order);
+                acc[order.userId].totalAmount += orderTotal;
             }
-            acc[order.userId].orders.push(order);
             return acc;
         }, {});
     };
 
-    // 서버에서 주문 데이터를 가져오는 함수
     const fetchOrderItems = async () => {
         try {
             const response = await axios.get(`/order/items/${groupOrderId}`);
@@ -55,6 +57,7 @@ function GroupOrderDetail() {
                                 <span>{order.mname} - 수량: {order.quantity}개 - 총액: {formatNumberWithCommas(order.mmoney * order.quantity)}원</span>
                             </div>
                         ))}
+                        <p>총액(배달팁 포함): {formatNumberWithCommas(group.totalAmount)}원</p>
                     </div>
                 ))}
             </div>
