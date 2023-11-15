@@ -258,7 +258,7 @@ function GroupOrderPage() {
         //  groupOrderId 가져옴
         const fetchGroupOrderId = async () => {
             try {
-                // 페이지 URL에서 groupOrderLink 추출 (실제 로직에 맞게 조정해야 함)
+                // 페이지 URL에서 groupOrderLink 추출
                 const groupOrderLink = window.location.href;
 
                 // 백엔드에 groupOrderLink를 이용해 groupOrderId 요청
@@ -278,7 +278,7 @@ function GroupOrderPage() {
     }, [storeId]);
 
     useEffect(() => {
-        // ... (기존 useEffect 로직)
+
         fetchOrderItems(); // 주문 목록을 불러옵니다.
     }, [groupOrderId]);
 
@@ -291,8 +291,8 @@ function GroupOrderPage() {
     }, [orders, menus]);
 
     useEffect(() => {
-        fetchUserInfo(); // 사용자 정보를 가져옵니다.
-    }, []); // 빈 배열은 컴포넌트가 마운트될 때 한 번만 실행되도록 합니다.
+        fetchUserInfo(); // 사용자 정보를 가져옴
+    }, []);
 
     useEffect(() => {
         const calculateTotalOrderPrice = () => {
@@ -337,7 +337,6 @@ function GroupOrderPage() {
         // 백엔드로부터 현재 사용자가 호스트인지 확인
         const checkIfOrganizer = async () => {
             try {
-                // 예시로 /order/is-organizer/{groupOrderId} 엔드포인트를 호출한다고 가정
                 const response = await axios.get(`/order/is-organizer/${groupOrderId}`);
                 setIsOrganizer(response.data); // 응답에 따라 isOrganizer 상태를 설정
             } catch (error) {
