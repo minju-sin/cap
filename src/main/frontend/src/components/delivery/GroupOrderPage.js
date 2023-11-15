@@ -390,6 +390,10 @@ function GroupOrderPage() {
         });
     };
 
+    // 주문최소금액을 넘어야 주문하기 버튼 활성화되는 함수
+    const canPlaceOrder = () => {
+        return totalOrderPrice >= (menus.length > 0 ? menus[0].store.sorderMinimum : 0);
+    };
 
     return (
         <>
@@ -468,16 +472,16 @@ function GroupOrderPage() {
                         </div>
                     ))}
                 </div>
-                {/* 호스트(방장)만 버튼 누를 수 있도록 함 */}
+
                 {menus.length > 0 && totalOrderPrice > 0 && (
                     <>
                         <p>배달팁: {formatNumberWithCommas(menus[0].store.stip)}원</p>
                         <p>주문표 총 가격: {formatNumberWithCommas(totalOrderPrice)}원</p>
                     </>
                 )}
-                {/* 주문하기 버튼 */}
-                <button disabled={!allPaymentsCompleted() || !isOrganizer}>
-                    주문하기
+                {/* 모두 결제성공하고, 배달최소금액 만족, 호스트(방장)만 버튼 누를 수 있다. */}
+                <button disabled={!allPaymentsCompleted() || !isOrganizer || !canPlaceOrder()}>
+                    배달지입력
                 </button>
             </div>
         </div>
