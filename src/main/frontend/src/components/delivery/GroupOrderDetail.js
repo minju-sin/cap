@@ -1,43 +1,63 @@
-//  src/components/delivery/GroupOrderDetail.js
-
-/*
-그룹 주문 최종 페이지
-* 요청사항 + 배달지 + 호스트(방장)의 전화번호 입력
-* 입력은 호스트(방장)만 가능함
-*/
-
-// src/components/user/board/Board.js
-/*
-* 게시판 페이지
-* 작성된 게시글을 테이블 형태로 나타냄
-* 순번, 제목, 작성자, 작성일 순서로 테이블 구성
-* 로그인 성공 후  `글쓰기` 버튼 이용 가능
-* 로그인 전에는 `글쓰기` 버튼 보이지 않도록 구현함
-*/
-
-
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
+
+function formatNumberWithCommas(number) {
+    return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
 
 function GroupOrderDetail() {
+    const [groupedOrders, setGroupedOrders] = useState({});
+    const { groupOrderId } = useParams(); // useParams 훅을 사용하여 URL에서 groupOrderId 추출
+
+    // 주문 목록을 사용자 ID별로 그룹화하는 함수
+    const groupOrdersByUserId = (orders) => {
+        return orders.reduce((acc, order) => {
+            if (!acc[order.userId]) {
+                acc[order.userId] = {
+                    username: order.username,
+                    orders: []
+                };
+            }
+            acc[order.userId].orders.push(order);
+            return acc;
+        }, {});
+    };
+
+    // 서버에서 주문 데이터를 가져오는 함수
+    const fetchOrderItems = async () => {
+        try {
+            const response = await axios.get(`/order/items/${groupOrderId}`);
+            const grouped = groupOrdersByUserId(response.data);
+            setGroupedOrders(grouped);
+        } catch (error) {
+            console.error('주문 데이터를 불러오는 중 오류가 발생했습니다:', error);
+        }
+    };
 
     useEffect(() => {
-
-    }, []);
-
-
+        if (groupOrderId) {
+            fetchOrderItems();
+        }
+    }, [groupOrderId]);
 
     return (
         <div>
             <h1>배달지 입력 페이지</h1>
-            <p>
-                배달지 + 요청사항 입력창이 보이고,
-                주문표를 옆에 보여준다.
-                그리고 모두 입력했으면 주문버튼을 눌러 그룹 주문을 끝낸다.
-            </p>
-
-
+            <p>배달지 + 요청사항 입력창이 보이고, 주문표를 옆에 보여준다.</p>
+            <div className="order-list">
+                <h2>주문 내역</h2>
+                {Object.entries(groupedOrders).map(([userId, group]) => (
+                    <div key={userId}>
+                        <h3>{group.username}</h3>
+                        {group.orders.map((order, index) => (
+                            <div key={index}>
+                                <span>{order.mname} - 수량: {order.quantity}개 - 총액: {formatNumberWithCommas(order.mmoney * order.quantity)}원</span>
+                            </div>
+                        ))}
+                    </div>
+                ))}
+            </div>
         </div>
     );
 }

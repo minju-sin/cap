@@ -154,6 +154,7 @@ public class GroupOrderController {
         }
     }
 
+    // 주문 목록 불러오는 처리
     @GetMapping("/items/{groupOrderId}")
     public ResponseEntity<List<OrderItemDto>> getOrderItemsByGroupOrderId(@PathVariable Long groupOrderId) {
         List<OrderItem> orderItems = orderItemRepository.findByGroupOrderId(groupOrderId);
@@ -208,15 +209,5 @@ public class GroupOrderController {
 
         return ResponseEntity.ok(isOrganizer);
     }
-
-    // '주문하기' 버튼을 누르면 배달지, 요청사항 전달
-//    @PostMapping("update-delivery-info/{groupOrderId}")
-//    public ResponseEntity<?> updateDeliveryInfo(@PathVariable Long groupOrderId,
-//                                                @RequestBody DeliveryInfoDto deliveryInfoDto,
-//                                                HttpSession session) {
-//        // 현재 로그인한 사용자가 호스트인지 확인
-//        // 해당 그룹 주문 엔티티를 찾아 배달지와 요청사항을 업데이트
-//        // 변경 사항 저장
-//    }
 
 }
