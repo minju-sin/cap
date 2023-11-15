@@ -96,6 +96,7 @@ function GroupOrderPage() {
     const [groupedOrders, setGroupedOrders] = useState({}); // 그룹화된 주문 목록을 상태에 저장
     const [totalOrderPrice, setTotalOrderPrice] = useState(0);
     const [loggedInUserId, setLoggedInUserId] = useState(null);
+    const [isOrganizer, setIsOrganizer] = useState(false); // 현재 사용자가 호스트인지 여부
     const [paymentStatus, setPaymentStatus] = useState(() => {
         const savedStatus = localStorage.getItem(`paymentStatus_${groupOrderId}`);
         return savedStatus ? JSON.parse(savedStatus) : {};
@@ -331,6 +332,23 @@ function GroupOrderPage() {
         }));
     };
 
+    useEffect(() => {
+        // 백엔드로부터 현재 사용자가 호스트인지 확인
+        const checkIfOrganizer = async () => {
+            try {
+                // 예시로 /order/is-organizer/{groupOrderId} 엔드포인트를 호출한다고 가정
+                const response = await axios.get(`/order/is-organizer/${groupOrderId}`);
+                setIsOrganizer(response.data); // 응답에 따라 isOrganizer 상태를 설정
+            } catch (error) {
+                console.error('호스트 여부 확인 중 오류 발생:', error);
+            }
+        };
+
+        if (groupOrderId) {
+            checkIfOrganizer();
+        }
+    }, [groupOrderId]);
+
     // 모든 사용자의 결제가 완료되었는지 확인하는 함수
     const allPaymentsCompleted = () => {
         return Object.keys(groupedOrders).every(
@@ -459,7 +477,7 @@ function GroupOrderPage() {
                     </>
                 )}
                 {/* 주문하기 버튼 */}
-                <button disabled={!allPaymentsCompleted()}>
+                <button disabled={!allPaymentsCompleted() || !isOrganizer}>
                     주문하기
                 </button>
             </div>

@@ -190,4 +190,23 @@ public class GroupOrderController {
         return dto;
     }
 
+    // 특정 그룹 주문의 호스트인지 확인하는 엔드포인트
+    @GetMapping("/is-organizer/{groupOrderId}")
+    public ResponseEntity<Boolean> isUserOrganizer(@PathVariable Long groupOrderId, HttpSession session) {
+        // 현재 로그인한 사용자 정보 가져오기
+        User loggedInUser = (User) session.getAttribute("user");
+        if (loggedInUser == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(false);
+        }
+
+        // 해당 그룹 주문 가져오기
+        GroupOrder groupOrder = groupOrderRepository.findById(groupOrderId)
+                .orElseThrow(() -> new EntityNotFoundException("그룹 주문을 찾을 수 없습니다."));
+
+        // 현재 로그인한 사용자가 호스트인지 확인
+        boolean isOrganizer = groupOrder.getOrganizer().getUserId().equals(loggedInUser.getUserId());
+
+        return ResponseEntity.ok(isOrganizer);
+    }
+
 }
