@@ -1,3 +1,13 @@
+//  src/components/delivery/GroupOrderPage.js
+
+/*
+그룹 주문 페이지
+* 주문하고 싶은 메뉴를 선택해 모달창에서 주문표에 담는다.
+* 주문표에 있는 사용자 모두 결제를 해야 배달지 입력이 가능함
+* 배달지 입력은 호스트(방장)만 가능하도록 구현함
+* 프론트엔드는 메뉴 클릭시 나오는 모달창 디자인 무조건 수정
+*/
+
 import React, { useState, useEffect } from 'react';
 import { useParams, useLocation } from 'react-router-dom';
 import axios from 'axios'; // axios 라이브러리 import
