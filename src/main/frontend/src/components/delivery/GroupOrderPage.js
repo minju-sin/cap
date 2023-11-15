@@ -102,6 +102,9 @@ function GroupOrderPage() {
         return savedStatus ? JSON.parse(savedStatus) : {};
     });
 
+    const [showDeliveryModal, setShowDeliveryModal] = useState(false);  //  배달지 입력 모달창
+
+
     // 로그인 후 사용자 정보를 가져오는 함수
     const fetchUserInfo = async () => {
         try {
@@ -390,7 +393,29 @@ function GroupOrderPage() {
         });
     };
 
+/* 주문하기 버튼 누른 뒤 배달지 주소 입력 모달창 */
 
+    //  주문하기 버튼 클릭 이벤트
+    const handleOrderClick = () => {
+        setShowDeliveryModal(true);
+    };
+
+    //  배달지 입력 모달창
+    const DeliveryModal = ({ onClose }) => {
+        return (
+            <div className="modal-backdrop">
+                <div className="menu-modal">
+                    <h2>배달지 입력</h2>
+                    <form>
+                        <input type="text" placeholder="배달지 주소" />
+                        <textarea placeholder="요청사항"></textarea>
+                        <button type="submit">배달지 저장</button>
+                        <button onClick={onClose}>닫기</button>
+                    </form>
+                </div>
+            </div>
+        );
+    };
 
     return (
         <>
@@ -477,9 +502,10 @@ function GroupOrderPage() {
                     </>
                 )}
                 {/* 주문하기 버튼 */}
-                <button disabled={!allPaymentsCompleted() || !isOrganizer}>
+                <button disabled={!allPaymentsCompleted() || !isOrganizer} onClick={handleOrderClick}>
                     주문하기
                 </button>
+                {showDeliveryModal && <DeliveryModal onClose={() => setShowDeliveryModal(false)} />}
             </div>
         </div>
         </>
