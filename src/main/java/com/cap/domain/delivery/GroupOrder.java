@@ -52,6 +52,12 @@ public class GroupOrder {
     @OneToMany(mappedBy = "groupOrder", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<OrderItem> orderItems = new ArrayList<>();
 
+
+    private String deliveryAddress; // 배달지 주소
+    private String detailAddress; // 배달지 상세 주소
+
+    private String specialInstructions; // 요청 사항
+
     //  참가자 추가하는 메서드
     public boolean addParticipant(User user) {
         if (participants.size() < maxParticipants) {
@@ -73,13 +79,17 @@ public class GroupOrder {
         item.setGroupOrder(null);
         this.orderItems.remove(item);
     }
-    public GroupOrder(Long id, Store store, String groupOrderLink, User organizer, Set<User> participants, int maxParticipants){
+    public GroupOrder(Long id, Store store, String groupOrderLink, User organizer, Set<User> participants,
+                      int maxParticipants, String deliveryAddress, String detailAddress, String specialInstructions){
         this.id = id;
         this.store = store;
         this.groupOrderLink = groupOrderLink;
         this.organizer = organizer;
         this.participants = participants != null ? participants : new HashSet<>();
         this.maxParticipants = maxParticipants;
+        this.deliveryAddress = deliveryAddress;
+        this.detailAddress = detailAddress;
+        this.specialInstructions = specialInstructions;
     }
 
 
