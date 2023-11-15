@@ -21,7 +21,8 @@ import NoticeUpdate from "./components/admin/notice/NoticeUpdate";
 import Store from "./components/delivery/Store";
 import StoreDetail from "./components/delivery/StoreDetail";
 
-import GroupOrderPage from './components/delivery/GroupOrderPage'; // 그룹 주문 페이지 컴포넌
+import GroupOrderPage from './components/delivery/GroupOrderPage';  // 그룹 주문 페이지 컴포넌트
+import GroupOrderDetail from "./components/delivery/GroupOrderDetail";
 
 function App() {
     return (
@@ -47,6 +48,8 @@ function App() {
                 <Route path="/store/:storeId" element={<StoreDetail />} />
 
                 <Route path="/group-order/:groupOrderId" element={<GroupOrderPage />} />
+                <Route path="/group-order/delivery/:groupOrderId" element={<GroupOrderDetail />} />
+
             </Routes>
         </BrowserRouter>
     );

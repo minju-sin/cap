@@ -9,7 +9,7 @@
 */
 
 import React, { useState, useEffect } from 'react';
-import { useParams, useLocation } from 'react-router-dom';
+import {useParams, useLocation, Link} from 'react-router-dom';
 import axios from 'axios'; // axios 라이브러리 import
 
 // 스타일 태그 내의 CSS - 모달창 디자인 (프론트엔드는 이부분 디자인 수정해야함)
@@ -490,9 +490,11 @@ function GroupOrderPage() {
                     </>
                 )}
                 {/* 모두 결제성공하고, 배달최소금액 만족, 호스트(방장)만 버튼 누를 수 있다. */}
-                <button disabled={!allPaymentsCompleted() || !isOrganizer || !canPlaceOrder()}>
-                    배달지입력
-                </button>
+                <Link to={`/group-order/delivery/${groupOrderId}`}>
+                    <button disabled={!allPaymentsCompleted() || !isOrganizer || !canPlaceOrder()}>
+                        배달지입력
+                    </button>
+                </Link>
             </div>
         </div>
         </>
