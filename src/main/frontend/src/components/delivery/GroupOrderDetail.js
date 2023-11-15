@@ -9,7 +9,21 @@ function formatNumberWithCommas(number) {
 function GroupOrderDetail() {
     const [groupedOrders, setGroupedOrders] = useState({});
     const { groupOrderId } = useParams();
+    const [deliveryAddress, setDeliveryAddress] = useState("");
+    const [detailAddress, setDetailAddress] = useState("");
+    const [specialInstructions, setSpecialInstructions] = useState("");
 
+    //  주소 API
+    const openAddressSearch = () => {
+        new window.daum.Postcode({
+            oncomplete: function (data) {
+                // 선택한 주소를 가져와서 입력 필드를 업데이트
+                setDeliveryAddress(data.address);
+            },
+        }).open();
+    };
+
+    //  groupOrderId에서 userId 별로 그룹화하여 주문 내역 보여주는 함수
     const groupOrdersByUserId = (orders) => {
         return orders.reduce((acc, order) => {
             const orderTotal = order.mmoney * order.quantity;
@@ -27,6 +41,7 @@ function GroupOrderDetail() {
         }, {});
     };
 
+    // 주문 데이터를 groupOrderId 별로 불러오는 함수
     const fetchOrderItems = async () => {
         try {
             const response = await axios.get(`/order/items/${groupOrderId}`);
@@ -42,6 +57,7 @@ function GroupOrderDetail() {
             fetchOrderItems();
         }
     }, [groupOrderId]);
+
 
     return (
         <div>
@@ -60,6 +76,29 @@ function GroupOrderDetail() {
                         <p>총액(배달팁 포함): {formatNumberWithCommas(group.totalAmount)}원</p>
                     </div>
                 ))}
+            </div>
+
+            <div className="delivery-information">
+                <h2>배달지 + 요청사항 </h2>
+                <input type="text" value={deliveryAddress} readOnly />
+                <button type="button" onClick={openAddressSearch}>
+                    검색
+                </button>
+
+                <input
+                    placeholder=" 상세 주소"
+                    type="text"
+                    value={detailAddress}
+                    onChange={(e) => setDetailAddress(e.target.value)}
+                />
+
+                <input
+                    placeholder="요청 사항"
+                    type="text"
+                    value={specialInstructions}
+                    onChange={(e) => setSpecialInstructions(e.target.value)}
+                />
+                <button type="submit"> 주문 </button>
             </div>
         </div>
     );
