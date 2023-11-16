@@ -10,6 +10,8 @@ function GroupOrderDetail() {
     /* 주문 내역 */
     const [groupedOrders, setGroupedOrders] = useState({});
     const { groupOrderId } = useParams();
+    const [storeInfo, setStoreInfo] = useState({ name: "", deliveryTip: 0 }); // 가게 정보 상태 변수
+
     /* 호스트정보(이름 + 연락처) + 배달지 + 요청사항 */
     const [phone, setPhone] = useState("");
     const [username, setUsername] = useState("");
@@ -17,10 +19,6 @@ function GroupOrderDetail() {
     const [detailAddress, setDetailAddress] = useState("");
     const [specialInstructions, setSpecialInstructions] = useState("");
 
-    // 추가: 가게 정보 상태 변수
-    const [storeInfo, setStoreInfo] = useState({ name: "", deliveryTip: 0 });
-
-    // ...[기존 코드]...
 
     // 가게 정보를 불러오는 함수
     const fetchStoreInfo = async () => {
@@ -110,7 +108,7 @@ function GroupOrderDetail() {
             });
 
         if (groupOrderId) {
-            fetchOrderItems();
+            fetchOrderItems();  //  주문 목록 불러오기
             fetchStoreInfo(); // 가게 정보 불러오기
         }
     }, [groupOrderId]);
