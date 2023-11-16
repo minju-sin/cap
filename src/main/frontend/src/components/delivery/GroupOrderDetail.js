@@ -58,8 +58,8 @@ function GroupOrderDetail() {
     };
 
     //  groupOrderId에서 userId 별로 그룹화하여 주문 내역 보여주는 함수
-    const groupOrdersByUserId = (orders) => {
-        return orders.reduce((acc, order) => {
+    const groupOrdersByUserId = (orders, deliveryTip) => {
+        const grouped = orders.reduce((acc, order) => {
             const orderTotal = order.mmoney * order.quantity;
             if (!acc[order.userId]) {
                 acc[order.userId] = {
@@ -73,13 +73,24 @@ function GroupOrderDetail() {
             }
             return acc;
         }, {});
+
+        // 사용자별로 나눈 배달팁 계산
+        const userCount = Object.keys(grouped).length;
+        const tipPerUser = deliveryTip / userCount;
+
+        // 각 사용자의 총액에 배달팁을 더함
+        Object.values(grouped).forEach(group => {
+            group.totalAmount += tipPerUser;
+        });
+
+        return grouped;
     };
 
     // 주문 데이터를 groupOrderId 별로 불러오는 함수
     const fetchOrderItems = async () => {
         try {
             const response = await axios.get(`/order/items/${groupOrderId}`);
-            const grouped = groupOrdersByUserId(response.data);
+            const grouped = groupOrdersByUserId(response.data, storeInfo.deliveryTip);
             setGroupedOrders(grouped);
         } catch (error) {
             console.error('주문 데이터를 불러오는 중 오류가 발생했습니다:', error);
@@ -108,10 +119,11 @@ function GroupOrderDetail() {
             });
 
         if (groupOrderId) {
-            fetchOrderItems();  //  주문 목록 불러오기
-            fetchStoreInfo(); // 가게 정보 불러오기
+            fetchStoreInfo().then(() => {
+                fetchOrderItems();  // 주문 목록 불러오기
+            });
         }
-    }, [groupOrderId]);
+    }, [groupOrderId, storeInfo.deliveryTip]);
 
 
     return (
