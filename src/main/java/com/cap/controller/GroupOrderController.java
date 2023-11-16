@@ -7,6 +7,7 @@ import com.cap.domain.delivery.Menu;
 import com.cap.domain.delivery.OrderItem;
 import com.cap.domain.delivery.Store;
 import com.cap.dto.OrderItemDto;
+import com.cap.dto.StoreDto;
 import com.cap.repository.GroupOrderRepository;
 import com.cap.repository.MenuRepository;
 import com.cap.repository.OrderItemRepository;
@@ -243,5 +244,30 @@ public class GroupOrderController {
         return ResponseEntity.ok("게시글이 성공적으로 수정되었습니다.");
     }
 
+
+    // groupOrderId로 해당 주문의 가게 정보를 조회하는 엔드포인트
+    @GetMapping("/store-info/{groupOrderId}")
+    public ResponseEntity<StoreDto> getStoreInfoByGroupOrderId(@PathVariable Long groupOrderId) {
+        // groupOrderId를 사용하여 주문 항목을 조회
+        List<OrderItem> orderItems = orderItemRepository.findByGroupOrderId(groupOrderId);
+        if (orderItems.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+
+        // 첫 번째 주문 항목의 메뉴에서 가게 정보를 가져옴
+        Store store = orderItems.get(0).getMenu().getStore();
+        // DTO 변환 로직으로 가게 정보를 Dto로 변환
+        StoreDto storeDto = convertToDto(store);
+        return ResponseEntity.ok(storeDto);
+    }
+
+    private StoreDto convertToDto(Store store) {
+        // Store 객체를 StoreDto 객체로 변환하는 로직
+        return new StoreDto(
+                store.getStoreId(),
+                store.getSname(),
+                store.getStip()
+        );
+    }
 
 }

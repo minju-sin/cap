@@ -17,13 +17,31 @@ function GroupOrderDetail() {
     const [detailAddress, setDetailAddress] = useState("");
     const [specialInstructions, setSpecialInstructions] = useState("");
 
+    // 추가: 가게 정보 상태 변수
+    const [storeInfo, setStoreInfo] = useState({ name: "", deliveryTip: 0 });
+
+    // ...[기존 코드]...
+
+    // 가게 정보를 불러오는 함수
+    const fetchStoreInfo = async () => {
+        try {
+            const response = await axios.get(`/order/store-info/${groupOrderId}`);
+            setStoreInfo({
+                name: response.data.name,
+                deliveryTip: response.data.deliveryTip
+            });
+        } catch (error) {
+            console.error('가게 정보를 불러오는 중 오류가 발생했습니다:', error);
+        }
+    };
+
     //  배달지 + 요청사항 추가 처리하는 함수
     const handleSubmit = () => {
         axios.post(`/order/${groupOrderId}/update`, { deliveryAddress, detailAddress, specialInstructions })
             .then((response) => {
                 // 추가 성공 시 주문 완료 메시지를 화면에 띄어주고 싶어
-                window.location.href = '/';
                 alert("주문이 완료되었습니다.");
+                window.location.href = '/';
                 console.log('주문이 완료되었습니다.');
             })
             .catch((error) => {
@@ -93,6 +111,7 @@ function GroupOrderDetail() {
 
         if (groupOrderId) {
             fetchOrderItems();
+            fetchStoreInfo(); // 가게 정보 불러오기
         }
     }, [groupOrderId]);
 
@@ -103,6 +122,7 @@ function GroupOrderDetail() {
             <p>배달지 + 요청사항 입력창이 보이고, 주문표를 옆에 보여준다.</p>
             <div className="order-list">
                 <h2>주문 내역</h2>
+                <p>가게 이름: {storeInfo.name}</p>
                 {Object.entries(groupedOrders).map(([userId, group]) => (
                     <div key={userId}>
                         <h3>{group.username}</h3>
@@ -111,9 +131,10 @@ function GroupOrderDetail() {
                                 <span>{order.mname} - 수량: {order.quantity}개 - 총액: {formatNumberWithCommas(order.mmoney * order.quantity)}원</span>
                             </div>
                         ))}
-                        <p>총액(배달팁 포함): {formatNumberWithCommas(group.totalAmount)}원</p>
+                        <p>{group.username}님의 주문 총액(배달팁 포함): {formatNumberWithCommas(group.totalAmount)}원</p>
                     </div>
                 ))}
+                <p>배달 팁: {formatNumberWithCommas(storeInfo.deliveryTip)}원</p>
             </div>
 
             <div className="delivery-information">
