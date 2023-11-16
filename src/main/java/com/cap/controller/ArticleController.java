@@ -116,6 +116,7 @@ public class ArticleController {
         }
     }
 
+    //  본인이 작성한 게시글인지 확인하는 처리
     @GetMapping("/check-login-Article/{articleId}")
     public ResponseEntity<String> checkLoginArticle(@PathVariable Long articleId, HttpSession session) {
         User loggedInUser = (User) session.getAttribute("user"); // 현재 로그인한 사용자 정보를 가져옴
@@ -177,6 +178,8 @@ public class ArticleController {
         // 업데이트된 정보로 기존 게시글을 업데이트
         existingArticle.setTitle(updatedArticle.getTitle());
         existingArticle.setContent(updatedArticle.getContent());
+        existingArticle.setOrderLink(updatedArticle.getOrderLink());
+        existingArticle.setAddress(updatedArticle.getAddress());
 
         // 데이터베이스에 변경 사항을 저장
         articleService.createArticle(existingArticle);

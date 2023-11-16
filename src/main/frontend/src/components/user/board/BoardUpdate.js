@@ -10,7 +10,18 @@ function BoardUpdate() {
     const { articleId } = useParams(); // URL에서 articleId를 가져옴
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
-    const [orderLink, setorderLink] = useState('');
+    const [orderLink, setOrderLink] = useState('');
+    const [address, setAddress] = useState('');
+
+    //  주소 API
+    const openAddressSearch = () => {
+        new window.daum.Postcode({
+            oncomplete: function (data) {
+                // 선택한 주소를 가져와서 입력 필드를 업데이트
+                setAddress(data.address);
+            },
+        }).open();
+    };
 
     useEffect(() => {
         // 게시글 수정을 위한 초기 데이터 로딩
@@ -18,8 +29,9 @@ function BoardUpdate() {
             .then((response) => {
                 const articleData = response.data;
                 setTitle(articleData.title);
-                setorderLink(articleData.orderLink);
+                setOrderLink(articleData.orderLink);
                 setContent(articleData.content);
+                setAddress(articleData.address);
             })
             .catch((error) => {
                 console.error('게시글 데이터를 불러오는 중 오류가 발생했습니다:', error);
@@ -29,7 +41,7 @@ function BoardUpdate() {
     //  게시글 수정
     const handleSubmit = () => {
         // 수정된 게시글 내용을 서버에 보내고 저장하는 로직
-        axios.post(`/board/${articleId}/update`, { title, content })
+        axios.post(`/board/${articleId}/update`, { title, content, orderLink, address})
             .then((response) => {
                 // 수정 성공 시, 다른 페이지로 리다이렉트 또는 알림 처리
                 window.location.href = '/board';
@@ -39,9 +51,6 @@ function BoardUpdate() {
                 console.error('게시글 수정 중 오류가 발생했습니다:', error);
             });
     };
-
-
-
 
 
     return (
@@ -56,8 +65,12 @@ function BoardUpdate() {
             <textarea
                 placeholder="그룹주문링크"
                 value={orderLink}
-                onChange={e => setorderLink(e.target.value)}
+                onChange={e => setOrderLink(e.target.value)}
             />
+            <input type="text" value={address} readOnly />
+            <button onClick={openAddressSearch}>
+                검색
+            </button>
             <textarea
                 placeholder="본문"
                 value={content}

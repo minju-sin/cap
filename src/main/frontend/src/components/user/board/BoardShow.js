@@ -90,7 +90,7 @@ function BoardShow() {
             </Link>
             {article ? (
                 <div>
-                    {/* 제목, 작성자, 작성일, 그룹주문링크, 내용 순서로 나열 */}
+                    {/* 제목, 작성자, 작성일, 그룹주문링크, 위치, 내용 순서로 나열 */}
                     <h2>{article.title}</h2>
                     <p>{article.user.username}</p>
                     <p>{new Date(article.createdAt).toLocaleTimeString('en-US', { hour12: false })}</p>
@@ -100,6 +100,7 @@ function BoardShow() {
                             {article.orderLink}
                         </a>
                     </p>
+                    <p>{article.address}</p>
 
                     <p>{article.content}</p>
 

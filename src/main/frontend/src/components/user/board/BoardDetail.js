@@ -9,10 +9,21 @@ import axios from 'axios';
 function BoardDetail() {
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
-    const [orderLink, setorderLink] = useState('');
+    const [orderLink, setOrderLink] = useState('');
+    const [address, setAddress] = useState('');
+
+    //  주소 API
+    const openAddressSearch = () => {
+        new window.daum.Postcode({
+            oncomplete: function (data) {
+                // 선택한 주소를 가져와서 입력 필드를 업데이트
+                setAddress(data.address);
+            },
+        }).open();
+    };
 
     const handleSubmit = () => {
-        const article = { title, content, orderLink};
+        const article = { title, content, orderLink, address};
 
         // 서버로 게시글 데이터를 보내는 POST 요청
         axios.post('/board/detail', article)
@@ -40,8 +51,12 @@ function BoardDetail() {
             <textarea
                 placeholder="그룹주문링크"
                 value={orderLink}
-                onChange={e => setorderLink(e.target.value)}
+                onChange={e => setOrderLink(e.target.value)}
             />
+            <input type="text" value={address} readOnly />
+            <button onClick={openAddressSearch}>
+                검색
+            </button>
             <textarea
                 placeholder="본문"
                 value={content}

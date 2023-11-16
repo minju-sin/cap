@@ -43,14 +43,16 @@ public class Article {
     @Column(nullable = false)
     private Timestamp createdAt; // 작성일
 
+    private String address; //  현 위치 (그룹 주문 시 음식을 먹을 위치 설정할 수 있음)
 
     @Builder
-    public Article(Long id, User user, String title, String content, Timestamp createdAt, String orderLink) {
+    public Article(Long id, User user, String title, String content, Timestamp createdAt, String orderLink, String address) {
         this.id = id;
         this.user = user;
         this.title = title;
         this.content = content;
         this.createdAt = createdAt;
         this.orderLink = orderLink;
+        this.address = address;
     }
 }
