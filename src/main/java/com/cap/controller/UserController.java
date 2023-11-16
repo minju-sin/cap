@@ -184,7 +184,19 @@ public class UserController {
         if (user != null) {
             return ResponseEntity.ok(user.getUsername());
         } else {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("사용자 아이디 없음");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("사용자 이름 없음");
+        }
+    }
+
+    // 로그인 성공 후 사용자 연락처 얻어옴
+    @GetMapping("/get-user-phone")
+    public ResponseEntity<String> getPhone(HttpServletRequest request) {
+        User user = (User) request.getSession().getAttribute("user");
+
+        if (user != null) {
+            return ResponseEntity.ok(user.getPhone());
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("사용자 이름 없음");
         }
     }
 

@@ -7,8 +7,12 @@ function formatNumberWithCommas(number) {
 }
 
 function GroupOrderDetail() {
+    /* 주문 내역 */
     const [groupedOrders, setGroupedOrders] = useState({});
     const { groupOrderId } = useParams();
+    /* 호스트정보(이름 + 연락처) + 배달지 + 요청사항 */
+    const [phone, setPhone] = useState("");
+    const [username, setUsername] = useState("");
     const [deliveryAddress, setDeliveryAddress] = useState("");
     const [detailAddress, setDetailAddress] = useState("");
     const [specialInstructions, setSpecialInstructions] = useState("");
@@ -53,6 +57,26 @@ function GroupOrderDetail() {
     };
 
     useEffect(() => {
+        // 호스트 이름을 가져와 상태에 저장
+        axios
+            .get("/get-user-name")
+            .then((response) => {
+                setUsername(response.data);
+            })
+            .catch((error) => {
+                // 에러 처리
+            });
+
+        // 호스트 연락처 가져와 상태에 저장
+        axios
+            .get("/get-user-phone")
+            .then((response) => {
+                setPhone(response.data);
+            })
+            .catch((error) => {
+                // 에러 처리
+            });
+
         if (groupOrderId) {
             fetchOrderItems();
         }
@@ -79,7 +103,9 @@ function GroupOrderDetail() {
             </div>
 
             <div className="delivery-information">
-                <h2>배달지 + 요청사항 </h2>
+                <h2>호스트(이름, 연락처) + 배달지 + 요청사항 </h2>
+                <input type="text" value={username} readOnly />
+                <input type="text" value={phone} readOnly />
                 <input type="text" value={deliveryAddress} readOnly />
                 <button type="button" onClick={openAddressSearch}>
                     검색
