@@ -1,5 +1,6 @@
 package com.cap.controller;
 
+import com.cap.domain.Article;
 import com.cap.domain.delivery.GroupOrder;
 import com.cap.domain.User;
 import com.cap.domain.delivery.Menu;
@@ -209,5 +210,38 @@ public class GroupOrderController {
 
         return ResponseEntity.ok(isOrganizer);
     }
+
+    // 배달지 + 요청사항 추가 처리
+    @PostMapping("/{groupOrderId}/update")
+    public ResponseEntity<String> updateGroupOrder(
+            @PathVariable Long groupOrderId,
+            @RequestBody GroupOrder groupOrder,
+            HttpSession session
+    ) {
+        // 그룹주문 ID를 사용하여 해당 그룹주문을 찾음
+        GroupOrder existingGroupOrder = groupOrderService.getGroupOrderById(groupOrderId);
+
+        if (existingGroupOrder == null) {
+            // 그룹주문을 찾을 수 없는 경우, 에러 응답
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("게시글을 찾을 수 없습니다.");
+        }
+
+        User loggedInUser = (User) session.getAttribute("user");
+        if (loggedInUser == null || !loggedInUser.getUserId().equals(existingGroupOrder.getOrganizer().getUserId())) {
+            // 로그인하지 않았거나 그룹주문 호스트가 아닌 경우, 권한 없음 응답
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("게시글을 수정할 권한이 없습니다.");
+        }
+
+        // 업데이트된 정보로 기존 그룹주문을 업데이트
+        existingGroupOrder.setDeliveryAddress(groupOrder.getDeliveryAddress());
+        existingGroupOrder.setDetailAddress(groupOrder.getDetailAddress());
+        existingGroupOrder.setSpecialInstructions(groupOrder.getSpecialInstructions());
+
+        // 데이터베이스에 변경 사항을 저장
+        groupOrderService.createGroupOrder(existingGroupOrder);
+
+        return ResponseEntity.ok("게시글이 성공적으로 수정되었습니다.");
+    }
+
 
 }

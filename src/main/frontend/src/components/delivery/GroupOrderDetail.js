@@ -17,6 +17,20 @@ function GroupOrderDetail() {
     const [detailAddress, setDetailAddress] = useState("");
     const [specialInstructions, setSpecialInstructions] = useState("");
 
+    //  배달지 + 요청사항 추가 처리하는 함수
+    const handleSubmit = () => {
+        axios.post(`/order/${groupOrderId}/update`, { deliveryAddress, detailAddress, specialInstructions })
+            .then((response) => {
+                // 추가 성공 시 주문 완료 메시지를 화면에 띄어주고 싶어
+                window.location.href = '/';
+                alert("주문이 완료되었습니다.");
+                console.log('주문이 완료되었습니다.');
+            })
+            .catch((error) => {
+                console.error('배달지 입력에 실패하였습니다. : ', error);
+            });
+    };
+
     //  주소 API
     const openAddressSearch = () => {
         new window.daum.Postcode({
@@ -124,7 +138,7 @@ function GroupOrderDetail() {
                     value={specialInstructions}
                     onChange={(e) => setSpecialInstructions(e.target.value)}
                 />
-                <button type="submit"> 주문 </button>
+                <button type="submit" onClick={handleSubmit}> 주문 </button>
             </div>
         </div>
     );

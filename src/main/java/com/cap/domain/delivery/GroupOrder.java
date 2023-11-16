@@ -1,6 +1,7 @@
 package com.cap.domain.delivery;
 
 
+import com.cap.domain.Article;
 import com.cap.domain.User;
 import jakarta.persistence.*;
 import lombok.*;
