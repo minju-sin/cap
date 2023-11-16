@@ -474,10 +474,12 @@ function GroupOrderPage() {
                                     <button>삭제</button>
                                 </div>
                             ))}
-                            <p>총액(배달팁 포함): {formatNumberWithCommas(group.totalAmount)}원</p>
-                            {/* 개별적으로 결제한 뒤 모두 결제 성공하면 주문하기 누를 수 있음 */}
+                            {/*
+                            개별적으로 결제한 뒤 모두 결제 성공하면 주문하기 누를 수 있음
+                            결제 시 배달팁도 합산해서 계산됨
+                            */}
                             {loggedInUserId == userId && (
-                                <button onClick={() => handlePayment(userId, group.totalAmount, group.username)}>결제</button>
+                                <button onClick={() => handlePayment(userId, group.totalAmount, group.username)}>{formatNumberWithCommas(group.totalAmount)}원 결제하기</button>
                             )}
                         </div>
                     ))}
