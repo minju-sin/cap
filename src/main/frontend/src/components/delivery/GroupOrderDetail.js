@@ -11,6 +11,7 @@ function GroupOrderDetail() {
     const [groupedOrders, setGroupedOrders] = useState({});
     const { groupOrderId } = useParams();
     const [storeInfo, setStoreInfo] = useState({ name: "", deliveryTip: 0 }); // 가게 정보 상태 변수
+    const [totalOrderPrice, setTotalOrderPrice] = useState(0);  //  주문 목록 전체 금액 상태 변수
 
     /* 호스트정보(이름 + 연락처) + 배달지 + 요청사항 */
     const [phone, setPhone] = useState("");
@@ -125,6 +126,13 @@ function GroupOrderDetail() {
         }
     }, [groupOrderId, storeInfo.deliveryTip]);
 
+    // groupedOrders가 변경될 때마다 전체 주문표의 총액 계산
+    useEffect(() => {
+        const total = Object.values(groupedOrders).reduce((sum, group) => {
+            return sum + group.totalAmount;
+        }, 0);
+        setTotalOrderPrice(total);
+    }, [groupedOrders]);
 
     return (
         <div>
@@ -145,6 +153,7 @@ function GroupOrderDetail() {
                     </div>
                 ))}
                 <p>배달 팁: {formatNumberWithCommas(storeInfo.deliveryTip)}원</p>
+                <p>전체 주문표 총액: {formatNumberWithCommas(totalOrderPrice)}원</p>
             </div>
 
             <div className="delivery-information">
@@ -169,7 +178,7 @@ function GroupOrderDetail() {
                     value={specialInstructions}
                     onChange={(e) => setSpecialInstructions(e.target.value)}
                 />
-                <button type="submit" onClick={handleSubmit}> 주문 </button>
+                <button type="submit" onClick={handleSubmit}> 주문하기 </button>
             </div>
         </div>
     );
