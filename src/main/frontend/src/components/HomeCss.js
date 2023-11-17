@@ -365,4 +365,17 @@ export  const FooterImages=styled.div`
   justify-content: flex-end;
   align-items: center;
 `
+export const LogoImage2 = styled.img`
+  margin: 0px;
+  padding: 0px;
+  object-fit: cover; /* 이미지를 자르지 않고 확대/축소하여 채우기 */
+  width: 103px;
+  height: 70px;
+`;
 
+export  const HomeLogoImage=styled.div`
+ display: flex;
+ flex-direction: row;
+ align-items: center;
+ justify-content: start;
+`

@@ -124,7 +124,7 @@ function GroupOrderDetail() {
                 fetchOrderItems();  // 주문 목록 불러오기
             });
         }
-    }, [groupOrderId, storeInfo.deliveryTip]);
+    }, [groupOrderId, storeInfo.deliveryTip, fetchOrderItems]);
 
     // groupedOrders가 변경될 때마다 전체 주문표의 총액 계산
     useEffect(() => {

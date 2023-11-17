@@ -14,10 +14,11 @@ import {
   ErrorTextFront,
   LoginButton,
   JoinWrapper,
-  StyledLink, Logo, FooterText2,
+  StyledLink, Logo, FooterText2,LogoImage1
 
 } from "./LoginCss.js";
-import { Link } from "react-router-dom";
+
+import logoImage1 from "./images/LogoImage1.png";
 
 function Login() {
   const [userId, setUserId] = useState("");
@@ -54,57 +55,58 @@ function Login() {
   };
 
   return (
-    <Body>
-      <Logo>MatNaMo</Logo>
-      <BodyWrapper>
-        <TitleLogin>로그인</TitleLogin>
-        {/* <form> */}
-        {/* <label htmlFor="userId">아이디(학번):</label> */}
-        <InputOption_1
-          placeholder=" 아이디 또는 학번"
-          type="text"
-          id="userId"
-          name="userId"
-          value={userId}
-          onChange={(e) => setUserId(e.target.value)}
-          required
-        />
-        {/* <label htmlFor="password">비밀번호:</label> */}
-        <InputOption_1
-          placeholder=" 비밀번호"
-          type="password"
-          id="password"
-          name="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
-        <BodyWrapper_TextWrapper>
-          <LoginKeepLWrapper>
-            <InputOption_2
-              type="checkbox"
-              name="example"
-              value="checkbox_value"
-            />
-            <LoginKeepLFont>로그인 유지하기</LoginKeepLFont>
-          </LoginKeepLWrapper>
-          <FindPasswordFont>비밀번호를 잊었습니까?</FindPasswordFont>
-        </BodyWrapper_TextWrapper>
+      <Body>
+        {/*<LogoImage1 src={logoImage1} alt="프로필 아이콘 이미지"/>*/}
+        <Logo>MatNaMo</Logo>
+        <BodyWrapper>
+          <TitleLogin>로그인</TitleLogin>
+          {/* <form> */}
+          {/* <label htmlFor="userId">아이디(학번):</label> */}
+          <InputOption_1
+              placeholder=" 아이디 또는 학번"
+              type="text"
+              id="userId"
+              name="userId"
+              value={userId}
+              onChange={(e) => setUserId(e.target.value)}
+              required
+          />
+          {/* <label htmlFor="password">비밀번호:</label> */}
+          <InputOption_1
+              placeholder=" 비밀번호"
+              type="password"
+              id="password"
+              name="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+          />
+          <BodyWrapper_TextWrapper>
+            <LoginKeepLWrapper>
+              <InputOption_2
+                  type="checkbox"
+                  name="example"
+                  value="checkbox_value"
+              />
+              <LoginKeepLFont>로그인 유지하기</LoginKeepLFont>
+            </LoginKeepLWrapper>
+            <FindPasswordFont>비밀번호를 잊었습니까?</FindPasswordFont>
+          </BodyWrapper_TextWrapper>
 
-        <LoginButton type="button" onClick={handleLogin}>
-          로그인
-        </LoginButton>
-        <ErrorTextFront>{errorMessage}</ErrorTextFront>
-        <JoinWrapper>
-          <LoginKeepLFont>아직 회원이 아닙니까?</LoginKeepLFont>
-          <StyledLink to="/signup">
-            <FindPasswordFont>회원가입</FindPasswordFont>
-          </StyledLink>
-        </JoinWrapper>
-        {/* </form> */}
-      </BodyWrapper>
-      <FooterText2>@2023 Capstone Project MatNaMo</FooterText2>
-    </Body>
+          <LoginButton type="button" onClick={handleLogin}>
+            로그인
+          </LoginButton>
+          <ErrorTextFront>{errorMessage}</ErrorTextFront>
+          <JoinWrapper>
+            <LoginKeepLFont>아직 회원이 아닙니까?</LoginKeepLFont>
+            <StyledLink to="/signup">
+              <FindPasswordFont>회원가입</FindPasswordFont>
+            </StyledLink>
+          </JoinWrapper>
+          {/* </form> */}
+        </BodyWrapper>
+        <FooterText2>@2023 Capstone Project MatNaMo</FooterText2>
+      </Body>
   );
 }
 export default Login;

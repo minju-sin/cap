@@ -14,7 +14,7 @@ export const BodyWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  margin: 50px;
+  margin: 0px 50px 50px 50px;
   border: 1px solid rgba(0, 0, 0, 20%);
   border-radius: 10px;
   width: 500px;
@@ -181,11 +181,12 @@ export const StyledLink = styled(Link)`
 `;
 
 export  const Logo = styled.div`
-font-size: 45px;
+ font-size: 45px;
   font-weight: 900;
   color: white;
   text-shadow: 3px 3px 5px gray;
-  margin-top: 100px;
+  margin-bottom: 20px;
+  margin-top: 120px;
 `
 
 export  const Logo2 = styled.div`
@@ -193,6 +194,8 @@ font-size: 45px;
   font-weight: 900;
   color: white;
   text-shadow: 3px 3px 5px gray;
+  margin-top: 20px;
+  margin-bottom: 20px;
 `
 
 export  const FooterText2 = styled.div`
@@ -201,3 +204,13 @@ export  const FooterText2 = styled.div`
   color:#828282;
 
 `
+
+export const LogoImage1 = styled.img`
+  margin: 40px;
+  padding: 0px;
+  object-fit: cover; /* 이미지를 자르지 않고 확대/축소하여 채우기 */
+  width: 253px;
+  height: 180px;
+  
+  
+`;
