@@ -101,6 +101,11 @@ function NoticeShow() {
         setBoxVisibility(!isBoxVisible);
     };
 
+    //  작성일 날짜까지만 보이도록 수정한 함수
+    const extractDate = (datetime) => {
+        return datetime.split('T')[0];
+    };
+
     useEffect(() => {
         // 서버로 현재 사용자의 인증 상태 확인을 위한 요청 보내기
         axios
@@ -282,7 +287,7 @@ function NoticeShow() {
                             <TableImage1 src={ProImage2} alt="프로필 아이콘 이미지"/>
                             <Tdtype1>{notice.user.username}</Tdtype1>
                         </TableFontType2>
-                        <Tdtype4>{new Date(notice.createdAt).toLocaleTimeString('en-US', { hour12: false })}</Tdtype4>
+                        <Tdtype4>{extractDate(notice.createdAt)} {extractDate(notice.createdAt)}{new Date(notice.createdAt).toLocaleTimeString('en-US', { hour12: false })}</Tdtype4>
                             <NoticeShowType>
                                 <NoticeShowHeaderType>{notice.title}</NoticeShowHeaderType>
 
@@ -391,7 +396,7 @@ function NoticeShow() {
                             <TableImage1 src={ProImage2} alt="프로필 아이콘 이미지"/>
                             <Tdtype1>{notice.user.username}</Tdtype1>
                         </TableFontType2>
-                        <Tdtype4>{new Date(notice.createdAt).toLocaleTimeString('en-US', { hour12: false })}</Tdtype4>
+                        <Tdtype4>{extractDate(notice.createdAt)} {new Date(notice.createdAt).toLocaleTimeString('en-US', { hour12: false })}</Tdtype4>
 
 
                             <NoticeShowType>
