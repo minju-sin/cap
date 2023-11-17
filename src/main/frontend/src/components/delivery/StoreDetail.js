@@ -11,6 +11,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import {Link, useParams} from "react-router-dom";
+import Swal from "sweetalert2";
+
 
 // 스타일 태그 내의 CSS - 모달창 디자인
 const modalStyle = `
@@ -148,10 +150,21 @@ function StoreDetail({ match }) {
 
                 // 클립보드에 링크 복사
                 navigator.clipboard.writeText(groupOrderLink).then(() => {
-                    alert('그룹 주문 링크가 클립보드에 복사되었습니다. 공유하세요!');
+                    Swal.fire({
+                        title: '그룹주문 링크 복사 성공!',
+                        text: '클립보드에 복사되었습니다. 공유하세요!',
+                        icon: 'success',
+                        confirmButtonText: '닫기'
+                    });
                 });
             })
             .catch(error => {
+                Swal.fire({
+                    title: '오류!',
+                    text: '그룹 주문 링크 생성 중 오류가 발생했습니다',
+                    icon: 'error',
+                    confirmButtonText: '닫기'
+                });
                 console.error('그룹 주문 생성 중 오류가 발생했습니다:', error);
             });
 

@@ -3,14 +3,11 @@
 * 관리자만 수정, 삭제 버튼 생성됨
 */
 
-// src/components/admin/notice/NoticeShow.js
-/* 공지사항 상세 페이지
-* 관리자만 수정, 삭제 버튼 생성됨
-*/
-
 import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import axios from 'axios';
+import Swal from "sweetalert2";
+
 import {
     HomeBody,
     Header,
@@ -184,15 +181,25 @@ function NoticeShow() {
     }, [noticeId]);
 
     const handleDelete = () => {
-        if (window.confirm("공지사항을 삭제하시겠습니까?")) {
-            axios.post(`/notice/${noticeId}/delete`)
-                .then((response) => {
-                    window.location.href = '/notice';
-                })
-                .catch((error) => {
-                    console.error('공지사항 삭제 중 오류가 발생했습니다:', error);
-                });
-        }
+        Swal.fire({
+            title: '게시글을 삭제하시겠습니까?',
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: '예',
+            cancelButtonText: '아니오'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                axios.post(`/notice/${noticeId}/delete`)
+                    .then((response) => {
+                        window.location.href = '/notice';
+                    })
+                    .catch((error) => {
+                        console.error('공지사항 삭제 중 오류가 발생했습니다:', error);
+                    });
+            }
+        });
     };
 
     return (

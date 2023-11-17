@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import Swal from "sweetalert2";
 
 function formatNumberWithCommas(number) {
     return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -39,11 +40,21 @@ function GroupOrderDetail() {
         axios.post(`/order/${groupOrderId}/update`, { deliveryAddress, detailAddress, specialInstructions })
             .then((response) => {
                 // 추가 성공 시 주문 완료 메시지를 화면에 띄어주고 싶어
-                alert("주문이 완료되었습니다.");
+                Swal.fire({
+                    title: '주문 완료',
+                    icon: 'success',
+                    confirmButtonText: '닫기'
+                });
                 window.location.href = '/';
                 console.log('주문이 완료되었습니다.');
             })
             .catch((error) => {
+                Swal.fire({
+                    title: '주문 실패',
+                    text: '다시 입력하세요!',
+                    icon: 'error',
+                    confirmButtonText: '닫기'
+                });
                 console.error('배달지 입력에 실패하였습니다. : ', error);
             });
     };

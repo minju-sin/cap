@@ -6,6 +6,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import axios from 'axios';
+import Swal from "sweetalert2";
 
 function BoardShow() {
     const { articleId } = useParams();
@@ -38,15 +39,27 @@ function BoardShow() {
     }, [articleId]);
 
     const handleDelete = () => {
-        if (window.confirm("게시글을 삭제하시겠습니까?")) {
-            axios.post(`/board/${articleId}/delete`)
-                .then((response) => {
-                    window.location.href = '/board';
-                })
-                .catch((error) => {
-                    console.error('게시글 삭제 중 오류가 발생했습니다:', error);
-                });
-        }
+        Swal.fire({
+            title: '게시글을 삭제하시겠습니까?',
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: '예',
+            cancelButtonText: '아니오'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                axios.post(`/board/${articleId}/delete`)
+                    .then((response) => {
+
+                        window.location.href = '/board';
+                    })
+                    .catch((error) => {
+                        console.error('게시글 삭제 중 오류가 발생했습니다:', error);
+                    });
+            }
+        });
+
     };
 
     // 주문 링크 클릭을 처리하는 함수
@@ -57,22 +70,41 @@ function BoardShow() {
                 // 성공 응답을 받았을 때 링크로 이동합니다.
                 window.location.href = article.orderLink;
                 // 백엔드가 어떤 종류의 응답 메시지를 보낸다고 가정합니다.
-                alert(response.data.message || '그룹 주문에 참가했습니다!');
+                Swal.fire({
+                    title: '참가 성공!',
+                    text: response.data.message || '그룹 주문에 참가했습니다!',
+                    icon: 'success',
+                    confirmButtonText: '확인'
+                });
             })
             .catch(error => {
                 if (error.response) {
                     // 요청은 이루어졌지만 서버가 2xx 범위를 벗어나는 상태 코드로 응답했습니다.
                     console.error('Error response:', error.response.data);
                     // 에러 메시지를 알림으로 표시합니다.
-                    alert(error.response.data.message || '참가자 수가 최대라 참여할 수 없습니다.');
+                    Swal.fire({
+                        title: '참가 실패!',
+                        text: error.response.data.message || '참가자 수가 최대라 참여할 수 없습니다.',
+                        icon: 'error',
+                        confirmButtonText: '확인'
+                    });
                 } else if (error.request) {
                     // 요청은 이루어졌지만 응답을 받지 못했습니다.
                     console.error('Error request:', error.request);
-                    alert('서버로부터 응답이 없습니다. 네트워크 상태를 확인해주세요.');
+                    Swal.fire({
+                        title: '서버 응답 오류',
+                        text: '네트워크 상태를 확인해주세요.',
+                        icon: 'warning',
+                        confirmButtonText: '확인'
+                    });
                 } else {
                     // 요청을 설정하는 과정에서 오류가 발생했습니다.
                     console.error('Error message:', error.message);
-                    alert('요청 중 오류가 발생했습니다.');
+                    Swal.fire({
+                        title: '요청 중 오류가 발생했습니다.',
+                        icon: 'warning',
+                        confirmButtonText: '확인'
+                    });
                 }
             });
     };

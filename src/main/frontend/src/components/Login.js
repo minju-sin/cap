@@ -1,6 +1,7 @@
 // src/components/Login.js
 import React, { useState } from "react";
 import axios from "axios";
+import Swal from "sweetalert2";
 import {
   Body,
   BodyWrapper,
@@ -49,7 +50,12 @@ function Login() {
         } else {
           setErrorMessage("");
           console.error(error);
-          alert("로그인 오류");
+          Swal.fire({
+            title: '네트워크 오류',
+            text: '네트워크 설정을 확인하세요',
+            icon: 'warning',
+            confirmButtonText: '닫기'
+          });
         }
       });
   };
