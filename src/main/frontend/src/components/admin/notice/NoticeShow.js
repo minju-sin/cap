@@ -191,38 +191,251 @@ function NoticeShow() {
     };
 
     return (
+
         <div>
-            <h1>공지사항 상세 페이지</h1>
-            <Link to={`/notice`}>
-                <button type="button">이전 페이지 이동</button>
-            </Link>
-            <Link to={`/`}>
-                <button type="button">메인 페이지 이동</button>
-            </Link>
-            {notice ? (
-                <div>
-                    <h2>{notice.title}</h2>
-                    <p>{notice.user.username}</p>
-                    <p>{new Date(notice.createdAt).toLocaleTimeString('en-US', { hour12: false })}</p>
-                    <p>{notice.content}</p>
+            {isAuthenticated ? (
+                <HomeBody>
+                    <Header>
+                        <HomeLogoImage>
+                            {/*<LogoImage2 src={logoImage2} alt="프로필 아이콘 이미지"/>*/}
+                            <Logo>MatNaMo</Logo>
+                        </HomeLogoImage>
+                        <LoginSignUp>
+                            <Login>
+                                <HeaderProImage src={proImage1} alt="프로필 아이콘 이미지"/>
+                            </Login>
+                            <Login>
+
+                                <HeaderProButtonImage src={proButtonImage} alt="프로필 버튼 이미지"  onClick={handleButtonClick}/>
+                                <HeaderProBox isVisible={isBoxVisible}>
+                                    <HeaderProButtonClick src={proButtonImageClick} alt="프로필 클릭시 이미지"/>
+                                    <HeaderProBoxSection>
+                                        <ProBox>
+                                            <HeaderProImage src={proImage1} alt="프로필 아이콘 이미지"/>
+                                            <HeaderProText>{username}<br/>{userId}</HeaderProText>
+                                        </ProBox>
+                                        <Hr/>
+                                        <BoxLayout>
+                                            <MyproImage src={proImage} alt="내 정보 이미지"/>
+                                            {userId === "admin" ? (
+                                                // 관리자 메인 화면 페이지
+                                                <StyledLink4 to="/management">사용자 관리</StyledLink4>
+                                            ) : (
+                                                // 사용자 메인 화면 페이지
+                                                <StyledLink4 to="/profile">내 정보</StyledLink4>
+                                            )}
+                                        </BoxLayout>
+                                        <Hr2/>
+                                        <BoxLayout>
+                                            <MyproImage src={logoutImage} alt="내 정보 이미지"/>
+                                            <StyledLink4 to="/" onClick={handleLogout}>
+                                                로그아웃
+                                            </StyledLink4>
+                                        </BoxLayout>
+
+
+                                    </HeaderProBoxSection>
+                                </HeaderProBox>
+                            </Login>
+                        </LoginSignUp>
+                    </Header>
+
+                    <HeaderImage src={exampleImage} alt="헤더 배경 이미지" />
+
+                    <HeaderText1>
+                        <HeaderBackgroundColor></HeaderBackgroundColor>
+                        <HeaderText2>" MatNaMo "</HeaderText2>
+                        <HeaderText3>
+                            <HeaderText4>
+                                <HeaderText5>맛나모( MatNaMo )</HeaderText5>는 "맛있는
+                                나눔(Mate)"을 의미하며,
+                            </HeaderText4>
+                            <HeaderText4>
+                                학생들 간의 음식 나눔을 촉진하는 메시지를 전달합니다.
+                            </HeaderText4>
+                            <HeaderText4>
+                                이 플랫폼은 음식 공동 주문을 통해{" "}
+                                <HeaderText5>배달비와 주문최소금액</HeaderText5>을 절감 할 수
+                                있습니다.
+                            </HeaderText4>
+                        </HeaderText3>
+                    </HeaderText1>
+
+                    <Menu>
+                        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;
+                        <StyledLink2 to="/board">게시판</StyledLink2>
+                        <MenuText>l</MenuText>
+                        <StyledLink2 to="/notice">공지사항 </StyledLink2>
+                        <MenuText>l</MenuText>
+                        {userId === "admin" ? (
+                            // 관리자 메인 화면 페이지
+                            <StyledLink2 to="/management">사용자 관리</StyledLink2>
+                        ) : (
+                            // 사용자 메인 화면 페이지
+                            <StyledLink2 to="/profile">내 정보</StyledLink2>
+                        )}
+                    </Menu>
+                    {notice ? (
+                    <BodyWrapper2>
+                        <HeaderFont>공지사항</HeaderFont>
+                        <TableFontType2>
+                            <TableImage1 src={ProImage2} alt="프로필 아이콘 이미지"/>
+                            <Tdtype1>{notice.user.username}</Tdtype1>
+                        </TableFontType2>
+                        <Tdtype4>{new Date(notice.createdAt).toLocaleTimeString('en-US', { hour12: false })}</Tdtype4>
+                            <NoticeShowType>
+                                <NoticeShowHeaderType>{notice.title}</NoticeShowHeaderType>
+
+                                <NoticeShowSectionType>{notice.content}</NoticeShowSectionType>
+
+                            </NoticeShowType>
+                    </BodyWrapper2>
+                        ) : (
+                            <p>공지사항을 불러오는 중입니다...</p>
+                        )}
 
                     {/* 삭제 버튼을 보여줄지 여부를 확인하여 조건부 렌더링 */}
-                    {isLoginNotice && (
-                        <div>
-                            <Link to={`/notice/${noticeId}/update`}>
-                                <button type="button">공지사항 수정</button>
+                    {isLoginNotice ? (
+                        <NoticeShowButtonType3>
+                            <Link to={`/notice`}>
+                                <NoticeShowButtonType2 type="button">목록으로</NoticeShowButtonType2>
                             </Link>
-                            <button type="button" onClick={handleDelete}>공지사항 삭제</button>
-                        </div>
+                            <Link to={`/`}>
+                                <NoticeShowButtonType2 type="button">메인 페이지</NoticeShowButtonType2>
+                            </Link>
+                            <Link to={`/notice/${noticeId}/update`}>
+                                <NoticeShowButtonType2 type="button">수정하기</NoticeShowButtonType2>
+                            </Link>
+                            <NoticeShowButtonType2 type="button" onClick={handleDelete}>삭제하기</NoticeShowButtonType2>
+                        </NoticeShowButtonType3>
+                    ):(
+                        <NoticeShowButtonType>
+                            <Link to={`/notice`}>
+                                <NoticeShowButtonType2 type="button">목록으로</NoticeShowButtonType2>
+                            </Link>
+                            <Link to={`/`}>
+                                <NoticeShowButtonType2 type="button">메인 페이지</NoticeShowButtonType2>
+                            </Link>
+                        </NoticeShowButtonType>
                     )}
 
-                </div>
+
+                    <Footer>
+                        <Footer1>
+                            <FooterText>MatNaMo</FooterText>
+                            <FooterText2>이성민(팀장) : 프로젝트 총괄 기획, 웹 퍼블리셔, 프론트엔드</FooterText2>
+                            <FooterText2>우가현(팀원) : 웹 퍼블리셔</FooterText2>
+                            <FooterText2>신민주(팀원) : 백엔드, DB설계</FooterText2>
+                            <FooterText2>이지훈(팀원) : 웹 크롤링, 인공지능</FooterText2>
+
+                            <FooterImages>
+                                <FooterImage src={facebookImage} alt="페이스북 이미지"></FooterImage>
+                                <FooterImage src={instagramImage} alt="인스타그램 이미지"></FooterImage>
+                                <FooterImage src={youtubeImage} alt ="유튜브 이미지"></FooterImage>
+                            </FooterImages>
+                            <Hr2></Hr2>
+                            <FooterText2>@2023 Capstone Project MatNaMo</FooterText2>
+                        </Footer1>
+                    </Footer>
+
+                </HomeBody>
+
+
             ) : (
-                <p>공지사항을 불러오는 중입니다...</p>
+                <HomeBody>
+                    <Header>
+                        <Logo>MatNaMo</Logo>
+                        <LoginSignUp>
+                            <Login>
+                                <StyledLink1 to="/login">로그인</StyledLink1>
+                            </Login>
+                            <SignUp>
+                                <StyledLink1 to="/signup">회원가입</StyledLink1>
+                            </SignUp>
+                        </LoginSignUp>
+                    </Header>
+
+                    <HeaderImage src={exampleImage} alt="헤더 배경 이미지" />
+
+                    <HeaderText1>
+                        <HeaderBackgroundColor></HeaderBackgroundColor>
+                        <HeaderText2>" MatNaMo "</HeaderText2>
+                        <HeaderText3>
+                            <HeaderText4>
+                                <HeaderText5>맛나모( MatNaMo )</HeaderText5>는 "맛있는
+                                나눔(Mate)"을 의미하며,
+                            </HeaderText4>
+                            <HeaderText4>
+                                학생들 간의 음식 나눔을 촉진하는 메시지를 전달합니다.
+                            </HeaderText4>
+                            <HeaderText4>
+                                이 플랫폼은 음식 공동 주문을 통해{" "}
+                                <HeaderText5>배달비와 주문최소금액</HeaderText5>을 절감 할 수
+                                있습니다.
+                            </HeaderText4>
+                        </HeaderText3>
+                    </HeaderText1>
+                    <Menu>
+                        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;
+                        <StyledLink2 to="/board">게시판</StyledLink2>
+                        <MenuText>l</MenuText>
+                        <StyledLink2 to="/notice">공지사항 </StyledLink2>
+                        <MenuText>l</MenuText>
+                        <StyledLink2 to="/notice">내 정보</StyledLink2>
+                    </Menu>
+                    {notice ? (
+                    <BodyWrapper2>
+                        <HeaderFont>공지사항</HeaderFont>
+
+                        <TableFontType2>
+                            <TableImage1 src={ProImage2} alt="프로필 아이콘 이미지"/>
+                            <Tdtype1>{notice.user.username}</Tdtype1>
+                        </TableFontType2>
+                        <Tdtype4>{new Date(notice.createdAt).toLocaleTimeString('en-US', { hour12: false })}</Tdtype4>
+
+
+                            <NoticeShowType>
+                                <NoticeShowHeaderType>{notice.title}</NoticeShowHeaderType>
+
+                                <NoticeShowSectionType>{notice.content}</NoticeShowSectionType>
+
+                            </NoticeShowType>
+                    </BodyWrapper2>
+                        ) : (
+                            <p>공지사항을 불러오는 중입니다...</p>
+                        )}
+                    <NoticeShowButtonType>
+                        <Link to={`/notice`}>
+                            <NoticeShowButtonType2 type="button">목록으로</NoticeShowButtonType2>
+                        </Link>
+                        <Link to={`/`}>
+                            <NoticeShowButtonType2 type="button">메인 페이지</NoticeShowButtonType2>
+                        </Link>
+                    </NoticeShowButtonType>
+
+                    <Footer>
+                        <Footer1>
+                            <FooterText>MatNaMo</FooterText>
+                            <FooterText2>이성민(팀장) : 프로젝트 총괄 기획, 웹 퍼블리셔, 프론트엔드</FooterText2>
+                            <FooterText2>우가현(팀원) : 웹 퍼블리셔</FooterText2>
+                            <FooterText2>신민주(팀원) : 백엔드, DB설계</FooterText2>
+                            <FooterText2>이지훈(팀원) : 웹 크롤링, 인공지능</FooterText2>
+
+                            <FooterImages>
+                                <FooterImage src={facebookImage} alt="페이스북 이미지"></FooterImage>
+                                <FooterImage src={instagramImage} alt="인스타그램 이미지"></FooterImage>
+                                <FooterImage src={youtubeImage} alt ="유튜브 이미지"></FooterImage>
+                            </FooterImages>
+                            <Hr2></Hr2>
+                            <FooterText2>@2023 Capstone Project MatNaMo</FooterText2>
+                        </Footer1>
+                    </Footer>
+                </HomeBody>
             )}
         </div>
     );
 }
 
 export default NoticeShow;
+
 
