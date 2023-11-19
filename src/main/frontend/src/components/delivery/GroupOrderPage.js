@@ -11,7 +11,7 @@
 import React, { useState, useEffect } from 'react';
 import {useParams, useLocation, Link} from 'react-router-dom';
 import axios from 'axios';
-import storeImage from "./storeImage.png"; // axios 라이브러리 import
+import storeImage from "./storeImage.png";
 
 // 스타일 태그 내의 CSS - 모달창 디자인 (프론트엔드는 이부분 디자인 수정해야함)
 const modalStyle = `

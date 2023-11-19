@@ -1,7 +1,15 @@
+/*
+//  src/components/delivery/GroupOrderDetail.js
+* 배달지 입력 페이지
+* 방장만 입력할 수 있는 페이지이다.
+* 모든 사용자가 결제를 성공하면 방장이 배달지 입력 버튼을 눌러 이 페이지로 이동한다.
+* 배달지 입력을 성공하면 주문이 된다.
+*/
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import Swal from "sweetalert2";
+import storeImage from "./storeImage.png";
 
 function formatNumberWithCommas(number) {
     return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -11,7 +19,7 @@ function GroupOrderDetail() {
     /* 주문 내역 */
     const [groupedOrders, setGroupedOrders] = useState({});
     const { groupOrderId } = useParams();
-    const [storeInfo, setStoreInfo] = useState({ name: "", deliveryTip: 0 }); // 가게 정보 상태 변수
+    const [storeInfo, setStoreInfo] = useState({ name: "", deliveryTip: 0 , simage: ""}); // 가게 정보 상태 변수
     const [totalOrderPrice, setTotalOrderPrice] = useState(0);  //  주문 목록 전체 금액 상태 변수
 
     /* 호스트정보(이름 + 연락처) + 배달지 + 요청사항 */
@@ -28,7 +36,8 @@ function GroupOrderDetail() {
             const response = await axios.get(`/order/store-info/${groupOrderId}`);
             setStoreInfo({
                 name: response.data.name,
-                deliveryTip: response.data.deliveryTip
+                deliveryTip: response.data.deliveryTip,
+                simage: response.data.simage
             });
         } catch (error) {
             console.error('가게 정보를 불러오는 중 오류가 발생했습니다:', error);
@@ -151,6 +160,14 @@ function GroupOrderDetail() {
             <p>배달지 + 요청사항 입력창이 보이고, 주문표를 옆에 보여준다.</p>
             <div className="order-list">
                 <h2>주문 내역</h2>
+                <img
+                    src={storeInfo.simage}
+                    alt="가게 썸네일"
+                    onError={(e) => {
+                        e.target.onerror = null; // 이후 재시도 방지
+                        e.target.src = storeImage; // 기본 이미지 경로로 교체
+                    }}
+                />
                 <p>가게 이름: {storeInfo.name}</p>
                 {Object.entries(groupedOrders).map(([userId, group]) => (
                     <div key={userId}>
@@ -173,7 +190,7 @@ function GroupOrderDetail() {
                 <input type="text" value={phone} readOnly />
                 <input type="text" value={deliveryAddress} readOnly />
                 <button type="button" onClick={openAddressSearch}>
-                    검색
+                    도로명 검색
                 </button>
 
                 <input

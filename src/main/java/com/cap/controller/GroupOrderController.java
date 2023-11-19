@@ -267,7 +267,8 @@ public class GroupOrderController {
         return new StoreDto(
                 store.getStoreId(),
                 store.getSname(),
-                store.getStip()
+                store.getStip(),
+                store.getSimage()
         );
     }
 
