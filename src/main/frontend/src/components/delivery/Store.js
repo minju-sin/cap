@@ -8,6 +8,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import {Link, useParams} from 'react-router-dom';
+import storeImage from "./storeImage.png"
 
 
 // 숫자를 세 자리마다 콤마로 형식화하는 함수
@@ -66,6 +67,14 @@ function Store() {
                 {stores.map(store => (
                     <div key={store.storeId} className="store-item">
                         <Link to={`/store/${store.storeId}`}>
+                            <img
+                                src={store.simage}
+                                alt="가게 썸네일"
+                                onError={(e) => {
+                                    e.target.onerror = null; // 이후 재시도 방지
+                                    e.target.src = storeImage; // 기본 이미지 경로로 교체
+                                }}
+                            />
                             <h2>{store.sname}</h2>
                             <p>평점 ⭐{store.sgrade}</p>
                             <p>리뷰 {formatNumberWithCommas(store.sreview)}</p>

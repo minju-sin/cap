@@ -32,13 +32,17 @@ public class Menu {
     @Column(length = 65535)
     private String Mintro;  //  메뉴 소개
 
+    @Column(length = 65535)
+    private String Mimage;  //  메뉴 사진
+
     @Builder
     public Menu(Long menuId, Store store, String Mname,
-                Long Mmoney, String Mintro){
+                Long Mmoney, String Mintro, String Mimage){
         this.menuId = menuId;
         this.store = store;
         this.Mname = Mname;
         this.Mmoney = Mmoney;
         this.Mintro = Mintro;
+        this.Mimage = Mimage;
     }
 }

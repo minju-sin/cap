@@ -12,6 +12,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import {Link, useParams} from "react-router-dom";
 import Swal from "sweetalert2";
+import storeImage from "./storeImage.png";
 
 
 // 스타일 태그 내의 CSS - 모달창 디자인
@@ -178,6 +179,15 @@ function StoreDetail({ match }) {
                 <h1>가게 정보</h1>
                 {/* 가게 이름, 평점, 리뷰수, 최소 주문 금액, 배달 요금,
                     배달 예상 시간, 영업 시간, 전화번호, 주소 순서로 작성함 */}
+                {menus.length > 0 ? 
+                    <img
+                    src={menus[0].store.simage}
+                    alt="가게 썸네일"
+                    onError={(e) => {
+                        e.target.onerror = null; // 이후 재시도 방지
+                        e.target.src = storeImage; // 기본 이미지 경로로 교체
+                    }}
+                /> : null}
                 {menus.length > 0 ? <p>{menus[0].store.sname}</p> : null}
                 {menus.length > 0 ? <p>⭐{menus[0].store.sgrade}</p> : null}
                 {menus.length > 0 ? <p>{formatNumberWithCommas(menus[0].store.sreview)}</p> : null}
@@ -193,7 +203,14 @@ function StoreDetail({ match }) {
             <div className="menu-list">
                 {menus.map(menu => (
                     <div key={menu.menuId} className="menu-item" onClick={() => toggleModal(menu)}>
-
+                        <img
+                        src={menu.mimage}
+                        alt="음식 썸네일"
+                        onError={(e) => {
+                            e.target.onerror = null; // 이후 재시도 방지
+                            e.target.src = storeImage; // 기본 이미지 경로로 교체
+                        }}
+                    />
                         {/*  메뉴 이름 - 메뉴 소개 - 가격 순서로 작성함 */}
                         <h2>{menu.mname}</h2>
                         <p>{menu.mintro}</p>
@@ -205,6 +222,14 @@ function StoreDetail({ match }) {
             {/* 모달 내용 추가 */}
             {showModal && selectedMenu && (
                 <div className="menu-modal">
+                    <img
+                        src={selectedMenu.mimage}
+                        alt="음식 썸네일"
+                        onError={(e) => {
+                            e.target.onerror = null; // 이후 재시도 방지
+                            e.target.src = storeImage; // 기본 이미지 경로로 교체
+                        }}
+                    />
                     <h2>{selectedMenu.mname}</h2>
                     <p>{selectedMenu.mintro}</p>
                     <p>{formatNumberWithCommas(selectedMenu.mmoney)}원</p>

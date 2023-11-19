@@ -185,6 +185,7 @@ public class GroupOrderController {
             dto.setMenuId(menu.getMenuId());
             dto.setMname(menu.getMname());
             dto.setMmoney(menu.getMmoney());
+            dto.setMimage(menu.getMimage());
         }
 
         // orderItem에서 수량을 가져와 DTO에 설정

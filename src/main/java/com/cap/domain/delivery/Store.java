@@ -52,12 +52,14 @@ public class Store {
     @Column(nullable = false, length = 20)
     private StoreRole store;  //  음식 카테고리
 
+    @Column(length = 65535)
+    private String Simage;  //  가게 사진
 
     @Builder
     public Store(Long storeId, String Sname, String Saddress,
                  String Sgrade, Long SorderMinimum, String Stime,
                  String Sopen, StoreRole store, Long Stip,
-                 String Sreview, String Sphone) {
+                 String Sreview, String Sphone, String Simage) {
         this.storeId = storeId;
         this.Sname = Sname;
         this.Saddress = Saddress;
@@ -69,6 +71,7 @@ public class Store {
         this.Sopen = Sopen;
         this.store =store;
         this.Sphone = Sphone;
+        this.Simage = Simage;
     }
 
 

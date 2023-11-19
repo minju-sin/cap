@@ -10,7 +10,8 @@
 
 import React, { useState, useEffect } from 'react';
 import {useParams, useLocation, Link} from 'react-router-dom';
-import axios from 'axios'; // axios 라이브러리 import
+import axios from 'axios';
+import storeImage from "./storeImage.png"; // axios 라이브러리 import
 
 // 스타일 태그 내의 CSS - 모달창 디자인 (프론트엔드는 이부분 디자인 수정해야함)
 const modalStyle = `
@@ -161,6 +162,7 @@ function GroupOrderPage() {
             // 성공적으로 추가된 경우, UI에 반영
             setOrders(currentOrders => [...currentOrders, {
                 menuId: menu.menuId,
+                mimage:menu.mimage,
                 mname: menu.mname,
                 mmoney: menu.mmoney,
                 quantity: quantity,
@@ -415,6 +417,15 @@ function GroupOrderPage() {
                 <h1>가게 정보</h1>
                 {/* 가게 이름, 평점, 리뷰수, 최소 주문 금액, 배달 요금,
                     배달 예상 시간, 영업 시간, 전화번호, 주소 순서로 작성함 */}
+                {menus.length > 0 ?
+                    <img
+                        src={menus[0].store.simage}
+                        alt="가게 썸네일"
+                        onError={(e) => {
+                            e.target.onerror = null; // 이후 재시도 방지
+                            e.target.src = storeImage; // 기본 이미지 경로로 교체
+                        }}
+                    /> : null}
                 {menus.length > 0 ? <p>{menus[0].store.sname}</p> : null}
                 {menus.length > 0 ? <p>⭐{menus[0].store.sgrade}</p> : null}
                 {menus.length > 0 ? <p>{formatNumberWithCommas(menus[0].store.sreview)}</p> : null}
@@ -430,7 +441,14 @@ function GroupOrderPage() {
             <div className="menu-list">
                 {menus.map(menu => (
                     <div key={menu.menuId} className="menu-item" onClick={() => toggleModal(menu)}>
-
+                        <img
+                            src={menu.mimage}
+                            alt="음식 썸네일"
+                            onError={(e) => {
+                                e.target.onerror = null; // 이후 재시도 방지
+                                e.target.src = storeImage; // 기본 이미지 경로로 교체
+                            }}
+                        />
                         {/*  메뉴 이름 - 메뉴 소개 - 가격 순서로 작성함 */}
                         <h2>{menu.mname}</h2>
                         <p>{menu.mintro}</p>
@@ -442,6 +460,14 @@ function GroupOrderPage() {
             {/* 모달 내용 추가 */}
             {showModal && selectedMenu && (
                 <div className="menu-modal">
+                    <img
+                        src={selectedMenu.mimage}
+                        alt="음식 썸네일"
+                        onError={(e) => {
+                            e.target.onerror = null; // 이후 재시도 방지
+                            e.target.src = storeImage; // 기본 이미지 경로로 교체
+                        }}
+                    />
                     <h2>{selectedMenu.mname}</h2>
                     <p>{selectedMenu.mintro}</p>
                     <p>{formatNumberWithCommas(selectedMenu.mmoney)}원</p>
@@ -470,6 +496,14 @@ function GroupOrderPage() {
                             <span>{group.username} (학번: {userId})</span>
                             {group.orders.map((order, index) => (
                                 <div key={index}>
+                                    <img
+                                        src={order.mimage}
+                                        alt="음식 썸네일"
+                                        onError={(e) => {
+                                            e.target.onerror = null; // 이후 재시도 방지
+                                            e.target.src = storeImage; // 기본 이미지 경로로 교체
+                                        }}
+                                    />
                                     <span>{order.mname} - 수량: {order.quantity}개 - 총액: {formatNumberWithCommas(order.mmoney * order.quantity)}원</span>
                                     <button>삭제</button>
                                 </div>
