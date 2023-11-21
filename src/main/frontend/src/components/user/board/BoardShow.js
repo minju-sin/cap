@@ -3,6 +3,8 @@
 * 게시글 상세 페이지
 * 작성자 본인만 수정, 삭제 가능하도록 구현함
 */
+
+/* global kakao */
 import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import axios from 'axios';
@@ -13,12 +15,23 @@ function BoardShow() {
     const { articleId } = useParams();
     const [article, setArticle] = useState(null);
     const [isLoginArticle, setIsLoginArticle] = useState(false); // 사용자 로그인 아이디와 게시글 작성자 아이디 확인
-    
+    const [mapCoords, setMapCoords] = useState({ lat: 33.5563, lng: 126.79581 }); // 초기 좌표 상태 정의
+
     useEffect(() => {
         // 게시글 상세 정보를 가져오는 API 엔드포인트로 요청 보내기
         axios.get(`/board/${articleId}`)
             .then((response) => {
                 setArticle(response.data);
+
+                // 주소-좌표 변환 객체 생성 및 호출
+                const geocoder = new kakao.maps.services.Geocoder();
+
+                geocoder.addressSearch(response.data.address, function(result, status) {
+                    if (status === kakao.maps.services.Status.OK) {
+                        const newCoords = {lat: result[0].y, lng: result[0].x};
+                        setMapCoords(newCoords); // 좌표 상태 업데이트
+                    }
+                });
             })
             .catch((error) => {
                 console.error('게시글을 불러오는 중 오류가 발생했습니다:', error);
@@ -136,10 +149,10 @@ function BoardShow() {
                     {/* 주소를 이용해 위치 표시 */}
                     <p>{article.address}</p>
                     <Map
-                        center={{ lat: 33.5563, lng: 126.79581 }}
+                        center={mapCoords}
                         style={{ width: "100%", height: "360px" }}
                     >
-                        <MapMarker position={{ lat: 33.55635, lng: 126.795841 }}></MapMarker>
+                        <MapMarker position={mapCoords}></MapMarker>
                     </Map>
                     <p>{article.content}</p>
 
