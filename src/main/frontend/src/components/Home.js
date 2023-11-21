@@ -209,11 +209,13 @@ function Home() {
                             <StyledLink2 to="/profile">내 정보</StyledLink2>
                         )}
                     </Menu>
+
                     <ContentsText1>M A T N A M O &nbsp;&nbsp;M E N U</ContentsText1>
                     <ContentsText2>
                         " 오늘은 &nbsp;<ContentsText3>어떤 음식을&nbsp;</ContentsText3>{" "}
                         누구와 함께? "
                     </ContentsText2>
+
                     <Contents>
                         <ContentsBox>
                             <ContentsImage src={menuImage1} alt="메뉴 음식 이미지" />
@@ -243,9 +245,9 @@ function Home() {
                     <Footer>
                         <Footer1>
                             <FooterText>MatNaMo</FooterText>
-                            <FooterText2>이성민(팀장) : 프로젝트 총괄 기획, 웹 퍼블리셔, 프론트엔드</FooterText2>
+                            <FooterText2>이성민(팀장) : 프로젝트 아이디어, 웹 퍼블리셔, 프론트엔드</FooterText2>
                             <FooterText2>우가현(팀원) : 웹 퍼블리셔</FooterText2>
-                            <FooterText2>신민주(팀원) : 백엔드, DB설계</FooterText2>
+                            <FooterText2>신민주(팀원) : 프로젝트 총괄, 백엔드, DB설계</FooterText2>>
                             <FooterText2>이지훈(팀원) : 웹 크롤링, 인공지능</FooterText2>
 
                             <FooterImages>
@@ -337,9 +339,9 @@ function Home() {
                     <Footer>
                         <Footer1>
                             <FooterText>MatNaMo</FooterText>
-                            <FooterText2>이성민(팀장) : 프로젝트 총괄 기획, 웹 퍼블리셔, 프론트엔드</FooterText2>
+                            <FooterText2>이성민(팀장) : 프로젝트 아이디어, 웹 퍼블리셔, 프론트엔드</FooterText2>
                             <FooterText2>우가현(팀원) : 웹 퍼블리셔</FooterText2>
-                            <FooterText2>신민주(팀원) : 백엔드, DB설계</FooterText2>
+                            <FooterText2>신민주(팀원) : 프로젝트 총괄, 백엔드, DB설계</FooterText2>>
                             <FooterText2>이지훈(팀원) : 웹 크롤링, 인공지능</FooterText2>
 
                             <FooterImages>

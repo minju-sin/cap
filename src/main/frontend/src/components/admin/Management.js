@@ -273,9 +273,9 @@ function Management() {
             <Footer>
                 <Footer1>
                     <FooterText>MatNaMo</FooterText>
-                    <FooterText2>이성민(팀장) : 프로젝트 총괄 기획, 웹 퍼블리셔, 프론트엔드</FooterText2>
+                    <FooterText2>이성민(팀장) : 프로젝트 아이디어, 웹 퍼블리셔, 프론트엔드</FooterText2>
                     <FooterText2>우가현(팀원) : 웹 퍼블리셔</FooterText2>
-                    <FooterText2>신민주(팀원) : 백엔드, DB설계</FooterText2>
+                    <FooterText2>신민주(팀원) : 프로젝트 총괄, 백엔드, DB설계</FooterText2>>
                     <FooterText2>이지훈(팀원) : 웹 크롤링, 인공지능</FooterText2>
 
                     <FooterImages>

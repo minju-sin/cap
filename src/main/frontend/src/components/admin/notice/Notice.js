@@ -59,7 +59,7 @@ import {
     FooterText2,
     FooterImage,
     FooterImages,
-    Footer1
+    Footer1, HeaderImage, HeaderText1, HeaderBackgroundColor, HeaderText2, HeaderText3, HeaderText4, HeaderText5
 } from "../../HomeCss";
 import facebookImage from "../../images/facebookImage.png";
 import instagramImage from "../../images/Instagram.png";
@@ -80,6 +80,7 @@ import HomeImage from "../../images/HomeImage.png";
 import menuImage6 from "../../images/ChinesePicture.jpg";
 import menuImage2 from "../../images/KoreanPicture.png";
 import menuImage5 from "../../images/SolarEclipsePicture.jpg";
+import exampleImage from "../../images/HomeHeaderImage.jpg";
 
 function Notice() {
     const [notices, setNotices] = useState([]);
@@ -215,7 +216,26 @@ function Notice() {
                             </Login>
                         </LoginSignUp>
                     </Header>
+                    <HeaderImage src={exampleImage} alt="헤더 배경 이미지" />
 
+                    <HeaderText1>
+                        <HeaderBackgroundColor></HeaderBackgroundColor>
+                        <HeaderText2>" MatNaMo "</HeaderText2>
+                        <HeaderText3>
+                            <HeaderText4>
+                                <HeaderText5>맛나모( MatNaMo )</HeaderText5>는 "맛있는
+                                나눔(Mate)"을 의미하며,
+                            </HeaderText4>
+                            <HeaderText4>
+                                학생들 간의 음식 나눔을 촉진하는 메시지를 전달합니다.
+                            </HeaderText4>
+                            <HeaderText4>
+                                이 플랫폼은 음식 공동 주문을 통해{" "}
+                                <HeaderText5>배달비와 주문최소금액</HeaderText5>을 절감 할 수
+                                있습니다.
+                            </HeaderText4>
+                        </HeaderText3>
+                    </HeaderText1>
 
                     <Menu>
                         &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;
@@ -303,9 +323,9 @@ function Notice() {
                     <Footer>
                         <Footer1>
                             <FooterText>MatNaMo</FooterText>
-                            <FooterText2>이성민(팀장) : 프로젝트 총괄 기획, 웹 퍼블리셔, 프론트엔드</FooterText2>
+                            <FooterText2>이성민(팀장) : 프로젝트 아이디어, 웹 퍼블리셔, 프론트엔드</FooterText2>
                             <FooterText2>우가현(팀원) : 웹 퍼블리셔</FooterText2>
-                            <FooterText2>신민주(팀원) : 백엔드, DB설계</FooterText2>
+                            <FooterText2>신민주(팀원) : 프로젝트 총괄, 백엔드, DB설계</FooterText2>>
                             <FooterText2>이지훈(팀원) : 웹 크롤링, 인공지능</FooterText2>
 
                             <FooterImages>
@@ -331,7 +351,26 @@ function Notice() {
                             </SignUp>
                         </LoginSignUp>
                     </Header>
+                    <HeaderImage src={exampleImage} alt="헤더 배경 이미지" />
 
+                    <HeaderText1>
+                        <HeaderBackgroundColor></HeaderBackgroundColor>
+                        <HeaderText2>" MatNaMo "</HeaderText2>
+                        <HeaderText3>
+                            <HeaderText4>
+                                <HeaderText5>맛나모( MatNaMo )</HeaderText5>는 "맛있는
+                                나눔(Mate)"을 의미하며,
+                            </HeaderText4>
+                            <HeaderText4>
+                                학생들 간의 음식 나눔을 촉진하는 메시지를 전달합니다.
+                            </HeaderText4>
+                            <HeaderText4>
+                                이 플랫폼은 음식 공동 주문을 통해{" "}
+                                <HeaderText5>배달비와 주문최소금액</HeaderText5>을 절감 할 수
+                                있습니다.
+                            </HeaderText4>
+                        </HeaderText3>
+                    </HeaderText1>
                     <Menu>
                         &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;
                         <StyledLink2 to="/board">게시판</StyledLink2>
@@ -411,9 +450,9 @@ function Notice() {
                     <Footer>
                         <Footer1>
                             <FooterText>MatNaMo</FooterText>
-                            <FooterText2>이성민(팀장) : 프로젝트 총괄 기획, 웹 퍼블리셔, 프론트엔드</FooterText2>
+                            <FooterText2>이성민(팀장) : 프로젝트 아이디어, 웹 퍼블리셔, 프론트엔드</FooterText2>
                             <FooterText2>우가현(팀원) : 웹 퍼블리셔</FooterText2>
-                            <FooterText2>신민주(팀원) : 백엔드, DB설계</FooterText2>
+                            <FooterText2>신민주(팀원) : 프로젝트 총괄, 백엔드, DB설계</FooterText2>>
                             <FooterText2>이지훈(팀원) : 웹 크롤링, 인공지능</FooterText2>
 
                             <FooterImages>

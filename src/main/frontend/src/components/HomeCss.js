@@ -334,6 +334,7 @@ export  const Footer = styled.div`
   background: #F5EEE2;
   width: 100%;
   height: 300px;
+ margin-top: 50px;
 `
 export  const Footer1 = styled.div`
   margin-top: 3%;

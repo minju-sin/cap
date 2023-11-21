@@ -96,6 +96,7 @@ export const HeaderFont = styled.p`
   font-size: 36px;
 `;
 
+
 export const SectionWriterPW_Wrapper = styled.div`
   width: 1040px;
   height: 92px;
@@ -209,6 +210,7 @@ export const Content_Input_3 = styled.input`
   border: 1px solid #bdbdbd;
   font-size: 16px;
   margin-top: 20px;
+  text-align: center;
 `;
 
 export const Content_Textarea_1 = styled.textarea`

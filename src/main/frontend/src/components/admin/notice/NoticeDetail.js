@@ -28,7 +28,15 @@ import {
     FooterText2,
     FooterImage,
     FooterImages,
-    Footer1, LogoImage2, HomeLogoImage
+    Footer1,
+    LogoImage2,
+    HomeLogoImage,
+    HeaderImage,
+    HeaderText1,
+    HeaderBackgroundColor,
+    HeaderText2,
+    HeaderText3,
+    HeaderText4, HeaderText5
 } from "../../HomeCss";
 import proImage1 from "../../images/main_pro.png";
 import proButtonImage from "../../images/main_pro_button.png";
@@ -56,6 +64,8 @@ import {
     Picture_Content_Wrapper,
     Section_Content_Wrapper,
 } from "./NoticeDetailCss";
+import exampleImage from "../../images/HomeHeaderImage.jpg";
+import Swal from "sweetalert2";
 
 function NoticeDetail() {
     const [title, setTitle] = useState('');
@@ -166,13 +176,24 @@ function NoticeDetail() {
                 .then(response => {
                     // 공지사항 작성 성공 시 작업을 수행
                     console.log('공지사항이 작성되었습니다.');
-                    alert("공지사항이 등록되었습니다.");
+                    Swal.fire({
+                        title: '성공!',
+                        text: '공지사항이 등록되었습니다.',
+                        icon: 'success',
+                        confirmButtonText: '확인'
+                    });
                     window.location.href = "/notice"; // 게시판 페이지로 리다이렉트
 
                 })
                 .catch(error => {
                     // 오류 처리
                     console.error('공지사항 작성 중 오류가 발생했습니다:', error);
+                    Swal.fire({
+                        title: '오류!',
+                        text: '공지사항 작성 중 오류가 발생했습니다',
+                        icon: 'error',
+                        confirmButtonText: '확인'
+                    });
                 });
         }
     }
@@ -223,6 +244,26 @@ function NoticeDetail() {
                     </Login>
                 </LoginSignUp>
             </Header>
+            <HeaderImage src={exampleImage} alt="헤더 배경 이미지" />
+
+            <HeaderText1>
+                <HeaderBackgroundColor></HeaderBackgroundColor>
+                <HeaderText2>" MatNaMo "</HeaderText2>
+                <HeaderText3>
+                    <HeaderText4>
+                        <HeaderText5>맛나모( MatNaMo )</HeaderText5>는 "맛있는
+                        나눔(Mate)"을 의미하며,
+                    </HeaderText4>
+                    <HeaderText4>
+                        학생들 간의 음식 나눔을 촉진하는 메시지를 전달합니다.
+                    </HeaderText4>
+                    <HeaderText4>
+                        이 플랫폼은 음식 공동 주문을 통해{" "}
+                        <HeaderText5>배달비와 주문최소금액</HeaderText5>을 절감 할 수
+                        있습니다.
+                    </HeaderText4>
+                </HeaderText3>
+            </HeaderText1>
 
             <Menu>
                 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;
@@ -326,9 +367,9 @@ function NoticeDetail() {
             <Footer>
                 <Footer1>
                     <FooterText>MatNaMo</FooterText>
-                    <FooterText2>이성민(팀장) : 프로젝트 총괄 기획, 웹 퍼블리셔, 프론트엔드</FooterText2>
+                    <FooterText2>이성민(팀장) : 프로젝트 아이디어, 웹 퍼블리셔, 프론트엔드</FooterText2>
                     <FooterText2>우가현(팀원) : 웹 퍼블리셔</FooterText2>
-                    <FooterText2>신민주(팀원) : 백엔드, DB설계</FooterText2>
+                    <FooterText2>신민주(팀원) : 프로젝트 총괄, 백엔드, DB설계</FooterText2>>
                     <FooterText2>이지훈(팀원) : 웹 크롤링, 인공지능</FooterText2>
 
                     <FooterImages>

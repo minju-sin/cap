@@ -9,7 +9,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import Swal from "sweetalert2";
-import storeImage from "./storeImage.png";
+import storeImage from "../images/storeImage.png";
 
 function formatNumberWithCommas(number) {
     return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
