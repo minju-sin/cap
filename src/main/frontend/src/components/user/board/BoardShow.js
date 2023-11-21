@@ -13,12 +13,13 @@ function BoardShow() {
     const [article, setArticle] = useState(null);
     const [isLoginArticle, setIsLoginArticle] = useState(false); // 사용자 로그인 아이디와 게시글 작성자 아이디 확인
 
+
+
     useEffect(() => {
         // 게시글 상세 정보를 가져오는 API 엔드포인트로 요청 보내기
         axios.get(`/board/${articleId}`)
             .then((response) => {
                 setArticle(response.data);
-
             })
             .catch((error) => {
                 console.error('게시글을 불러오는 중 오류가 발생했습니다:', error);
@@ -37,6 +38,17 @@ function BoardShow() {
                 console.error('인증 상태 확인 중 오류가 발생했습니다:', error);
             });
     }, [articleId]);
+
+
+    useEffect(() => {
+        const container = document.getElementById('map');
+        const options = {
+            center: new window.kakao.maps.LatLng(33.450701, 126.570667),
+            level: 3
+        };
+
+        new window.kakao.maps.Map(container, options);
+    }, []);
 
     const handleDelete = () => {
         Swal.fire({
@@ -114,6 +126,7 @@ function BoardShow() {
     return (
         <div>
             <h1>게시글 상세 페이지</h1>
+            <div id="map" style={{ width: '500px', height: '400px' }}></div>
             <Link to={`/board`}>
                 <button type="button">이전 페이지 이동</button>
             </Link>
