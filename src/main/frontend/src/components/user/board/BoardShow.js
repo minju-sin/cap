@@ -13,9 +13,7 @@ function BoardShow() {
     const { articleId } = useParams();
     const [article, setArticle] = useState(null);
     const [isLoginArticle, setIsLoginArticle] = useState(false); // 사용자 로그인 아이디와 게시글 작성자 아이디 확인
-
-
-
+    
     useEffect(() => {
         // 게시글 상세 정보를 가져오는 API 엔드포인트로 요청 보내기
         axios.get(`/board/${articleId}`)
