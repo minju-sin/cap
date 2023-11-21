@@ -7,6 +7,7 @@ import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import axios from 'axios';
 import Swal from "sweetalert2";
+import { Map, MapMarker } from "react-kakao-maps-sdk";
 
 function BoardShow() {
     const { articleId } = useParams();
@@ -39,16 +40,6 @@ function BoardShow() {
             });
     }, [articleId]);
 
-
-    useEffect(() => {
-        const container = document.getElementById('map');
-        const options = {
-            center: new window.kakao.maps.LatLng(33.450701, 126.570667),
-            level: 3
-        };
-
-        new window.kakao.maps.Map(container, options);
-    }, []);
 
     const handleDelete = () => {
         Swal.fire({
@@ -126,7 +117,6 @@ function BoardShow() {
     return (
         <div>
             <h1>게시글 상세 페이지</h1>
-            <div id="map" style={{ width: '500px', height: '400px' }}></div>
             <Link to={`/board`}>
                 <button type="button">이전 페이지 이동</button>
             </Link>
@@ -145,8 +135,14 @@ function BoardShow() {
                             {article.orderLink}
                         </a>
                     </p>
+                    {/* 주소를 이용해 위치 표시 */}
                     <p>{article.address}</p>
-
+                    <Map
+                        center={{ lat: 33.5563, lng: 126.79581 }}
+                        style={{ width: "100%", height: "360px" }}
+                    >
+                        <MapMarker position={{ lat: 33.55635, lng: 126.795841 }}></MapMarker>
+                    </Map>
                     <p>{article.content}</p>
 
                     {/* 삭제 버튼을 보여줄지 여부를 확인하여 조건부 렌더링 */}
