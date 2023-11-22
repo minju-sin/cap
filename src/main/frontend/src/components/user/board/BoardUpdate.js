@@ -354,7 +354,7 @@ function BoardUpdate() {
                             // onChange={addressOnChange}
                         ></Content_Input_3>
                         <Button_1 onClick={openAddressSearch}>
-                            검색
+                            도로명 검색
                         </Button_1>
                     </AddressMainOption>
                     <Content_Input_1 type="text" placeholder="주소" value={address} readOnly></Content_Input_1>

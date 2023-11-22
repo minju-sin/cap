@@ -333,7 +333,7 @@ function Profile() {
                             {isEditing ? (
                                 <>
                                     <MyPageInputType2 type="text" value={selectedAddress} readOnly />
-                                    <ButtonType1 type="button" onClick={openAddressSearch}>검색</ButtonType1>
+                                    <ButtonType1 type="button" onClick={openAddressSearch}>도로명 검색</ButtonType1>
                                 </>
                             ) : (
                                 <MyPageInputType type="text" value={user.address} readOnly />

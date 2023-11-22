@@ -301,32 +301,20 @@ function Store() {
                     <StoreMenuHeader>
                         <StoreMenuHeaderType>{category}</StoreMenuHeaderType>
                         <BoardMainInputImageBox1>
-                            <BoardMainInputImage1 src={NoticeImage} alt="돋보기 이미지"/>
+                            <BoardMainInputImage1 onClick={handleSearch} src={NoticeImage} alt="돋보기 이미지"/>
                         </BoardMainInputImageBox1>
                         <StoreInputType1
                             type="text"
-                            placeholder="제목을 검색해주세요."
+                            placeholder="가게를 검색해주세요."
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
                         />
-                        <StoreInputType2
-                            type="text"
-                            placeholder="YYYY. MM.DD"
-                        ></StoreInputType2>
-                        <StoreButtonType1 onClick={handleSearch}>검색</StoreButtonType1>
+                        {/*<StoreInputType2*/}
+                        {/*    type="text"*/}
+                        {/*    placeholder="YYYY. MM.DD"*/}
+                        {/*></StoreInputType2>*/}
+                        {/*<StoreButtonType1 onClick={handleSearch}>검색</StoreButtonType1>*/}
                     </StoreMenuHeader>
-
-                    {/* todo: 정렬 순서
-                        - 최소주문금액  순서
-                        - 배달팁 낮은 순
-                        - 평점 높은 순
-                        */}
-                    {/*<button>최소주문금액 5000원이하</button>*/}
-                    {/*<button>최소주문금액 10000원이하</button>*/}
-                    {/*<button>최소주문금액 15000원이하</button>*/}
-                    {/*<button>최소주문금액 20000원이하</button>*/}
-                    {/*<button>배달팁</button>*/}
-                    {/*<button>평점</button>*/}
 
                     <StoreMenuBar>
                         <StoreMenuSectionType1 className="store-list">
@@ -500,32 +488,20 @@ function Store() {
                         <StoreMenuHeader>
                             <StoreMenuHeaderType>{category}</StoreMenuHeaderType>
                             <BoardMainInputImageBox1>
-                                <BoardMainInputImage1 src={NoticeImage} alt="돋보기 이미지"/>
+                                <BoardMainInputImage1 onClick={handleSearch} src={NoticeImage} alt="돋보기 이미지"/>
                             </BoardMainInputImageBox1>
                             <StoreInputType1
                                 type="text"
-                                placeholder="제목을 검색해주세요."
+                                placeholder="가게를 검색해주세요."
                                 value={searchTerm}
                                 onChange={(e) => setSearchTerm(e.target.value)}
                             />
-                            <StoreInputType2
-                                type="text"
-                                placeholder="YYYY. MM.DD"
-                            ></StoreInputType2>
-                            <StoreButtonType1 onClick={handleSearch}>검색</StoreButtonType1>
+                            {/*<StoreInputType2*/}
+                            {/*    type="text"*/}
+                            {/*    placeholder="YYYY. MM.DD"*/}
+                            {/*></StoreInputType2>*/}
+                            {/*<StoreButtonType1 onClick={handleSearch}>검색</StoreButtonType1>*/}
                         </StoreMenuHeader>
-
-                        {/* todo: 정렬 순서
-                        - 최소주문금액  순서
-                        - 배달팁 낮은 순
-                        - 평점 높은 순
-                        */}
-                        {/*<button>최소주문금액 5000원이하</button>*/}
-                        {/*<button>최소주문금액 10000원이하</button>*/}
-                        {/*<button>최소주문금액 15000원이하</button>*/}
-                        {/*<button>최소주문금액 20000원이하</button>*/}
-                        {/*<button>배달팁</button>*/}
-                        {/*<button>평점</button>*/}
 
                         <StoreMenuBar>
                             <StoreMenuSectionType1 className="store-list">

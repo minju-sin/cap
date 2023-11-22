@@ -365,7 +365,7 @@ function BoardDetail() {
                             // onChange={addressOnChange}
                         ></Content_Input_3>
                         <Button_1 onClick={openAddressSearch}>
-                            검색
+                            도로명 검색
                         </Button_1>
                     </AddressMainOption>
 

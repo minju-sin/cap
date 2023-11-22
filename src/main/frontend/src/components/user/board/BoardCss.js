@@ -55,7 +55,7 @@ export  const BoardMainButtonType1= styled.button`
 `
 
 export const BoardMainInputImageBox1=styled.div`
-  width: 45px;
+  width: 40px;
   height: 54px;
   background-color: #F2F2F2;
   border-radius: 10px 0px 0px 10px;

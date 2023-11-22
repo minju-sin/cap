@@ -310,7 +310,7 @@ function Board() {
                 <BoardMainFlexType>
                     <BoardMainHeader>
                         <BoardMainInputImageBox1>
-                            <BoardMainInputImage1 src={NoticeImage} alt="돋보기 이미지"/>
+                            <BoardMainInputImage1 onClick={handleSearch} src={NoticeImage} alt="돋보기 이미지"/>
                         </BoardMainInputImageBox1>
                         <BoardMainInputType1
                             type="text"
@@ -318,12 +318,12 @@ function Board() {
                             value={search}
                             onChange={(e) => setSearch(e.target.value)}
                         />
-                        <BoardMainInputType2
+                        {/*<BoardMainInputType2
                             type="text"
                             placeholder="YYYY. MM.DD ~ YYYY. MM.DD"
                         ></BoardMainInputType2>
+                        <BoardMainButtonType1 onClick={handleSearch}>검색</BoardMainButtonType1>*/}
 
-                        <BoardMainButtonType1 onClick={handleSearch}>검색</BoardMainButtonType1>
                     </BoardMainHeader>
                     <BoardMainTable1>
                         <BoardMainThead>
@@ -453,7 +453,7 @@ function Board() {
                 <BoardMainFlexType>
                     <BoardMainHeader>
                         <BoardMainInputImageBox1>
-                            <BoardMainInputImage1 src={NoticeImage} alt="돋보기 이미지"/>
+                            <BoardMainInputImage1 onClick={handleSearch} src={NoticeImage} alt="돋보기 이미지"/>
                         </BoardMainInputImageBox1>
                         <BoardMainInputType1
                             type="text"
@@ -461,13 +461,14 @@ function Board() {
                             value={search}
                             onChange={(e) => setSearch(e.target.value)}
                         />
-                        <BoardMainInputType2
+                        {/*<BoardMainInputType2
                             type="text"
                             placeholder="YYYY. MM.DD ~ YYYY. MM.DD"
                         ></BoardMainInputType2>
 
-                        <BoardMainButtonType1 onClick={handleSearch}>검색</BoardMainButtonType1>
+                        <BoardMainButtonType1 onClick={handleSearch}>검색</BoardMainButtonType1>*/}
                     </BoardMainHeader>
+
                     <BoardMainTable1>
                         <BoardMainThead>
                             <BoardMainTr>
