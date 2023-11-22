@@ -54,7 +54,7 @@ function Login() {
             title: '네트워크 오류',
             text: '네트워크 설정을 확인하세요',
             icon: 'warning',
-            confirmButtonText: '닫기'
+            confirmButtonText: '확인'
           });
         }
       });

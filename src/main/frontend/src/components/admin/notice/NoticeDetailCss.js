@@ -10,6 +10,7 @@ export const Body = styled.div`
 
 export const BodyWrapper = styled.div`
   box-sizing: border-box;
+  border-radius: 10px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -26,6 +27,7 @@ export const BodyWrapper = styled.div`
 
 export const BodyWrapper2 = styled.div`
   box-sizing: border-box;
+  border-radius: 10px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;

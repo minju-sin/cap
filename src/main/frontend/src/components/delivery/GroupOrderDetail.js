@@ -48,13 +48,14 @@ function GroupOrderDetail() {
     const handleSubmit = () => {
         axios.post(`/order/${groupOrderId}/update`, { deliveryAddress, detailAddress, specialInstructions })
             .then((response) => {
-                // 추가 성공 시 주문 완료 메시지를 화면에 띄어주고 싶어
+                // 추가 성공 시 주문 완료 메시지를 화면에 띄움
                 Swal.fire({
                     title: '주문 완료',
+                    text: '주문이 완료되었습니다!',
                     icon: 'success',
-                    confirmButtonText: '닫기'
+                    confirmButtonText: '확인'
                 });
-                window.location.href = '/';
+                // setTimeout(() =>  window.location.href = "/", 2000); // todo: 2초 대기 후 주문 완료 페이지로 리다이렉트
                 console.log('주문이 완료되었습니다.');
             })
             .catch((error) => {
@@ -62,7 +63,7 @@ function GroupOrderDetail() {
                     title: '주문 실패',
                     text: '다시 입력하세요!',
                     icon: 'error',
-                    confirmButtonText: '닫기'
+                    confirmButtonText: '확인'
                 });
                 console.error('배달지 입력에 실패하였습니다. : ', error);
             });
@@ -174,6 +175,14 @@ function GroupOrderDetail() {
                         <h3>{group.username}</h3>
                         {group.orders.map((order, index) => (
                             <div key={index}>
+                                <img
+                                    src={order.mimage}
+                                    alt="음식 썸네일"
+                                    onError={(e) => {
+                                        e.target.onerror = null; // 이후 재시도 방지
+                                        e.target.src = storeImage; // 기본 이미지 경로로 교체
+                                    }}
+                                />
                                 <span>{order.mname} - 수량: {order.quantity}개 - 총액: {formatNumberWithCommas(order.mmoney * order.quantity)}원</span>
                             </div>
                         ))}

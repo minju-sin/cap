@@ -330,7 +330,7 @@ function StoreDetail({ match }) {
                         title: '그룹주문 링크 복사 성공!',
                         text: '클립보드에 복사되었습니다. 공유하세요!',
                         icon: 'success',
-                        confirmButtonText: '닫기'
+                        confirmButtonText: '확인'
                     });
                 });
             })
@@ -339,7 +339,7 @@ function StoreDetail({ match }) {
                     title: '오류!',
                     text: '그룹 주문 링크 생성 중 오류가 발생했습니다',
                     icon: 'error',
-                    confirmButtonText: '닫기'
+                    confirmButtonText: '확인'
                 });
                 console.error('그룹 주문 생성 중 오류가 발생했습니다:', error);
             });
@@ -382,7 +382,7 @@ function StoreDetail({ match }) {
                                     </BoxLayout>
                                     <Hr2/>
                                     <BoxLayout>
-                                        <MyproImage src={logoutImage} alt="내 정보 이미지"/>
+                                        <MyproImage src={logoutImage} alt="로그아웃 이미지"/>
                                         <StyledLink4 to="/" onClick={handleLogout}>
                                             로그아웃
                                         </StyledLink4>
@@ -419,9 +419,9 @@ function StoreDetail({ match }) {
                 <Menu>
                     &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;
                     <StyledLink2 to="/board">게시판</StyledLink2>
-                    <MenuText>l</MenuText>
+                    <MenuText>|</MenuText>
                     <StyledLink2 to="/notice">공지사항 </StyledLink2>
-                    <MenuText>l</MenuText>
+                    <MenuText>|</MenuText>
                     {userId === "admin" ? (
                         // 관리자 메인 화면 페이지
                         <StyledLink2 to="/management">사용자 관리</StyledLink2>
@@ -540,10 +540,10 @@ function StoreDetail({ match }) {
                     <BoardMainTable1>
                         <BoardMainThead>
                             <BoardMainTr>
-                                <BoardMainTh>번호</BoardMainTh>
+                                <BoardMainTh>순번</BoardMainTh>
                                 <BoardMainTh>제목</BoardMainTh>
                                 <BoardMainTh>작성자</BoardMainTh>
-                                <BoardMainTh>날짜</BoardMainTh>
+                                <BoardMainTh>작성일</BoardMainTh>
                             </BoardMainTr>
                         </BoardMainThead>
 

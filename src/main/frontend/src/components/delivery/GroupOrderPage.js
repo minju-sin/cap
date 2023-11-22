@@ -108,6 +108,7 @@ function GroupOrderPage() {
     const [totalOrderPrice, setTotalOrderPrice] = useState(0);
     const [loggedInUserId, setLoggedInUserId] = useState(null);
     const [isOrganizer, setIsOrganizer] = useState(false); // 현재 사용자가 호스트인지 여부
+    /* 결제 여부 */
     const [paymentStatus, setPaymentStatus] = useState(() => {
         const savedStatus = localStorage.getItem(`paymentStatus_${groupOrderId}`);
         return savedStatus ? JSON.parse(savedStatus) : {};
@@ -510,10 +511,13 @@ function GroupOrderPage() {
                             ))}
                             {/*
                             개별적으로 결제한 뒤 모두 결제 성공하면 주문하기 누를 수 있음
-                            결제 시 배달팁도 합산해서 계산됨
+                            결제 시 배달팁도 합산해서 계산됨 - 결제 성공 시 버튼 비활성화
                             */}
                             {loggedInUserId == userId && (
-                                <button onClick={() => handlePayment(userId, group.totalAmount, group.username)}>{formatNumberWithCommas(group.totalAmount)}원 결제하기</button>
+                                <button disabled={paymentStatus[userId] === true}
+                                        onClick={() => handlePayment(userId, group.totalAmount, group.username)}>
+                                    {formatNumberWithCommas(group.totalAmount)}원 결제하기
+                                </button>
                             )}
                         </div>
                     ))}
@@ -525,6 +529,7 @@ function GroupOrderPage() {
                         <p>주문표 총 가격: {formatNumberWithCommas(totalOrderPrice)}원</p>
                     </>
                 )}
+
                 {/* 모두 결제성공하고, 배달최소금액 만족, 호스트(방장)만 버튼 누를 수 있다. */}
                 <Link to={`/group-order/delivery/${groupOrderId}`}>
                     <button disabled={!allPaymentsCompleted() || !isOrganizer || !canPlaceOrder()}>

@@ -229,7 +229,7 @@ function Store() {
                                     </BoxLayout>
                                     <Hr2/>
                                     <BoxLayout>
-                                        <MyproImage src={logoutImage} alt="내 정보 이미지"/>
+                                        <MyproImage src={logoutImage} alt="로그아웃 이미지"/>
                                         <StyledLink4 to="/" onClick={handleLogout}>
                                             로그아웃
                                         </StyledLink4>
@@ -266,9 +266,9 @@ function Store() {
                 <Menu>
                     &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;
                     <StyledLink2 to="/board">게시판</StyledLink2>
-                    <MenuText>l</MenuText>
+                    <MenuText>|</MenuText>
                     <StyledLink2 to="/notice">공지사항 </StyledLink2>
-                    <MenuText>l</MenuText>
+                    <MenuText>|</MenuText>
                     {userId === "admin" ? (
                         // 관리자 메인 화면 페이지
                         <StyledLink2 to="/management">사용자 관리</StyledLink2>
@@ -299,7 +299,7 @@ function Store() {
                 </Contents>
                 <StoreSection1>
                     <StoreMenuHeader>
-                        <StoreMenuHeaderType>{category} 카테고리 가게 목록</StoreMenuHeaderType>
+                        <StoreMenuHeaderType>{category}</StoreMenuHeaderType>
                         <BoardMainInputImageBox1>
                             <BoardMainInputImage1 src={NoticeImage} alt="돋보기 이미지"/>
                         </BoardMainInputImageBox1>
@@ -315,6 +315,19 @@ function Store() {
                         ></StoreInputType2>
                         <StoreButtonType1 onClick={handleSearch}>검색</StoreButtonType1>
                     </StoreMenuHeader>
+
+                    {/* todo: 정렬 순서
+                        - 최소주문금액  순서
+                        - 배달팁 낮은 순
+                        - 평점 높은 순
+                        */}
+                    {/*<button>최소주문금액 5000원이하</button>*/}
+                    {/*<button>최소주문금액 10000원이하</button>*/}
+                    {/*<button>최소주문금액 15000원이하</button>*/}
+                    {/*<button>최소주문금액 20000원이하</button>*/}
+                    {/*<button>배달팁</button>*/}
+                    {/*<button>평점</button>*/}
+
                     <StoreMenuBar>
                         <StoreMenuSectionType1 className="store-list">
                             {stores.map(store => (
@@ -333,12 +346,13 @@ function Store() {
                                                 <StoreMenuTextTpye2>{store.sname}</StoreMenuTextTpye2>
 
                                                 <StoreMenuSectionType4>
-                                                    <PType>평점 ⭐{store.sgrade}</PType>
+                                                    <PType>⭐{store.sgrade}</PType>
                                                     <PType>리뷰 {formatNumberWithCommas(store.sreview)}</PType>
                                                 </StoreMenuSectionType4>
                                                 <StoreMenuSectionType5>
-                                                    <PType2>최소 주문 금액: {formatNumberWithCommas(store.sorderMinimum)}원</PType2>
-                                                    <PType2>배달 예상 시간: {store.stime}</PType2>
+                                                    <PType2>배달  {store.stime}</PType2>
+                                                    <PType2>최소주문 {formatNumberWithCommas(store.sorderMinimum)}원</PType2>
+                                                    <PType2>배달팁  {store.stip}원</PType2>
                                                 </StoreMenuSectionType5>
                                             </StoreMenuSectionType3>
                                             <StoreMenuSectionType6><StoreMenuImgType2 src={Icon} alt="아이콘 이미지" /> 주문하기</StoreMenuSectionType6>
@@ -354,13 +368,13 @@ function Store() {
                                 <StoreMenuLi>
                                     <StoreMenuImgType src={menu5} alt="메뉴바 음식 이미지" />
                                     <StoreMenuLink to="/store/category/KOREAN">한식</StoreMenuLink>
-                                    <StoreMenuTextTpye>#든든한 한끼 #한국심</StoreMenuTextTpye>
+                                    <StoreMenuTextTpye>#든든한 한끼 #밥심</StoreMenuTextTpye>
                                 </StoreMenuLi>
 
                                 <StoreMenuLi>
                                     <StoreMenuImgType src={menu6} alt="메뉴바 음식 이미지" />
                                     <StoreMenuLink to="/store/category/JAPANESE">일식</StoreMenuLink>
-                                    <StoreMenuTextTpye>#데이트 밥 #초밥</StoreMenuTextTpye>
+                                    <StoreMenuTextTpye>#데이트 #초밥</StoreMenuTextTpye>
                                 </StoreMenuLi>
                                 <StoreMenuLi>
                                     <StoreMenuImgType src={menu4} alt="메뉴바 음식 이미지" />
@@ -451,9 +465,9 @@ function Store() {
                     <Menu>
                         &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;
                         <StyledLink2 to="/board">게시판</StyledLink2>
-                        <MenuText>l</MenuText>
+                        <MenuText>|</MenuText>
                         <StyledLink2 to="/notice">공지사항 </StyledLink2>
-                        <MenuText>l</MenuText>
+                        <MenuText>|</MenuText>
                         {userId === "admin" ? (
                             // 관리자 메인 화면 페이지
                             <StyledLink2 to="/management">사용자 관리</StyledLink2>
@@ -484,7 +498,7 @@ function Store() {
                     </Contents>
                     <StoreSection1>
                         <StoreMenuHeader>
-                            <StoreMenuHeaderType>{category} 카테고리 가게 목록</StoreMenuHeaderType>
+                            <StoreMenuHeaderType>{category}</StoreMenuHeaderType>
                             <BoardMainInputImageBox1>
                                 <BoardMainInputImage1 src={NoticeImage} alt="돋보기 이미지"/>
                             </BoardMainInputImageBox1>
@@ -500,6 +514,19 @@ function Store() {
                             ></StoreInputType2>
                             <StoreButtonType1 onClick={handleSearch}>검색</StoreButtonType1>
                         </StoreMenuHeader>
+
+                        {/* todo: 정렬 순서
+                        - 최소주문금액  순서
+                        - 배달팁 낮은 순
+                        - 평점 높은 순
+                        */}
+                        {/*<button>최소주문금액 5000원이하</button>*/}
+                        {/*<button>최소주문금액 10000원이하</button>*/}
+                        {/*<button>최소주문금액 15000원이하</button>*/}
+                        {/*<button>최소주문금액 20000원이하</button>*/}
+                        {/*<button>배달팁</button>*/}
+                        {/*<button>평점</button>*/}
+
                         <StoreMenuBar>
                             <StoreMenuSectionType1 className="store-list">
                                 {stores.map(store => (
@@ -522,8 +549,9 @@ function Store() {
                                                         <PType>리뷰 {formatNumberWithCommas(store.sreview)}</PType>
                                                     </StoreMenuSectionType4>
                                                     <StoreMenuSectionType5>
-                                                        <PType2>최소 주문 금액: {formatNumberWithCommas(store.sorderMinimum)}원</PType2>
-                                                        <PType2>배달 예상 시간: {store.stime}</PType2>
+                                                        <PType2>배달  {store.stime}</PType2>
+                                                        <PType2>최소주문 {formatNumberWithCommas(store.sorderMinimum)}원</PType2>
+                                                        <PType2>배달팁  {store.stip}원</PType2>
                                                     </StoreMenuSectionType5>
                                                 </StoreMenuSectionType3>
                                                 <StoreMenuSectionType6><StoreMenuImgType2 src={Icon} alt="아이콘 이미지" /> 주문하기</StoreMenuSectionType6>
@@ -539,13 +567,13 @@ function Store() {
                                     <StoreMenuLi>
                                         <StoreMenuImgType src={menu5} alt="메뉴바 음식 이미지" />
                                         <StoreMenuLink to="/store/category/KOREAN">한식</StoreMenuLink>
-                                        <StoreMenuTextTpye>#든든한 한끼 #한국심</StoreMenuTextTpye>
+                                        <StoreMenuTextTpye>#든든한 한끼 #밥심</StoreMenuTextTpye>
                                     </StoreMenuLi>
 
                                     <StoreMenuLi>
                                         <StoreMenuImgType src={menu6} alt="메뉴바 음식 이미지" />
                                         <StoreMenuLink to="/store/category/JAPANESE">일식</StoreMenuLink>
-                                        <StoreMenuTextTpye>#데이트 밥 #초밥</StoreMenuTextTpye>
+                                        <StoreMenuTextTpye>#데이트 #초밥</StoreMenuTextTpye>
                                     </StoreMenuLi>
                                     <StoreMenuLi>
                                         <StoreMenuImgType src={menu4} alt="메뉴바 음식 이미지" />
@@ -584,7 +612,7 @@ function Store() {
                             <FooterText>MatNaMo</FooterText>
                             <FooterText2>이성민(팀장) : 프로젝트 아이디어, 웹 퍼블리셔, 프론트엔드</FooterText2>
                             <FooterText2>우가현(팀원) : 웹 퍼블리셔</FooterText2>
-                            <FooterText2>신민주(팀원) : 프로젝트 총괄, 백엔드, DB설계</FooterText2>>
+                            <FooterText2>신민주(팀원) : 프로젝트 총괄, 백엔드, DB설계</FooterText2>
                             <FooterText2>이지훈(팀원) : 웹 크롤링, 인공지능</FooterText2>
 
                             <FooterImages>

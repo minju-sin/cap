@@ -88,7 +88,7 @@ function BoardShow() {
     const { articleId } = useParams();
     const [article, setArticle] = useState(null);
     const [isLoginArticle, setIsLoginArticle] = useState(false); // 사용자 로그인 아이디와 게시글 작성자 아이디 확인
-    const [mapCoords, setMapCoords] = useState({ lat: 33.5563, lng: 126.79581 }); // 초기 좌표 상태 정의
+    const [mapCoords, setMapCoords] = useState({ lat: 37.555055534888176, lng: 126.97092591663251  }); // 초기 좌표 상태 정의 (서울여)
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [userId, setUserId] = useState("");
     const [username, setUsername] = useState("");
@@ -102,6 +102,12 @@ function BoardShow() {
     const handleButtonClick2 = () => {
         setBoxVisibility2(!isBoxVisible2);
     };
+
+    //  작성일 날짜까지만 보이도록 수정한 함수
+    const extractDate = (datetime) => {
+        return datetime.split('T')[0];
+    };
+
     useEffect(() => {
         // 서버로 현재 사용자의 인증 상태 확인을 위한 요청 보내기
         axios
@@ -218,8 +224,6 @@ function BoardShow() {
         event.preventDefault(); //  링크 이동을 막는 함수
         axios.post(`/order/join`, { orderLink: article.orderLink })
             .then(response => {
-                // 성공 응답을 받았을 때 링크로 이동합니다.
-                window.location.href = article.orderLink;
                 // 백엔드가 어떤 종류의 응답 메시지를 보낸다고 가정합니다.
                 Swal.fire({
                     title: '참가 성공!',
@@ -227,6 +231,7 @@ function BoardShow() {
                     icon: 'success',
                     confirmButtonText: '확인'
                 });
+                setTimeout(() =>   window.location.href = article.orderLink, 2000); //  2초 대기 후 해당 링크로 이동
             })
             .catch(error => {
                 if (error.response) {
@@ -296,7 +301,7 @@ function BoardShow() {
                                     </BoxLayout>
                                     <Hr2/>
                                     <BoxLayout>
-                                        <MyproImage src={logoutImage} alt="내 정보 이미지"/>
+                                        <MyproImage src={logoutImage} alt="로그아웃 이미지"/>
                                         <StyledLink4 to="/" onClick={handleLogout}>
                                             로그아웃
                                         </StyledLink4>
@@ -333,9 +338,9 @@ function BoardShow() {
                 <Menu>
                     &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;
                     <StyledLink2 to="/board">게시판</StyledLink2>
-                    <MenuText>l</MenuText>
+                    <MenuText>|</MenuText>
                     <StyledLink2 to="/notice">공지사항 </StyledLink2>
-                    <MenuText>l</MenuText>
+                    <MenuText>|</MenuText>
                     {userId === "admin" ? (
                         // 관리자 메인 화면 페이지
                         <StyledLink2 to="/management">사용자 관리</StyledLink2>
@@ -359,7 +364,7 @@ function BoardShow() {
                                     </BoardShowTextBoxText>
                                     <TableImage3Click src={BoardShowImage1} alt="위치 아이콘 이미지" onClick={handleButtonClick2}/>
                                 </TableFontType2>
-                                <Tdtype4>{new Date(article.createdAt).toLocaleTimeString('en-US', { hour12: false })}</Tdtype4>
+                                <Tdtype4>{extractDate(article.createdAt)} {new Date(article.createdAt).toLocaleTimeString('en-US', { hour12: false })}</Tdtype4>
                                 <BoardShowType>
                                     <BoardShowHeaderType>{article.title}</BoardShowHeaderType>
                                     <BoardShowSectionType>
@@ -374,6 +379,7 @@ function BoardShow() {
                                                 주문 참가하기</AType1>
                                         </BoardShowSectionType3>
                                     </BoardShowSectionType>
+
                                     {/* 도착 위치 표시 디자인 수정 해주세요 */}
                                     <Map
                                         center={mapCoords}
@@ -381,6 +387,7 @@ function BoardShow() {
                                     >
                                         <MapMarker position={mapCoords}></MapMarker>
                                     </Map>
+
                                 </BoardShowType>
                                 {/* 제목, 작성자, 작성일, 그룹주문링크, 위치, 내용 순서로 나열 */}
                                 {/* 삭제 버튼을 보여줄지 여부를 확인하여 조건부 렌더링 */}
@@ -476,9 +483,9 @@ function BoardShow() {
                 <Menu>
                     &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;
                     <StyledLink2 to="/board">게시판</StyledLink2>
-                    <MenuText>l</MenuText>
+                    <MenuText>|</MenuText>
                     <StyledLink2 to="/notice">공지사항 </StyledLink2>
-                    <MenuText>l</MenuText>
+                    <MenuText>|</MenuText>
                     {userId === "admin" ? (
                         // 관리자 메인 화면 페이지
                         <StyledLink2 to="/management">사용자 관리</StyledLink2>
@@ -502,7 +509,7 @@ function BoardShow() {
                                     </BoardShowTextBoxText>
                                     <TableImage3Click src={BoardShowImage1} alt="위치 아이콘 이미지" onClick={handleButtonClick2}/>
                                 </TableFontType2>
-                                <Tdtype4>{new Date(article.createdAt).toLocaleTimeString('en-US', { hour12: false })}</Tdtype4>
+                                <Tdtype4>{extractDate(article.createdAt)} {new Date(article.createdAt).toLocaleTimeString('en-US', { hour12: false })}</Tdtype4>
                                 <BoardShowType>
                                     <BoardShowHeaderType>{article.title}</BoardShowHeaderType>
                                     <BoardShowSectionType>

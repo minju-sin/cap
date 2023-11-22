@@ -17,6 +17,7 @@ import {
   StyledLink, Logo2, FooterText2,
 } from "./LoginCss";
 import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const DeuDepartment = [
   "국어국문학과",
@@ -139,16 +140,34 @@ function SignUp() {
     axios
       .post("/signup", userData)
       .then((response) => {
-        // 로그인 성공 시 메인 페이지로 이동
+        // 회원가입 성공 시 로그인 페이지로 이동
         if (response.data.message === "회원 가입 성공") {
-          window.location.href = "/";
+          Swal.fire({
+            title: '가입 완료!',
+            text: '회원 가입에 성공하였습니다.',
+            icon: 'success',
+            confirmButtonText: '확인'
+          });
+          setTimeout(() =>  window.location.href = "/login", 2000); //  2초 대기 후 로그인 화면으로 리다이렉트
         } else {
           // 실패할 경우 에러를 처리
+          Swal.fire({
+            title: '회원가입 실패',
+            text: '다시 입력하세요!',
+            icon: 'error',
+            confirmButtonText: '확인'
+          });
           console.error("회원가입 실패", response.data.message);
         }
       })
       .catch((error) => {
         // 요청 오류를 처리
+        Swal.fire({
+          title: '회원가입 실패',
+          text: '다시 입력하세요!',
+          icon: 'error',
+          confirmButtonText: '확인'
+        });
         console.error("회원가입 실패", error);
       });
   };

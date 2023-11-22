@@ -161,7 +161,7 @@ function Home() {
                                         </BoxLayout>
                                         <Hr2/>
                                         <BoxLayout>
-                                            <MyproImage src={logoutImage} alt="내 정보 이미지"/>
+                                            <MyproImage src={logoutImage} alt="로그아웃 이미지"/>
                                             <StyledLink4 to="/" onClick={handleLogout}>
                                                 로그아웃
                                             </StyledLink4>
@@ -198,9 +198,9 @@ function Home() {
                     <Menu>
                         &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;
                         <StyledLink2 to="/board">게시판</StyledLink2>
-                        <MenuText>l</MenuText>
+                        <MenuText>|</MenuText>
                         <StyledLink2 to="/notice">공지사항 </StyledLink2>
-                        <MenuText>l</MenuText>
+                        <MenuText>|</MenuText>
                         {userId === "admin" ? (
                             // 관리자 메인 화면 페이지
                             <StyledLink2 to="/management">사용자 관리</StyledLink2>
@@ -212,8 +212,8 @@ function Home() {
 
                     <ContentsText1>M A T N A M O &nbsp;&nbsp;M E N U</ContentsText1>
                     <ContentsText2>
-                        " 오늘은 &nbsp;<ContentsText3>어떤 음식을&nbsp;</ContentsText3>{" "}
-                        누구와 함께? "
+                        " 오늘은 &nbsp;<ContentsText3>어떤 음식</ContentsText3>을
+                        &nbsp;누구와 함께? "
                     </ContentsText2>
 
                     <Contents>
@@ -247,7 +247,7 @@ function Home() {
                             <FooterText>MatNaMo</FooterText>
                             <FooterText2>이성민(팀장) : 프로젝트 아이디어, 웹 퍼블리셔, 프론트엔드</FooterText2>
                             <FooterText2>우가현(팀원) : 웹 퍼블리셔</FooterText2>
-                            <FooterText2>신민주(팀원) : 프로젝트 총괄, 백엔드, DB설계</FooterText2>>
+                            <FooterText2>신민주(팀원) : 프로젝트 총괄, 백엔드, DB설계</FooterText2>
                             <FooterText2>이지훈(팀원) : 웹 크롤링, 인공지능</FooterText2>
 
                             <FooterImages>
@@ -300,9 +300,9 @@ function Home() {
                     <Menu>
                         &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;
                         <StyledLink2 to="/board">게시판</StyledLink2>
-                        <MenuText>l</MenuText>
+                        <MenuText>|</MenuText>
                         <StyledLink2 to="/notice">공지사항 </StyledLink2>
-                        <MenuText>l</MenuText>
+                        <MenuText>|</MenuText>
                         <StyledLink2 to="/notice">내 정보</StyledLink2>
                     </Menu>
                     <ContentsText1>M A T N A M O &nbsp;&nbsp;M E N U</ContentsText1>
@@ -341,7 +341,7 @@ function Home() {
                             <FooterText>MatNaMo</FooterText>
                             <FooterText2>이성민(팀장) : 프로젝트 아이디어, 웹 퍼블리셔, 프론트엔드</FooterText2>
                             <FooterText2>우가현(팀원) : 웹 퍼블리셔</FooterText2>
-                            <FooterText2>신민주(팀원) : 프로젝트 총괄, 백엔드, DB설계</FooterText2>>
+                            <FooterText2>신민주(팀원) : 프로젝트 총괄, 백엔드, DB설계</FooterText2>
                             <FooterText2>이지훈(팀원) : 웹 크롤링, 인공지능</FooterText2>
 
                             <FooterImages>

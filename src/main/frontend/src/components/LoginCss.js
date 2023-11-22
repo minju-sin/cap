@@ -181,7 +181,8 @@ export const StyledLink = styled(Link)`
 `;
 
 export  const Logo = styled.div`
- font-size: 45px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  font-size: 45px;
   font-weight: 900;
   color: white;
   text-shadow: 3px 3px 5px gray;
@@ -190,7 +191,8 @@ export  const Logo = styled.div`
 `
 
 export  const Logo2 = styled.div`
-font-size: 45px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  font-size: 45px;
   font-weight: 900;
   color: white;
   text-shadow: 3px 3px 5px gray;

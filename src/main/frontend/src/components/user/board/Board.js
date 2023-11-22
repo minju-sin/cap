@@ -240,7 +240,7 @@ function Board() {
                                     </BoxLayout>
                                     <Hr2/>
                                     <BoxLayout>
-                                        <MyproImage src={logoutImage} alt="내 정보 이미지"/>
+                                        <MyproImage src={logoutImage} alt="로그아웃 이미지"/>
                                         <StyledLink4 to="/" onClick={handleLogout}>
                                             로그아웃
                                         </StyledLink4>
@@ -275,9 +275,9 @@ function Board() {
                 <Menu>
                     &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;
                     <StyledLink2 to="/board">게시판</StyledLink2>
-                    <MenuText>l</MenuText>
+                    <MenuText>|</MenuText>
                     <StyledLink2 to="/notice">공지사항 </StyledLink2>
-                    <MenuText>l</MenuText>
+                    <MenuText>|</MenuText>
                     {userId === "admin" ? (
                         // 관리자 메인 화면 페이지
                         <StyledLink2 to="/management">사용자 관리</StyledLink2>
@@ -328,10 +328,10 @@ function Board() {
                     <BoardMainTable1>
                         <BoardMainThead>
                             <BoardMainTr>
-                                <BoardMainTh>번호</BoardMainTh>
+                                <BoardMainTh>순번</BoardMainTh>
                                 <BoardMainTh>제목</BoardMainTh>
                                 <BoardMainTh>작성자</BoardMainTh>
-                                <BoardMainTh>날짜</BoardMainTh>
+                                <BoardMainTh>작성일</BoardMainTh>
                             </BoardMainTr>
                         </BoardMainThead>
                         <BoardMainTbody>
@@ -423,9 +423,9 @@ function Board() {
                 <Menu>
                     &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;
                     <StyledLink2 to="/board">게시판</StyledLink2>
-                    <MenuText>l</MenuText>
+                    <MenuText>|</MenuText>
                     <StyledLink2 to="/notice">공지사항 </StyledLink2>
-                    <MenuText>l</MenuText>
+                    <MenuText>|</MenuText>
                     <StyledLink2 to="/notice">내 정보</StyledLink2>
                 </Menu>
 
@@ -471,10 +471,10 @@ function Board() {
                     <BoardMainTable1>
                         <BoardMainThead>
                             <BoardMainTr>
-                                <BoardMainTh>번호</BoardMainTh>
+                                <BoardMainTh>순번</BoardMainTh>
                                 <BoardMainTh>제목</BoardMainTh>
                                 <BoardMainTh>작성자</BoardMainTh>
-                                <BoardMainTh>날짜</BoardMainTh>
+                                <BoardMainTh>작성일</BoardMainTh>
                             </BoardMainTr>
                         </BoardMainThead>
                         <BoardMainTbody>

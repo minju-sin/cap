@@ -32,6 +32,7 @@ export const Logo = styled.div`
   width: 125px;
   height: 36px;
   color: #000000;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
   font-size: 27px;
   font-weight: 700;
 `;
@@ -102,6 +103,7 @@ export const HeaderText1 = styled.div`
   justify-content: flex-start;
   position: absolute;
   color: white;
+ font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
   font-size: 30px;
   font-weight: 600;
   top: 80px;
