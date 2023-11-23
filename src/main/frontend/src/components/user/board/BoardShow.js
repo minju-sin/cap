@@ -15,9 +15,7 @@ import {
     Header,
     Logo,
     Login,
-    SignUp,
     LoginSignUp,
-    StyledLink1,
     StyledLink2,
     HeaderImage,
     HeaderText1,
@@ -40,12 +38,7 @@ import {
     MyproImage,
     BoxLayout,
     Hr2,
-    Footer,
-    FooterText,
-    FooterText2,
-    FooterImage,
-    FooterImages,
-    Footer1, LogoImage2, HomeLogoImage
+    HomeLogoImage
 } from "../../HomeCss";
 
 import exampleImage from "../../images/HomeHeaderImage.jpg";
@@ -54,13 +47,9 @@ import proButtonImage from "../../images/main_pro_button.png";
 import proButtonImageClick from "../../images/pro_img_click.png";
 import proImage from "../../images/myPro_Image.png"
 import logoutImage from "../../images/logout_Image.png"
-import facebookImage from "../../images/facebookImage.png"
-import instagramImage from "../../images/Instagram.png"
-import youtubeImage from "../../images/Youtube.png"
 import BoardShowImage1 from "../../images/BoardShowImage1.png"
 import BoardShowImage3 from "../../images/BoardShowImage3.png"
 import BoardShowImage2 from "../../images/BoardShowImage2TextBox.png"
-import logoImage2 from "../../images/LogoImage2.png";
 import {
     BoardShowHeaderType,
     BoardShowSectionType,
