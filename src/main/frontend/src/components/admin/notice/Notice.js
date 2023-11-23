@@ -14,7 +14,7 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import {
     NoticeCssBody, NoticeFontType1,
-    TableFontType1, TableFontType2, TableFontType3, TableImage1, TableImage2, TableLinkType,
+    TableFontType1, TableFontType2, TableImage1, TableImage2, TableLinkType,
     TableType1, TbodyDivType1,
     TbodyType,
     TdContents,
@@ -28,9 +28,7 @@ import {
     Header,
     Logo,
     Login,
-    SignUp,
     LoginSignUp,
-    StyledLink1,
     StyledLink2,
     Menu,
     MenuText,
@@ -54,16 +52,14 @@ import {
     MyproImage,
     BoxLayout,
     Hr2,
-    Footer,
-    FooterText,
-    FooterText2,
-    FooterImage,
-    FooterImages,
-    Footer1, HeaderImage, HeaderText1, HeaderBackgroundColor, HeaderText2, HeaderText3, HeaderText4, HeaderText5
+    HeaderImage,
+    HeaderText1,
+    HeaderBackgroundColor,
+    HeaderText2,
+    HeaderText3,
+    HeaderText4,
+    HeaderText5
 } from "../../HomeCss";
-import facebookImage from "../../images/facebookImage.png";
-import instagramImage from "../../images/Instagram.png";
-import youtubeImage from "../../images/Youtube.png";
 import proImage1 from "../../images/main_pro.png";
 import proButtonImage from "../../images/main_pro_button.png";
 import proButtonImageClick from "../../images/pro_img_click.png";
@@ -77,10 +73,10 @@ import menuImage4 from "../../images/PizzaPicture.jpg";
 import menuImage3 from "../../images/Late-night snack picture.jpg";
 import {HomeImageCss, LinkButtonFont1, MainPageFlex, MypageFont3} from "../../user/ProfileCss";
 import HomeImage from "../../images/HomeImage.png";
-import menuImage6 from "../../images/ChinesePicture.jpg";
-import menuImage2 from "../../images/KoreanPicture.png";
-import menuImage5 from "../../images/SolarEclipsePicture.jpg";
 import exampleImage from "../../images/HomeHeaderImage.jpg";
+import StyledFooter from "../../style/StyledFooter";
+import StyledLoginBefore from "../../style/Header/StyledLogInBefore";
+import StyledHeaderBefore from "../../style/Header/StyledHeaderBefore";
 
 function Notice() {
     const [notices, setNotices] = useState([]);
@@ -320,37 +316,12 @@ function Notice() {
                         </MainPageFlex>
                     </LinkButtonFont1>
 
-                    <Footer>
-                        <Footer1>
-                            <FooterText>MatNaMo</FooterText>
-                            <FooterText2>이성민(팀장) : 프로젝트 아이디어, 웹 퍼블리셔, 프론트엔드</FooterText2>
-                            <FooterText2>우가현(팀원) : 웹 퍼블리셔</FooterText2>
-                            <FooterText2>신민주(팀원) : 프로젝트 총괄, 백엔드, DB설계</FooterText2>
-                            <FooterText2>이지훈(팀원) : 웹 크롤링, 인공지능</FooterText2>
-
-                            <FooterImages>
-                                <FooterImage src={facebookImage} alt="페이스북 이미지"></FooterImage>
-                                <FooterImage src={instagramImage} alt="인스타그램 이미지"></FooterImage>
-                                <FooterImage src={youtubeImage} alt ="유튜브 이미지"></FooterImage>
-                            </FooterImages>
-                            <Hr2></Hr2>
-                            <FooterText2>@2023 Capstone Project MatNaMo</FooterText2>
-                        </Footer1>
-                    </Footer>
+                    <StyledFooter/>
                 </HomeBody>
             ) : (
                 <HomeBody>
-                    <Header>
-                        <Logo>MatNaMo</Logo>
-                        <LoginSignUp>
-                            <Login>
-                                <StyledLink1 to="/login">로그인</StyledLink1>
-                            </Login>
-                            <SignUp>
-                                <StyledLink1 to="/signup">회원가입</StyledLink1>
-                            </SignUp>
-                        </LoginSignUp>
-                    </Header>
+                    <StyledLoginBefore/>
+
                     <HeaderImage src={exampleImage} alt="헤더 배경 이미지" />
 
                     <HeaderText1>
@@ -371,14 +342,10 @@ function Notice() {
                             </HeaderText4>
                         </HeaderText3>
                     </HeaderText1>
-                    <Menu>
-                        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;
-                        <StyledLink2 to="/board">게시판</StyledLink2>
-                        <MenuText>|</MenuText>
-                        <StyledLink2 to="/notice">공지사항 </StyledLink2>
-                        <MenuText>|</MenuText>
-                        <StyledLink2 to="/notice">내 정보</StyledLink2>
-                    </Menu>
+
+
+                    <StyledHeaderBefore/>
+
                     <ContentsText1>M A T N A M O</ContentsText1>
                     <ContentsText2>
                         " 오늘의  &nbsp;<ContentsText3>추천 음식&nbsp;</ContentsText3>{" "}
@@ -447,23 +414,8 @@ function Notice() {
                             <MypageFont3>메인 홈페이지</MypageFont3>
                         </MainPageFlex>
                     </LinkButtonFont1>
-                    <Footer>
-                        <Footer1>
-                            <FooterText>MatNaMo</FooterText>
-                            <FooterText2>이성민(팀장) : 프로젝트 아이디어, 웹 퍼블리셔, 프론트엔드</FooterText2>
-                            <FooterText2>우가현(팀원) : 웹 퍼블리셔</FooterText2>
-                            <FooterText2>신민주(팀원) : 프로젝트 총괄, 백엔드, DB설계</FooterText2>
-                            <FooterText2>이지훈(팀원) : 웹 크롤링, 인공지능</FooterText2>
 
-                            <FooterImages>
-                                <FooterImage src={facebookImage} alt="페이스북 이미지"></FooterImage>
-                                <FooterImage src={instagramImage} alt="인스타그램 이미지"></FooterImage>
-                                <FooterImage src={youtubeImage} alt ="유튜브 이미지"></FooterImage>
-                            </FooterImages>
-                            <Hr2></Hr2>
-                            <FooterText2>@2023 Capstone Project MatNaMo</FooterText2>
-                        </Footer1>
-                    </Footer>
+                    <StyledFooter/>
                 </HomeBody>
             )}
         </div>
