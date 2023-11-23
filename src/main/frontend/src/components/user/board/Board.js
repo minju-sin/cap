@@ -15,9 +15,7 @@ import {
     Header,
     Logo,
     Login,
-    SignUp,
     LoginSignUp,
-    StyledLink1,
     StyledLink2,
     HeaderImage,
     HeaderText1,
@@ -48,12 +46,7 @@ import {
     MyproImage,
     BoxLayout,
     Hr2,
-    Footer,
-    FooterText,
-    FooterText2,
-    FooterImage,
-    FooterImages,
-    Footer1, LogoImage2, HomeLogoImage
+    HomeLogoImage
 } from "../../HomeCss";
 import exampleImage from "../../images/HomeHeaderImage.jpg";
 import menuImage2 from "../../images/KoreanPicture.png";
@@ -64,9 +57,6 @@ import proButtonImage from "../../images/main_pro_button.png";
 import proButtonImageClick from "../../images/pro_img_click.png";
 import proImage from "../../images/myPro_Image.png"
 import logoutImage from "../../images/logout_Image.png"
-import facebookImage from "../../images/facebookImage.png"
-import instagramImage from "../../images/Instagram.png"
-import youtubeImage from "../../images/Youtube.png"
 import {HomeImageCss, LinkButtonFont1, MainPageFlex, MypageFont3} from "../ProfileCss";
 import HomeImage from "../../images/HomeImage.png";
 import {
@@ -86,6 +76,10 @@ import {
 } from "./BoardCss";
 import NoticeImage from "../../images/NoticeImage.png";
 import NoticeImage2 from "../../images/NoticeImage2.png";
+import StyledFooter from "../../style/StyledFooter";
+import StyledHeaderBefore from "../../style/Header/StyledHeaderBefore";
+import StyledLoginBefore from "../../style/Header/StyledLogInBefore";
+import StyledHeaderHome from "../../style/Header/StyledHeaderHome";
 
 function Board() {
 
@@ -374,65 +368,14 @@ function Board() {
                     </MainPageFlex>
                 </LinkButtonFont1>
 
-                <Footer>
-                    <Footer1>
-                        <FooterText>MatNaMo</FooterText>
-                        <FooterText2>이성민(팀장) : 프로젝트 아이디어, 웹 퍼블리셔, 프론트엔드</FooterText2>
-                        <FooterText2>우가현(팀원) : 웹 퍼블리셔</FooterText2>
-                        <FooterText2>신민주(팀원) : 프로젝트 총괄, 백엔드, DB설계</FooterText2>
-                        <FooterText2>이지훈(팀원) : 웹 크롤링, 인공지능</FooterText2>
-
-                        <FooterImages>
-                            <FooterImage src={facebookImage} alt="페이스북 이미지"></FooterImage>
-                            <FooterImage src={instagramImage} alt="인스타그램 이미지"></FooterImage>
-                            <FooterImage src={youtubeImage} alt ="유튜브 이미지"></FooterImage>
-                        </FooterImages>
-                        <Hr2></Hr2>
-                        <FooterText2>@2023 Capstone Project MatNaMo</FooterText2>
-                    </Footer1>
-                </Footer>
+                <StyledFooter/>
             </HomeBody>
         ) : (
             <HomeBody>
-                <Header>
-                    <Logo>MatNaMo</Logo>
-                    <LoginSignUp>
-                        <Login>
-                            <StyledLink1 to="/login">로그인</StyledLink1>
-                        </Login>
-                        <SignUp>
-                            <StyledLink1 to="/signup">회원가입</StyledLink1>
-                        </SignUp>
-                    </LoginSignUp>
-                </Header>
-                <HeaderImage src={exampleImage} alt="헤더 배경 이미지" />
+                <StyledLoginBefore/>
+                <StyledHeaderHome/>
 
-                <HeaderText1>
-                    <HeaderBackgroundColor></HeaderBackgroundColor>
-                    <HeaderText2>" MatNaMo "</HeaderText2>
-                    <HeaderText3>
-                        <HeaderText4>
-                            <HeaderText5>맛나모( MatNaMo )</HeaderText5>는 "맛있는
-                            나눔(Mate)"을 의미하며,
-                        </HeaderText4>
-                        <HeaderText4>
-                            학생들 간의 음식 나눔을 촉진하는 메시지를 전달합니다.
-                        </HeaderText4>
-                        <HeaderText4>
-                            이 플랫폼은 음식 공동 주문을 통해{" "}
-                            <HeaderText5>배달비와 주문최소금액</HeaderText5>을 절감 할 수
-                            있습니다.
-                        </HeaderText4>
-                    </HeaderText3>
-                </HeaderText1>
-                <Menu>
-                    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;
-                    <StyledLink2 to="/board">게시판</StyledLink2>
-                    <MenuText>|</MenuText>
-                    <StyledLink2 to="/notice">공지사항 </StyledLink2>
-                    <MenuText>|</MenuText>
-                    <StyledLink2 to="/notice">내 정보</StyledLink2>
-                </Menu>
+                <StyledHeaderBefore/>
 
                 <ContentsText1>M A T N A M O</ContentsText1>
                 <ContentsText2>
@@ -523,23 +466,7 @@ function Board() {
                     </MainPageFlex>
                 </LinkButtonFont1>
 
-                <Footer>
-                    <Footer1>
-                        <FooterText>MatNaMo</FooterText>
-                        <FooterText2>이성민(팀장) : 프로젝트 아이디어, 웹 퍼블리셔, 프론트엔드</FooterText2>
-                        <FooterText2>우가현(팀원) : 웹 퍼블리셔</FooterText2>
-                        <FooterText2>신민주(팀원) : 프로젝트 총괄, 백엔드, DB설계</FooterText2>
-                        <FooterText2>이지훈(팀원) : 웹 크롤링, 인공지능</FooterText2>
-
-                        <FooterImages>
-                            <FooterImage src={facebookImage} alt="페이스북 이미지"></FooterImage>
-                            <FooterImage src={instagramImage} alt="인스타그램 이미지"></FooterImage>
-                            <FooterImage src={youtubeImage} alt ="유튜브 이미지"></FooterImage>
-                        </FooterImages>
-                        <Hr2></Hr2>
-                        <FooterText2>@2023 Capstone Project MatNaMo</FooterText2>
-                    </Footer1>
-                </Footer>
+                <StyledFooter/>
             </HomeBody>
         )}
         </div>
