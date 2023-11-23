@@ -6,28 +6,11 @@ import {
     Header,
     Logo,
     Login,
-    SignUp,
     LoginSignUp,
-    StyledLink1,
     StyledLink2,
-    HeaderImage,
-    HeaderText1,
-    HeaderText2,
-    HeaderBackgroundColor,
-    HeaderText3,
-    HeaderText4,
-    HeaderText5,
     Menu,
     MenuText,
-    ContentsText1,
-    ContentsText2,
-    ContentsText3,
-    ContentsText4,
-    Contents,
-    ContentsBox,
-    ContentsImage,
     HeaderProImage,
-    StyledLink3,
     HeaderProText,
     HeaderProButtonImage,
     HeaderProBox,
@@ -39,29 +22,13 @@ import {
     MyproImage,
     BoxLayout,
     Hr2,
-    Footer,
-    FooterText,
-    FooterText2,
-    FooterImage,
-    FooterImages,
-    Footer1, LogoImage2, HomeLogoImage
+    HomeLogoImage
 } from "./HomeCss";
-import exampleImage from "./images/HomeHeaderImage.jpg";
-import menuImage1 from "./images/ChickenPicture.jpg";
-import menuImage2 from "./images/KoreanPicture.png";
-import menuImage3 from "./images/Late-night snack picture.jpg";
-import menuImage4 from "./images/PizzaPicture.jpg";
-import menuImage5 from "./images/SolarEclipsePicture.jpg";
-import menuImage6 from "./images/ChinesePicture.jpg";
 import proImage1 from "./images/main_pro.png";
 import proButtonImage from "./images/main_pro_button.png";
 import proButtonImageClick from "./images/pro_img_click.png";
 import proImage from "./images/myPro_Image.png"
 import logoutImage from "./images/logout_Image.png"
-import facebookImage from "./images/facebookImage.png"
-import instagramImage from "./images/Instagram.png"
-import youtubeImage from "./images/Youtube.png"
-import logoImage2 from "./images/LogoImage2.png";
 import StyledLoginBefore from "./style/Header/StyledLogInBefore";
 import StyledHeaderHome from "./style/Header/StyledHeaderHome";
 import StyledHeaderBefore from "./style/Header/StyledHeaderBefore";
