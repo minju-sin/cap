@@ -83,6 +83,8 @@ import {
 } from "./BoardCss";
 import ProImage2 from "../../images/MyPageImage.png";
 import {NoticeShowButtonType, NoticeShowButtonType2, NoticeShowButtonType3} from "../../admin/notice/NoticeDetailCss";
+import StyledFooter from "../../style/StyledFooter";
+import StyledLogInBefore from "../../style/Header/StyledLogInBefore";
 
 function BoardShow() {
     const { articleId } = useParams();
@@ -424,40 +426,12 @@ function BoardShow() {
                     </NoticeShowButtonType3>
                 )}
 
-                <Footer>
-                    <Footer1>
-                        <FooterText>MatNaMo</FooterText>
-                        <FooterText2>이성민(팀장) : 프로젝트 아이디어, 웹 퍼블리셔, 프론트엔드</FooterText2>
-                        <FooterText2>우가현(팀원) : 웹 퍼블리셔</FooterText2>
-                        <FooterText2>신민주(팀원) : 프로젝트 총괄, 백엔드, DB설계</FooterText2>
-                        <FooterText2>이지훈(팀원) : 웹 크롤링, 인공지능</FooterText2>
-
-                        <FooterImages>
-                            <FooterImage src={facebookImage} alt="페이스북 이미지"></FooterImage>
-                            <FooterImage src={instagramImage} alt="인스타그램 이미지"></FooterImage>
-                            <FooterImage src={youtubeImage} alt ="유튜브 이미지"></FooterImage>
-                        </FooterImages>
-                        <Hr2></Hr2>
-                        <FooterText2>@2023 Capstone Project MatNaMo</FooterText2>
-                    </Footer1>
-                </Footer>
+                <StyledFooter/>
 
             </HomeBody>
         ) : (
             <HomeBody>
-                <Header>
-                    <Header>
-                        <Logo>MatNaMo</Logo>
-                        <LoginSignUp>
-                            <Login>
-                                <StyledLink1 to="/login">로그인</StyledLink1>
-                            </Login>
-                            <SignUp>
-                                <StyledLink1 to="/signup">회원가입</StyledLink1>
-                            </SignUp>
-                        </LoginSignUp>
-                    </Header>
-                </Header>
+                <StyledLogInBefore/>
 
                 <HeaderImage src={exampleImage} alt="헤더 배경 이미지" />
 
@@ -570,23 +544,7 @@ function BoardShow() {
                     </NoticeShowButtonType>
                 )}
 
-                <Footer>
-                    <Footer1>
-                        <FooterText>MatNaMo</FooterText>
-                        <FooterText2>이성민(팀장) : 프로젝트 아이디어, 웹 퍼블리셔, 프론트엔드</FooterText2>
-                        <FooterText2>우가현(팀원) : 웹 퍼블리셔</FooterText2>
-                        <FooterText2>신민주(팀원) : 프로젝트 총괄, 백엔드, DB설계</FooterText2>
-                        <FooterText2>이지훈(팀원) : 웹 크롤링, 인공지능</FooterText2>
-
-                        <FooterImages>
-                            <FooterImage src={facebookImage} alt="페이스북 이미지"></FooterImage>
-                            <FooterImage src={instagramImage} alt="인스타그램 이미지"></FooterImage>
-                            <FooterImage src={youtubeImage} alt ="유튜브 이미지"></FooterImage>
-                        </FooterImages>
-                        <Hr2></Hr2>
-                        <FooterText2>@2023 Capstone Project MatNaMo</FooterText2>
-                    </Footer1>
-                </Footer>
+                <StyledFooter/>
 
             </HomeBody>
         )}
