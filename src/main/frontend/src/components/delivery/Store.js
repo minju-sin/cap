@@ -308,12 +308,17 @@ function Store() {
                             placeholder="가게를 검색해주세요."
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
+                            onKeyPress={(e) => {
+                                if (e.key === 'Enter') {    //  Enter 눌러도 검색됨
+                                    handleSearch();
+                                }
+                            }}
                         />
-                        {/*<StoreInputType2*/}
-                        {/*    type="text"*/}
-                        {/*    placeholder="YYYY. MM.DD"*/}
-                        {/*></StoreInputType2>*/}
-                        {/*<StoreButtonType1 onClick={handleSearch}>검색</StoreButtonType1>*/}
+                        <StoreInputType2
+                            type="text"
+                            placeholder="YYYY. MM.DD"
+                        ></StoreInputType2>
+                        <StoreButtonType1 onClick={handleSearch}>검색</StoreButtonType1>
                     </StoreMenuHeader>
 
                     <StoreMenuBar>
@@ -495,12 +500,17 @@ function Store() {
                                 placeholder="가게를 검색해주세요."
                                 value={searchTerm}
                                 onChange={(e) => setSearchTerm(e.target.value)}
+                                onKeyPress={(e) => {
+                                    if (e.key === 'Enter') {    //  Enter 눌러도 검색됨
+                                        handleSearch();
+                                    }
+                                }}
                             />
-                            {/*<StoreInputType2*/}
-                            {/*    type="text"*/}
-                            {/*    placeholder="YYYY. MM.DD"*/}
-                            {/*></StoreInputType2>*/}
-                            {/*<StoreButtonType1 onClick={handleSearch}>검색</StoreButtonType1>*/}
+                            <StoreInputType2
+                                type="text"
+                                placeholder="YYYY. MM.DD"
+                            ></StoreInputType2>
+                            <StoreButtonType1 onClick={handleSearch}>검색</StoreButtonType1>
                         </StoreMenuHeader>
 
                         <StoreMenuBar>

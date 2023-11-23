@@ -317,13 +317,18 @@ function Board() {
                             placeholder="제목을 검색해주세요."
                             value={search}
                             onChange={(e) => setSearch(e.target.value)}
+                            onKeyPress={(e) => {
+                                if (e.key === 'Enter') {    //  Enter 눌러도 검색됨
+                                    handleSearch();
+                                }
+                            }}
                         />
-                        {/*<BoardMainInputType2
+                        <BoardMainInputType2
                             type="text"
                             placeholder="YYYY. MM.DD ~ YYYY. MM.DD"
                         ></BoardMainInputType2>
-                        <BoardMainButtonType1 onClick={handleSearch}>검색</BoardMainButtonType1>*/}
 
+                        <BoardMainButtonType1 onClick={handleSearch}>검색</BoardMainButtonType1>
                     </BoardMainHeader>
                     <BoardMainTable1>
                         <BoardMainThead>
@@ -460,13 +465,18 @@ function Board() {
                             placeholder="제목을 검색해주세요."
                             value={search}
                             onChange={(e) => setSearch(e.target.value)}
+                            onKeyPress={(e) => {
+                                if (e.key === 'Enter') {    //  Enter 눌러도 검색됨
+                                    handleSearch();
+                                }
+                            }}
                         />
-                        {/*<BoardMainInputType2
+                        <BoardMainInputType2
                             type="text"
                             placeholder="YYYY. MM.DD ~ YYYY. MM.DD"
                         ></BoardMainInputType2>
 
-                        <BoardMainButtonType1 onClick={handleSearch}>검색</BoardMainButtonType1>*/}
+                        <BoardMainButtonType1 onClick={handleSearch}>검색</BoardMainButtonType1>
                     </BoardMainHeader>
 
                     <BoardMainTable1>
