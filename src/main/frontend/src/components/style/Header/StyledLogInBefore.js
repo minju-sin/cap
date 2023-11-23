@@ -16,7 +16,7 @@ const StyledLoginBefore = ({ }) => {
         <>
             <Header>
                 <HomeLogoImage>
-                    <LogoImage2 src={logoImage2} alt="로고 이미지"/>
+                    {/*<LogoImage2 src={logoImage2} alt="로고 이미지"/>*/}
                     <Logo>MatNaMo</Logo>
                 </HomeLogoImage>
                 <LoginSignUp>

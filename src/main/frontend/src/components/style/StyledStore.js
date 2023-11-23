@@ -1,8 +1,11 @@
 import {
     Contents,
     ContentsBox,
-    ContentsImage, ContentsText1, ContentsText2, ContentsText3,
-    ContentsText4, Menu, MenuText, StyledLink2,
+    ContentsImage,
+    ContentsText1,
+    ContentsText2,
+    ContentsText3,
+    ContentsText4,
     StyledLink3
 } from "../HomeCss";
 import menuImage1 from "../images/ChickenPicture.jpg";
