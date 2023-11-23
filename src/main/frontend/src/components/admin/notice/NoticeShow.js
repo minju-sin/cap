@@ -13,9 +13,7 @@ import {
     Header,
     Logo,
     Login,
-    SignUp,
     LoginSignUp,
-    StyledLink1,
     StyledLink2,
     Menu,
     MenuText,
@@ -31,13 +29,6 @@ import {
     MyproImage,
     BoxLayout,
     Hr2,
-    Footer,
-    FooterText,
-    FooterText2,
-    FooterImage,
-    FooterImages,
-    Footer1,
-    LogoImage2,
     HomeLogoImage,
     HeaderImage,
     HeaderText1,
@@ -47,30 +38,13 @@ import {
     HeaderText4, HeaderText5
 } from "../../HomeCss";
 import {
-    AddressMainOption,
-    BodyWrapper,
     BodyWrapper2,
-    Box_1,
-    Button_1,
-    Button_2,
-    Content_Input_1,
-    Content_Input_2,
-    Content_Input_3,
-    Content_Textarea_1,
-    ErrorText,
-    ErrorText_Wrapper,
-    FontOptionOne,
     HeaderFont,
-    ImgFont,
-    Input_1,
-    LabelOption,
     NoticeShowButtonType,
     NoticeShowButtonType2, NoticeShowButtonType3,
     NoticeShowHeaderType,
     NoticeShowSectionType,
-    NoticeShowType,
-    Picture_Content_Wrapper,
-    Section_Content_Wrapper,
+    NoticeShowType
 } from "./NoticeDetailCss";
 
 import proImage1 from "../../images/main_pro.png";
@@ -78,12 +52,12 @@ import proButtonImage from "../../images/main_pro_button.png";
 import proButtonImageClick from "../../images/pro_img_click.png";
 import proImage from "../../images/myPro_Image.png"
 import logoutImage from "../../images/logout_Image.png"
-import facebookImage from "../../images/facebookImage.png"
-import instagramImage from "../../images/Instagram.png"
-import youtubeImage from "../../images/Youtube.png"
-import {TableFontType2, TableFontType4, TableImage1, Tdtype1, Tdtype3, Tdtype4} from "./NoticeCss";
+import {TableFontType2, TableImage1, Tdtype1, Tdtype4} from "./NoticeCss";
 import ProImage2 from "../../images/MyPageImage.png";
 import exampleImage from "../../images/HomeHeaderImage.jpg";
+import StyledFooter from "../../style/StyledFooter";
+import StyledHeaderBefore from "../../style/Header/StyledHeaderBefore";
+import StyledLoginBefore from "../../style/Header/StyledLogInBefore";
 
 function NoticeShow() {
     const { noticeId } = useParams();
@@ -333,41 +307,14 @@ function NoticeShow() {
                         </NoticeShowButtonType>
                     )}
 
-
-                    <Footer>
-                        <Footer1>
-                            <FooterText>MatNaMo</FooterText>
-                            <FooterText2>이성민(팀장) : 프로젝트 아이디어, 웹 퍼블리셔, 프론트엔드</FooterText2>
-                            <FooterText2>우가현(팀원) : 웹 퍼블리셔</FooterText2>
-                            <FooterText2>신민주(팀원) : 프로젝트 총괄, 백엔드, DB설계</FooterText2>
-                            <FooterText2>이지훈(팀원) : 웹 크롤링, 인공지능</FooterText2>
-
-                            <FooterImages>
-                                <FooterImage src={facebookImage} alt="페이스북 이미지"></FooterImage>
-                                <FooterImage src={instagramImage} alt="인스타그램 이미지"></FooterImage>
-                                <FooterImage src={youtubeImage} alt ="유튜브 이미지"></FooterImage>
-                            </FooterImages>
-                            <Hr2></Hr2>
-                            <FooterText2>@2023 Capstone Project MatNaMo</FooterText2>
-                        </Footer1>
-                    </Footer>
-
+                    <StyledFooter/>
                 </HomeBody>
 
 
             ) : (
                 <HomeBody>
-                    <Header>
-                        <Logo>MatNaMo</Logo>
-                        <LoginSignUp>
-                            <Login>
-                                <StyledLink1 to="/login">로그인</StyledLink1>
-                            </Login>
-                            <SignUp>
-                                <StyledLink1 to="/signup">회원가입</StyledLink1>
-                            </SignUp>
-                        </LoginSignUp>
-                    </Header>
+                    <StyledLoginBefore/>
+
                     <HeaderImage src={exampleImage} alt="헤더 배경 이미지" />
 
                     <HeaderText1>
@@ -389,14 +336,8 @@ function NoticeShow() {
                         </HeaderText3>
                     </HeaderText1>
 
-                    <Menu>
-                        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;
-                        <StyledLink2 to="/board">게시판</StyledLink2>
-                        <MenuText>|</MenuText>
-                        <StyledLink2 to="/notice">공지사항 </StyledLink2>
-                        <MenuText>|</MenuText>
-                        <StyledLink2 to="/notice">내 정보</StyledLink2>
-                    </Menu>
+                    <StyledHeaderBefore/>
+
                     {notice ? (
                     <BodyWrapper2>
                         <HeaderFont>공지사항</HeaderFont>
@@ -427,23 +368,7 @@ function NoticeShow() {
                         </Link>
                     </NoticeShowButtonType>
 
-                    <Footer>
-                        <Footer1>
-                            <FooterText>MatNaMo</FooterText>
-                            <FooterText2>이성민(팀장) : 프로젝트 아이디어, 웹 퍼블리셔, 프론트엔드</FooterText2>
-                            <FooterText2>우가현(팀원) : 웹 퍼블리셔</FooterText2>
-                            <FooterText2>신민주(팀원) : 프로젝트 총괄, 백엔드, DB설계</FooterText2>
-                            <FooterText2>이지훈(팀원) : 웹 크롤링, 인공지능</FooterText2>
-
-                            <FooterImages>
-                                <FooterImage src={facebookImage} alt="페이스북 이미지"></FooterImage>
-                                <FooterImage src={instagramImage} alt="인스타그램 이미지"></FooterImage>
-                                <FooterImage src={youtubeImage} alt ="유튜브 이미지"></FooterImage>
-                            </FooterImages>
-                            <Hr2></Hr2>
-                            <FooterText2>@2023 Capstone Project MatNaMo</FooterText2>
-                        </Footer1>
-                    </Footer>
+                    <StyledFooter/>
                 </HomeBody>
             )}
         </div>
