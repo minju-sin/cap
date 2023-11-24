@@ -196,231 +196,224 @@ function Store() {
     return (
         <div>
             {isAuthenticated ? (
-            <HomeBody>
-                <Header>
-                    <HomeLogoImage>
-                        {/*<LogoImage2 src={logoImage2} alt="프로필 아이콘 이미지"/>*/}
-                        <Logo>MatNaMo</Logo>
-                    </HomeLogoImage>
-                    <LoginSignUp>
-                        <Login>
-                            <HeaderProImage src={proImage1} alt="프로필 아이콘 이미지"/>
-                        </Login>
-                        <Login>
+                <HomeBody>
+                    <Header>
+                        <HomeLogoImage>
+                            {/*<LogoImage2 src={logoImage2} alt="프로필 아이콘 이미지"/>*/}
+                            <Logo>MatNaMo</Logo>
+                        </HomeLogoImage>
+                        <LoginSignUp>
+                            <Login>
+                                <HeaderProImage src={proImage1} alt="프로필 아이콘 이미지"/>
+                            </Login>
+                            <Login>
 
-                            <HeaderProButtonImage src={proButtonImage} alt="프로필 버튼 이미지"  onClick={handleButtonClick}/>
-                            <HeaderProBox isVisible={isBoxVisible}>
-                                <HeaderProButtonClick src={proButtonImageClick} alt="프로필 클릭시 이미지"/>
-                                <HeaderProBoxSection>
-                                    <ProBox>
-                                        <HeaderProImage src={proImage1} alt="프로필 아이콘 이미지"/>
-                                        <HeaderProText>{username}<br/>{userId}</HeaderProText>
-                                    </ProBox>
-                                    <Hr/>
-                                    <BoxLayout>
-                                        <MyproImage src={proImage} alt="내 정보 이미지"/>
-                                        {userId === "admin" ? (
-                                            // 관리자 메인 화면 페이지
-                                            <StyledLink4 to="/management">사용자 관리</StyledLink4>
-                                        ) : (
-                                            // 사용자 메인 화면 페이지
-                                            <StyledLink4 to="/profile">내 정보</StyledLink4>
-                                        )}
-                                    </BoxLayout>
-                                    <Hr2/>
-                                    <BoxLayout>
-                                        <MyproImage src={logoutImage} alt="로그아웃 이미지"/>
-                                        <StyledLink4 to="/" onClick={handleLogout}>
-                                            로그아웃
-                                        </StyledLink4>
-                                    </BoxLayout>
+                                <HeaderProButtonImage src={proButtonImage} alt="프로필 버튼 이미지"  onClick={handleButtonClick}/>
+                                <HeaderProBox isVisible={isBoxVisible}>
+                                    <HeaderProButtonClick src={proButtonImageClick} alt="프로필 클릭시 이미지"/>
+                                    <HeaderProBoxSection>
+                                        <ProBox>
+                                            <HeaderProImage src={proImage1} alt="프로필 아이콘 이미지"/>
+                                            <HeaderProText>{username}<br/>{userId}</HeaderProText>
+                                        </ProBox>
+                                        <Hr/>
+                                        <BoxLayout>
+                                            <MyproImage src={proImage} alt="내 정보 이미지"/>
+                                            {userId === "admin" ? (
+                                                // 관리자 메인 화면 페이지
+                                                <StyledLink4 to="/management">사용자 관리</StyledLink4>
+                                            ) : (
+                                                // 사용자 메인 화면 페이지
+                                                <StyledLink4 to="/profile">내 정보</StyledLink4>
+                                            )}
+                                        </BoxLayout>
+                                        <Hr2/>
+                                        <BoxLayout>
+                                            <MyproImage src={logoutImage} alt="내 정보 이미지"/>
+                                            <StyledLink4 to="/" onClick={handleLogout}>
+                                                로그아웃
+                                            </StyledLink4>
+                                        </BoxLayout>
 
 
-                                </HeaderProBoxSection>
-                            </HeaderProBox>
-                        </Login>
-                    </LoginSignUp>
-                </Header>
+                                    </HeaderProBoxSection>
+                                </HeaderProBox>
+                            </Login>
+                        </LoginSignUp>
+                    </Header>
 
-                <HeaderImage src={exampleImage} alt="헤더 배경 이미지" />
+                    <HeaderImage src={exampleImage} alt="헤더 배경 이미지" />
 
-                <HeaderText1>
-                    <HeaderBackgroundColor></HeaderBackgroundColor>
-                    <HeaderText2>" MatNaMo "</HeaderText2>
-                    <HeaderText3>
-                        <HeaderText4>
-                            <HeaderText5>맛나모( MatNaMo )</HeaderText5>는 "맛있는
-                            나눔(Mate)"을 의미하며,
-                        </HeaderText4>
-                        <HeaderText4>
-                            학생들 간의 음식 나눔을 촉진하는 메시지를 전달합니다.
-                        </HeaderText4>
-                        <HeaderText4>
-                            이 플랫폼은 음식 공동 주문을 통해{" "}
-                            <HeaderText5>배달비와 주문최소금액</HeaderText5>을 절감 할 수
-                            있습니다.
-                        </HeaderText4>
-                    </HeaderText3>
-                </HeaderText1>
+                    <HeaderText1>
+                        <HeaderBackgroundColor></HeaderBackgroundColor>
+                        <HeaderText2>" MatNaMo "</HeaderText2>
+                        <HeaderText3>
+                            <HeaderText4>
+                                <HeaderText5>맛나모( MatNaMo )</HeaderText5>는 "맛있는
+                                나눔(Mate)"을 의미하며,
+                            </HeaderText4>
+                            <HeaderText4>
+                                학생들 간의 음식 나눔을 촉진하는 메시지를 전달합니다.
+                            </HeaderText4>
+                            <HeaderText4>
+                                이 플랫폼은 음식 공동 주문을 통해{" "}
+                                <HeaderText5>배달비와 주문최소금액</HeaderText5>을 절감 할 수
+                                있습니다.
+                            </HeaderText4>
+                        </HeaderText3>
+                    </HeaderText1>
 
-                <Menu>
-                    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;
-                    <StyledLink2 to="/board">게시판</StyledLink2>
-                    <MenuText>|</MenuText>
-                    <StyledLink2 to="/notice">공지사항 </StyledLink2>
-                    <MenuText>|</MenuText>
-                    {userId === "admin" ? (
-                        // 관리자 메인 화면 페이지
-                        <StyledLink2 to="/management">사용자 관리</StyledLink2>
-                    ) : (
-                        // 사용자 메인 화면 페이지
-                        <StyledLink2 to="/profile">내 정보</StyledLink2>
-                    )}
-                </Menu>
+                    <Menu>
+                        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;
+                        <StyledLink2 to="/board">게시판</StyledLink2>
+                        <MenuText>l</MenuText>
+                        <StyledLink2 to="/notice">공지사항 </StyledLink2>
+                        <MenuText>l</MenuText>
+                        {userId === "admin" ? (
+                            // 관리자 메인 화면 페이지
+                            <StyledLink2 to="/management">사용자 관리</StyledLink2>
+                        ) : (
+                            // 사용자 메인 화면 페이지
+                            <StyledLink2 to="/profile">내 정보</StyledLink2>
+                        )}
+                    </Menu>
 
-                <ContentsText1>M A T N A M O</ContentsText1>
-                <ContentsText2>
-                    " 오늘의  &nbsp;<ContentsText3>추천 음식&nbsp;</ContentsText3>{" "}
-                    먹으러 가볼까? "
-                </ContentsText2>
-                <Contents>
-                    <ContentsBox>
-                        <ContentsImage src={menuImage1} alt="메뉴 음식 이미지" />
-                        <ContentsText4><StyledLink3 to="/store/category/CHICKEN">치킨</StyledLink3></ContentsText4>
-                    </ContentsBox>
-                    <ContentsBox>
-                        <ContentsImage src={menuImage4} alt="메뉴 음식 이미지" />
-                        <ContentsText4> <StyledLink3 to="/store/category/PIZZA">피자</StyledLink3></ContentsText4>
-                    </ContentsBox>
-                    <ContentsBox>
-                        <ContentsImage src={menuImage3} alt="메뉴 음식 이미지" />
-                        <ContentsText4><StyledLink3 to="/store/category/NIGHT">야식</StyledLink3></ContentsText4>
-                    </ContentsBox>
-                </Contents>
-                <StoreSection1>
-                    <StoreMenuHeader>
-                        <StoreMenuHeaderType>{category}</StoreMenuHeaderType>
-                        <BoardMainInputImageBox1>
-                            <BoardMainInputImage1 onClick={handleSearch} src={NoticeImage} alt="돋보기 이미지"/>
-                        </BoardMainInputImageBox1>
-                        <StoreInputType1
-                            type="text"
-                            placeholder="가게를 검색해주세요."
-                            value={searchTerm}
-                            onChange={(e) => setSearchTerm(e.target.value)}
-                            onKeyPress={(e) => {
-                                if (e.key === 'Enter') {    //  Enter 눌러도 검색됨
-                                    handleSearch();
-                                }
-                            }}
-                        />
-                        <StoreInputType2
-                            type="text"
-                            placeholder="YYYY. MM.DD"
-                        ></StoreInputType2>
-                        <StoreButtonType1 onClick={handleSearch}>검색</StoreButtonType1>
-                    </StoreMenuHeader>
+                    <ContentsText1>M A T N A M O</ContentsText1>
+                    <ContentsText2>
+                        " 오늘의  &nbsp;<ContentsText3>추천 음식&nbsp;</ContentsText3>{" "}
+                        먹으러 가볼까? "
+                    </ContentsText2>
+                    <Contents>
+                        <ContentsBox>
+                            <ContentsImage src={menuImage1} alt="메뉴 음식 이미지" />
+                            <ContentsText4><StyledLink3 to="/store/category/CHICKEN">치킨</StyledLink3></ContentsText4>
+                        </ContentsBox>
+                        <ContentsBox>
+                            <ContentsImage src={menuImage4} alt="메뉴 음식 이미지" />
+                            <ContentsText4> <StyledLink3 to="/store/category/PIZZA">피자</StyledLink3></ContentsText4>
+                        </ContentsBox>
+                        <ContentsBox>
+                            <ContentsImage src={menuImage3} alt="메뉴 음식 이미지" />
+                            <ContentsText4><StyledLink3 to="/store/category/NIGHT">야식</StyledLink3></ContentsText4>
+                        </ContentsBox>
+                    </Contents>
+                    <StoreSection1>
+                        <StoreMenuHeader>
+                            <StoreMenuHeaderType>{category} 카테고리 가게 목록</StoreMenuHeaderType>
+                            <BoardMainInputImageBox1>
+                                <BoardMainInputImage1 src={NoticeImage} alt="돋보기 이미지"/>
+                            </BoardMainInputImageBox1>
+                            <StoreInputType1
+                                type="text"
+                                placeholder="제목을 검색해주세요."
+                                value={searchTerm}
+                                onChange={(e) => setSearchTerm(e.target.value)}
+                            />
+                            <StoreInputType2
+                                type="text"
+                                placeholder="YYYY. MM.DD"
+                            ></StoreInputType2>
+                            <StoreButtonType1 onClick={handleSearch}>검색</StoreButtonType1>
+                        </StoreMenuHeader>
+                        <StoreMenuBar>
+                            <StoreMenuSectionType1 className="store-list">
+                                {stores.map(store => (
+                                    <div key={store.storeId} className="store-item">
+                                        <LinkType1 to={`/store/${store.storeId}`}>
+                                            <StoreMenuSectionType2>
+                                                <StoreMenuSectionImage1
+                                                    src={store.simage}
+                                                    alt="가게 썸네일"
+                                                    onError={(e) => {
+                                                        e.target.onerror = null; // 이후 재시도 방지
+                                                        e.target.src = storeImage; // 기본 이미지 경로로 교체
+                                                    }}
+                                                />
+                                                <StoreMenuSectionType3>
+                                                    <StoreMenuTextTpye2>{store.sname}</StoreMenuTextTpye2>
 
-                    <StoreMenuBar>
-                        <StoreMenuSectionType1 className="store-list">
-                            {stores.map(store => (
-                                <div key={store.storeId} className="store-item">
-                                    <LinkType1 to={`/store/${store.storeId}`}>
-                                        <StoreMenuSectionType2>
-                                            <StoreMenuSectionImage1
-                                                src={store.simage}
-                                                alt="가게 썸네일"
-                                                onError={(e) => {
-                                                    e.target.onerror = null; // 이후 재시도 방지
-                                                    e.target.src = storeImage; // 기본 이미지 경로로 교체
-                                                }}
-                                            />
-                                            <StoreMenuSectionType3>
-                                                <StoreMenuTextTpye2>{store.sname}</StoreMenuTextTpye2>
+                                                    <StoreMenuSectionType4>
+                                                        <PType>평점 ⭐{store.sgrade}</PType>
+                                                        <PType>리뷰 {formatNumberWithCommas(store.sreview)}</PType>
+                                                    </StoreMenuSectionType4>
+                                                    <StoreMenuSectionType5>
+                                                        <PType2>최소 주문 금액: {formatNumberWithCommas(store.sorderMinimum)}원</PType2>
+                                                        <PType2>배달 예상 시간: {store.stime}</PType2>
+                                                    </StoreMenuSectionType5>
+                                                </StoreMenuSectionType3>
+                                                <StoreMenuSectionType6><StoreMenuImgType2 src={Icon} alt="아이콘 이미지" /> 주문하기</StoreMenuSectionType6>
+                                            </StoreMenuSectionType2>
+                                        </LinkType1>
+                                    </div>
+                                ))}
+                            </StoreMenuSectionType1>
 
-                                                <StoreMenuSectionType4>
-                                                    <PType>⭐{store.sgrade}</PType>
-                                                    <PType>리뷰 {formatNumberWithCommas(store.sreview)}</PType>
-                                                </StoreMenuSectionType4>
-                                                <StoreMenuSectionType5>
-                                                    <PType2>배달  {store.stime}</PType2>
-                                                    <PType2>최소주문 {formatNumberWithCommas(store.sorderMinimum)}원</PType2>
-                                                    <PType2>배달팁  {store.stip}원</PType2>
-                                                </StoreMenuSectionType5>
-                                            </StoreMenuSectionType3>
-                                            <StoreMenuSectionType6><StoreMenuImgType2 src={Icon} alt="아이콘 이미지" /> 주문하기</StoreMenuSectionType6>
-                                        </StoreMenuSectionType2>
-                                    </LinkType1>
-                                </div>
-                            ))}
-                        </StoreMenuSectionType1>
+                            <StoreMenu>
+                                <StoreMenuHead>M A T N A M O&nbsp;&nbsp; M E N U</StoreMenuHead>
+                                <StoreMenuUl>
+                                    <StoreMenuLi>
+                                        <StoreMenuImgType src={menu5} alt="메뉴바 음식 이미지" />
+                                        <StoreMenuLink to="/store/category/KOREAN">한식</StoreMenuLink>
+                                        <StoreMenuTextTpye>#든든한 한끼 #한국심</StoreMenuTextTpye>
+                                    </StoreMenuLi>
 
-                        <StoreMenu>
-                            <StoreMenuHead>M A T N A M O&nbsp;&nbsp; M E N U</StoreMenuHead>
-                            <StoreMenuUl>
-                                <StoreMenuLi>
-                                    <StoreMenuImgType src={menu5} alt="메뉴바 음식 이미지" />
-                                    <StoreMenuLink to="/store/category/KOREAN">한식</StoreMenuLink>
-                                    <StoreMenuTextTpye>#든든한 한끼 #밥심</StoreMenuTextTpye>
-                                </StoreMenuLi>
+                                    <StoreMenuLi>
+                                        <StoreMenuImgType src={menu6} alt="메뉴바 음식 이미지" />
+                                        <StoreMenuLink to="/store/category/JAPANESE">일식</StoreMenuLink>
+                                        <StoreMenuTextTpye>#데이트 밥 #초밥</StoreMenuTextTpye>
+                                    </StoreMenuLi>
+                                    <StoreMenuLi>
+                                        <StoreMenuImgType src={menu4} alt="메뉴바 음식 이미지" />
+                                        <StoreMenuLink to="/store/category/CHINESE">중식</StoreMenuLink>
+                                        <StoreMenuTextTpye>#짜장면 #탕수육은 찍먹</StoreMenuTextTpye>
+                                    </StoreMenuLi>
+                                    <StoreMenuLi>
+                                        <StoreMenuImgType src={menu3} alt="메뉴바 음식 이미지" />
+                                        <StoreMenuLink to="/store/category/NIGHT">야식</StoreMenuLink>
+                                        <StoreMenuTextTpye>#맛있으면 0칼로리</StoreMenuTextTpye>
+                                    </StoreMenuLi>
+                                    <StoreMenuLi>
+                                        <StoreMenuImgType src={menu1} alt="메뉴바 음식 이미지" />
+                                        <StoreMenuLink to="/store/category/CHICKEN">치킨</StoreMenuLink>
+                                        <StoreMenuTextTpye>#1인1닭 가능 #후라이드</StoreMenuTextTpye>
+                                    </StoreMenuLi>
+                                    <StoreMenuLi>
+                                        <StoreMenuImgType src={menu2} alt="메뉴바 음식 이미지" />
+                                        <StoreMenuLink to="/store/category/PIZZA">피자</StoreMenuLink>
+                                        <StoreMenuTextTpye>#피자는 역시 #치즈 듬뿍</StoreMenuTextTpye>
+                                    </StoreMenuLi>
+                                </StoreMenuUl>
+                            </StoreMenu>
+                        </StoreMenuBar>
+                    </StoreSection1>
 
-                                <StoreMenuLi>
-                                    <StoreMenuImgType src={menu6} alt="메뉴바 음식 이미지" />
-                                    <StoreMenuLink to="/store/category/JAPANESE">일식</StoreMenuLink>
-                                    <StoreMenuTextTpye>#데이트 #초밥</StoreMenuTextTpye>
-                                </StoreMenuLi>
-                                <StoreMenuLi>
-                                    <StoreMenuImgType src={menu4} alt="메뉴바 음식 이미지" />
-                                    <StoreMenuLink to="/store/category/CHINESE">중식</StoreMenuLink>
-                                    <StoreMenuTextTpye>#짜장면 #탕수육은 찍먹</StoreMenuTextTpye>
-                                </StoreMenuLi>
-                                <StoreMenuLi>
-                                    <StoreMenuImgType src={menu3} alt="메뉴바 음식 이미지" />
-                                    <StoreMenuLink to="/store/category/NIGHT">야식</StoreMenuLink>
-                                    <StoreMenuTextTpye>#맛있으면 0칼로리</StoreMenuTextTpye>
-                                </StoreMenuLi>
-                                <StoreMenuLi>
-                                    <StoreMenuImgType src={menu1} alt="메뉴바 음식 이미지" />
-                                    <StoreMenuLink to="/store/category/CHICKEN">치킨</StoreMenuLink>
-                                    <StoreMenuTextTpye>#1인1닭 가능 #후라이드</StoreMenuTextTpye>
-                                </StoreMenuLi>
-                                <StoreMenuLi>
-                                    <StoreMenuImgType src={menu2} alt="메뉴바 음식 이미지" />
-                                    <StoreMenuLink to="/store/category/PIZZA">피자</StoreMenuLink>
-                                    <StoreMenuTextTpye>#피자는 역시 #치즈 듬뿍</StoreMenuTextTpye>
-                                </StoreMenuLi>
-                            </StoreMenuUl>
-                        </StoreMenu>
-                    </StoreMenuBar>
-                </StoreSection1>
+                    <LinkButtonFont1 to={`/`}>
+                        <MainPageFlex>
+                            <HomeImageCss src={HomeImage} alt="홈 이미지"/>
+                            <MypageFont3>메인 홈페이지</MypageFont3>
+                        </MainPageFlex>
+                    </LinkButtonFont1>
 
-                <LinkButtonFont1 to={`/`}>
-                    <MainPageFlex>
-                        <HomeImageCss src={HomeImage} alt="홈 이미지"/>
-                        <MypageFont3>메인 홈페이지</MypageFont3>
-                    </MainPageFlex>
-                </LinkButtonFont1>
+                    <Footer>
+                        <Footer1>
+                            <FooterText>MatNaMo</FooterText>
+                            <FooterText2>이성민(팀장) : 프로젝트 총괄 기획, 웹 퍼블리셔, 프론트엔드</FooterText2>
+                            <FooterText2>우가현(팀원) : 웹 퍼블리셔</FooterText2>
+                            <FooterText2>신민주(팀원) : 백엔드, DB설계</FooterText2>
+                            <FooterText2>이지훈(팀원) : 웹 크롤링, 인공지능</FooterText2>
 
-                <Footer>
-                    <Footer1>
-                        <FooterText>MatNaMo</FooterText>
-                        <FooterText2>이성민(팀장) : 프로젝트 아이디어, 웹 퍼블리셔, 프론트엔드</FooterText2>
-                        <FooterText2>우가현(팀원) : 웹 퍼블리셔</FooterText2>
-                        <FooterText2>신민주(팀원) : 프로젝트 총괄, 백엔드, DB설계</FooterText2>
-                        <FooterText2>이지훈(팀원) : 웹 크롤링, 인공지능</FooterText2>
+                            <FooterImages>
+                                <FooterImage src={facebookImage} alt="페이스북 이미지"></FooterImage>
+                                <FooterImage src={instagramImage} alt="인스타그램 이미지"></FooterImage>
+                                <FooterImage src={youtubeImage} alt ="유튜브 이미지"></FooterImage>
+                            </FooterImages>
+                            <Hr2></Hr2>
+                            <FooterText2>@2023 Capstone Project MatNaMo</FooterText2>
+                        </Footer1>
+                    </Footer>
 
-                        <FooterImages>
-                            <FooterImage src={facebookImage} alt="페이스북 이미지"></FooterImage>
-                            <FooterImage src={instagramImage} alt="인스타그램 이미지"></FooterImage>
-                            <FooterImage src={youtubeImage} alt ="유튜브 이미지"></FooterImage>
-                        </FooterImages>
-                        <Hr2></Hr2>
-                        <FooterText2>@2023 Capstone Project MatNaMo</FooterText2>
-                    </Footer1>
-                </Footer>
-
-            </HomeBody>
-                ):(
+                </HomeBody>
+            ):(
                 <HomeBody>
                     <Header>
                         <Logo>MatNaMo</Logo>
@@ -458,9 +451,9 @@ function Store() {
                     <Menu>
                         &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;
                         <StyledLink2 to="/board">게시판</StyledLink2>
-                        <MenuText>|</MenuText>
+                        <MenuText>l</MenuText>
                         <StyledLink2 to="/notice">공지사항 </StyledLink2>
-                        <MenuText>|</MenuText>
+                        <MenuText>l</MenuText>
                         {userId === "admin" ? (
                             // 관리자 메인 화면 페이지
                             <StyledLink2 to="/management">사용자 관리</StyledLink2>
@@ -491,20 +484,15 @@ function Store() {
                     </Contents>
                     <StoreSection1>
                         <StoreMenuHeader>
-                            <StoreMenuHeaderType>{category}</StoreMenuHeaderType>
+                            <StoreMenuHeaderType>{category} 카테고리 가게 목록</StoreMenuHeaderType>
                             <BoardMainInputImageBox1>
-                                <BoardMainInputImage1 onClick={handleSearch} src={NoticeImage} alt="돋보기 이미지"/>
+                                <BoardMainInputImage1 src={NoticeImage} alt="돋보기 이미지"/>
                             </BoardMainInputImageBox1>
                             <StoreInputType1
                                 type="text"
-                                placeholder="가게를 검색해주세요."
+                                placeholder="제목을 검색해주세요."
                                 value={searchTerm}
                                 onChange={(e) => setSearchTerm(e.target.value)}
-                                onKeyPress={(e) => {
-                                    if (e.key === 'Enter') {    //  Enter 눌러도 검색됨
-                                        handleSearch();
-                                    }
-                                }}
                             />
                             <StoreInputType2
                                 type="text"
@@ -512,7 +500,6 @@ function Store() {
                             ></StoreInputType2>
                             <StoreButtonType1 onClick={handleSearch}>검색</StoreButtonType1>
                         </StoreMenuHeader>
-
                         <StoreMenuBar>
                             <StoreMenuSectionType1 className="store-list">
                                 {stores.map(store => (
@@ -535,9 +522,8 @@ function Store() {
                                                         <PType>리뷰 {formatNumberWithCommas(store.sreview)}</PType>
                                                     </StoreMenuSectionType4>
                                                     <StoreMenuSectionType5>
-                                                        <PType2>배달  {store.stime}</PType2>
-                                                        <PType2>최소주문 {formatNumberWithCommas(store.sorderMinimum)}원</PType2>
-                                                        <PType2>배달팁  {store.stip}원</PType2>
+                                                        <PType2>최소 주문 금액: {formatNumberWithCommas(store.sorderMinimum)}원</PType2>
+                                                        <PType2>배달 예상 시간: {store.stime}</PType2>
                                                     </StoreMenuSectionType5>
                                                 </StoreMenuSectionType3>
                                                 <StoreMenuSectionType6><StoreMenuImgType2 src={Icon} alt="아이콘 이미지" /> 주문하기</StoreMenuSectionType6>
@@ -553,13 +539,13 @@ function Store() {
                                     <StoreMenuLi>
                                         <StoreMenuImgType src={menu5} alt="메뉴바 음식 이미지" />
                                         <StoreMenuLink to="/store/category/KOREAN">한식</StoreMenuLink>
-                                        <StoreMenuTextTpye>#든든한 한끼 #밥심</StoreMenuTextTpye>
+                                        <StoreMenuTextTpye>#든든한 한끼 #한국심</StoreMenuTextTpye>
                                     </StoreMenuLi>
 
                                     <StoreMenuLi>
                                         <StoreMenuImgType src={menu6} alt="메뉴바 음식 이미지" />
                                         <StoreMenuLink to="/store/category/JAPANESE">일식</StoreMenuLink>
-                                        <StoreMenuTextTpye>#데이트 #초밥</StoreMenuTextTpye>
+                                        <StoreMenuTextTpye>#데이트 밥 #초밥</StoreMenuTextTpye>
                                     </StoreMenuLi>
                                     <StoreMenuLi>
                                         <StoreMenuImgType src={menu4} alt="메뉴바 음식 이미지" />
@@ -596,9 +582,9 @@ function Store() {
                     <Footer>
                         <Footer1>
                             <FooterText>MatNaMo</FooterText>
-                            <FooterText2>이성민(팀장) : 프로젝트 아이디어, 웹 퍼블리셔, 프론트엔드</FooterText2>
+                            <FooterText2>이성민(팀장) : 프로젝트 총괄 기획, 웹 퍼블리셔, 프론트엔드</FooterText2>
                             <FooterText2>우가현(팀원) : 웹 퍼블리셔</FooterText2>
-                            <FooterText2>신민주(팀원) : 프로젝트 총괄, 백엔드, DB설계</FooterText2>
+                            <FooterText2>신민주(팀원) : 백엔드, DB설계</FooterText2>
                             <FooterText2>이지훈(팀원) : 웹 크롤링, 인공지능</FooterText2>
 
                             <FooterImages>
@@ -612,7 +598,7 @@ function Store() {
                     </Footer>
 
                 </HomeBody>
-                )}
+            )}
         </div>
 
     );

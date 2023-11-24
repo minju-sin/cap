@@ -151,6 +151,7 @@ export  const StoreMenuSectionType1 =styled.div`
   border-collapse: collapse;
   max-height: 946px;
   overflow-y: auto;
+  background-color: #FFFBF6;
 `
 
 export const StoreMenuSectionType2 =styled.div`
