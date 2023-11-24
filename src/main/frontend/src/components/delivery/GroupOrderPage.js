@@ -12,7 +12,124 @@ import React, { useState, useEffect } from 'react';
 import {useParams, useLocation, Link} from 'react-router-dom';
 import axios from 'axios';
 import storeImage from "../images/storeImage.png";
+import {
+    HomeBody,
+    Header,
+    Logo,
+    Login,
+    SignUp,
+    LoginSignUp,
+    StyledLink1,
+    StyledLink2,
+    HeaderImage,
+    HeaderText1,
+    HeaderText2,
+    HeaderBackgroundColor,
+    HeaderText3,
+    HeaderText4,
+    HeaderText5,
+    Menu,
+    MenuText,
+    ContentsText1,
+    ContentsText2,
+    ContentsText3,
+    ContentsText4,
+    Contents,
+    ContentsBox,
+    ContentsImage,
+    HeaderProImage,
+    StyledLink3,
+    HeaderProText,
+    HeaderProButtonImage,
+    HeaderProBox,
+    HeaderProButtonClick,
+    HeaderProBoxSection,
+    ProBox,
+    Hr,
+    StyledLink4,
+    MyproImage,
+    BoxLayout,
+    Hr2,
+    Footer,
+    FooterText,
+    FooterText2,
+    FooterImage,
+    FooterImages,
+    Footer1, LogoImage2, HomeLogoImage
+} from "../HomeCss";
 
+import {
+    ModalFlexType1,
+    ModalFont1,
+    ModalHr,
+    StoreDetailBar,
+    StoreDetailBarAll,
+    StoreDetailBarFlex,
+    StoreDetailBarHeader,
+    StoreDetailBarHeaderIcon,
+    StoreDetailBarHeaderText,
+    StoreDetailBarHeaderText2,
+    StoreDetailBody,
+    StoreDetailBody2,
+    StoreDetailButtonType1,
+    StoreDetailFooter,
+    StoreDetailHeaderIconImage,
+    StoreDetailSectionText1,
+    StoreDetailSectionText2,
+    StoreDetailStore,
+    StoreDetailStoreHeader,
+    StoreDetailStoreImage1,
+    StoreDetailStoreMenu,
+    StoreDetailStoreMenuHeader,
+    StoreDetailStoreMenuHeaderFont,
+    StoreDetailStoreMenuImage1,
+    StoreDetailStoreMenuImage2,
+    StoreDetailStoreMenuSection,
+    StoreDetailStoreMenuSection2,
+    StoreDetailStoreMenuSection3,
+    StoreDetailStoreMenuSectionFlex,
+    StoreDetailStoreText1,
+    StoreDetailStoreText2,
+    StoreDetailStoreText3,
+    StoreDetailStoreText4,
+    StoreDetailStoreTitle,
+    StoreDetailStoreTitle2,
+    ModalFlexType2,
+    ModalFont2,
+    ModalFlexType3,
+    ModalButton,
+    StoreDetailButtonType2, StoreDetailBarFlex2,
+} from "./StoreDetailCss";
+
+import {
+    GroupOrderBar, GroupOrderBar2, GroupOrderBar3, GroupOrderBar4,
+    GroupOrderBarButtonType1,
+    GroupOrderBarButtonType2,
+    GroupOrderBarHeader1, GroupOrderBarHeader2, GroupOrderBarHr,
+    GroupOrderBarSection1,
+    GroupOrderBarSection2,
+    GroupOrderPageMenu,
+    GroupOrderPageMenuImage1
+} from "./GroupOrderPageCss"
+
+import exampleImage from "../images/HomeHeaderImage.jpg";
+import menuImage1 from "../images/ChickenPicture.jpg";
+import menuImage2 from "../images/KoreanPicture.png";
+import menuImage3 from "../images/Late-night snack picture.jpg";
+import menuImage4 from "../images/PizzaPicture.jpg";
+import menuImage5 from "../images/SolarEclipsePicture.jpg";
+import menuImage6 from "../images/ChinesePicture.jpg";
+import proImage1 from "../images/main_pro.png";
+import proButtonImage from "../images/main_pro_button.png";
+import proButtonImageClick from "../images/pro_img_click.png";
+import proImage from "../images/myPro_Image.png"
+import logoutImage from "../images/logout_Image.png"
+import facebookImage from "../images/facebookImage.png"
+import instagramImage from "../images/Instagram.png"
+import youtubeImage from "../images/Youtube.png"
+import logoImage2 from "../images/LogoImage2.png";
+import {HomeImageCss, LinkButtonFont1, MainPageFlex, MypageFont3} from "../user/ProfileCss";
+import HomeImage from "../images/HomeImage.png";
 // 스타일 태그 내의 CSS - 모달창 디자인 (프론트엔드는 이부분 디자인 수정해야함)
 const modalStyle = `
         .modal-backdrop {
@@ -93,6 +210,18 @@ function formatNumberWithCommas(number) {
 }
 
 function GroupOrderPage() {
+    const [userId, setUserId] = useState("");
+    const [username, setUsername] = useState("");
+    const [isBoxVisible, setBoxVisibility] = useState(true);
+
+    const [showMenu, setShowMenu] = useState(true);  // 메뉴 보이기/감추기 상태
+    const [showInfo, setShowInfo] = useState(false); // 정보 보이기/감추기 상태
+
+    const [search, setSearch] = useState(''); // 검색어 상태 추가
+
+    const [currentPage, setCurrentPage] = useState(1); // 현재 페이지 상태 추가
+    const postsPerPage = 10; // 페이지당 게시물 수
+
     const [isAuthenticated, setIsAuthenticated] = useState(false); // 사용자 로그인 상태
     const [showModal, setShowModal] = useState(false); // 모달 상태 변수 추가
     const [selectedMenu, setSelectedMenu] = useState(null); // 선택된 메뉴 정보 (모달창으로 보여줌)
@@ -108,11 +237,66 @@ function GroupOrderPage() {
     const [totalOrderPrice, setTotalOrderPrice] = useState(0);
     const [loggedInUserId, setLoggedInUserId] = useState(null);
     const [isOrganizer, setIsOrganizer] = useState(false); // 현재 사용자가 호스트인지 여부
-    /* 결제 여부 */
     const [paymentStatus, setPaymentStatus] = useState(() => {
         const savedStatus = localStorage.getItem(`paymentStatus_${groupOrderId}`);
         return savedStatus ? JSON.parse(savedStatus) : {};
     });
+    const handleButtonClick = () => {
+        setBoxVisibility(!isBoxVisible);
+    };
+
+    useEffect(() => {
+        // 서버로 현재 사용자의 인증 상태 확인을 위한 요청 보내기
+        axios
+            .get("/check-auth")
+            .then((response) => {
+                if (response.data === "authenticated") {
+                    setIsAuthenticated(true);
+
+                    // 사용자 ID를 가져와 상태에 저장
+                    axios
+                        .get("/get-user-id")
+                        .then((response) => {
+                            setUserId(response.data);
+                        })
+                        .catch((error) => {
+                            // 에러 처리
+                        });
+
+                    // 사용자 ID를 가져와 상태에 저장
+                    axios
+                        .get("/get-user-name")
+                        .then((response) => {
+                            setUsername(response.data);
+                        })
+                        .catch((error) => {
+                            // 에러 처리
+                        });
+                } else {
+                    setIsAuthenticated(false);
+                }
+            })
+            .catch((error) => {
+                // 요청 실패 처리
+            });
+    }, []);
+
+    // 로그아웃
+    const handleLogout = () => {
+        // 서버의 /logout 엔드포인트로 GET 요청을 보내 로그아웃을 수행
+        axios
+            .get("/logout")
+            .then((response) => {
+                // 로그아웃 성공 시 클라이언트 상태 초기화 및 원하는 작업 수행
+                setIsAuthenticated(false);
+                setUserId("");
+            })
+            .catch((error) => {
+                // 오류 처리
+                console.error("로그아웃 중 오류가 발생했습니다:", error);
+            });
+    };
+
 
 
     // 로그인 후 사용자 정보를 가져오는 함수
@@ -336,7 +520,7 @@ function GroupOrderPage() {
             localStorage.setItem(`paymentStatus_${groupOrderId}`, JSON.stringify(paymentStatus));
         }
     }, [paymentStatus, groupOrderId]);
-    
+
 
     // 결제 성공 처리 함수
     const handlePaymentSuccess = (userId) => {
@@ -410,134 +594,291 @@ function GroupOrderPage() {
 
     return (
         <>
-        <style>{modalStyle}</style>
-        <div>
-            <h1>그룹 주문 페이지</h1>
-            <p>여기서 호스트와 참가자가 같이 주문을 할 수 있도록 함</p>
-            <div>
-                <h1>가게 정보</h1>
-                {/* 가게 이름, 평점, 리뷰수, 최소 주문 금액, 배달 요금,
-                    배달 예상 시간, 영업 시간, 전화번호, 주소 순서로 작성함 */}
-                {menus.length > 0 ?
-                    <img
-                        src={menus[0].store.simage}
-                        alt="가게 썸네일"
-                        onError={(e) => {
-                            e.target.onerror = null; // 이후 재시도 방지
-                            e.target.src = storeImage; // 기본 이미지 경로로 교체
-                        }}
-                    /> : null}
-                {menus.length > 0 ? <p>{menus[0].store.sname}</p> : null}
-                {menus.length > 0 ? <p>⭐{menus[0].store.sgrade}</p> : null}
-                {menus.length > 0 ? <p>{formatNumberWithCommas(menus[0].store.sreview)}</p> : null}
-                {menus.length > 0 ? <p>💰{formatNumberWithCommas(menus[0].store.sorderMinimum)}원</p> : null}
-                {menus.length > 0 ? <p>💲{formatNumberWithCommas(menus[0].store.stip)}원</p> : null}
-                {menus.length > 0 ? <p>⏰{menus[0].store.stime}</p> : null}
-                {menus.length > 0 ? <p>{menus[0].store.sopen}</p> : null}
-                {menus.length > 0 ? <p>☎️{menus[0].store.sphone}</p> : null}
-                {menus.length > 0 ? <p>🏠{menus[0].store.saddress}</p> : null}
-            </div>
+            <style>{modalStyle}</style>
+            <HomeBody>
+                <Header>
+                    <HomeLogoImage>
+                        {/*<LogoImage2 src={logoImage2} alt="프로필 아이콘 이미지"/>*/}
+                        <Logo>MatNaMo</Logo>
+                    </HomeLogoImage>
+                    <LoginSignUp>
+                        <Login>
+                            <HeaderProImage src={proImage1} alt="프로필 아이콘 이미지"/>
+                        </Login>
+                        <Login>
 
-            <h1>가게 메뉴 리스트</h1>
-            <div className="menu-list">
-                {menus.map(menu => (
-                    <div key={menu.menuId} className="menu-item" onClick={() => toggleModal(menu)}>
-                        <img
-                            src={menu.mimage}
-                            alt="음식 썸네일"
-                            onError={(e) => {
-                                e.target.onerror = null; // 이후 재시도 방지
-                                e.target.src = storeImage; // 기본 이미지 경로로 교체
-                            }}
-                        />
-                        {/*  메뉴 이름 - 메뉴 소개 - 가격 순서로 작성함 */}
-                        <h2>{menu.mname}</h2>
-                        <p>{menu.mintro}</p>
-                        <p>{formatNumberWithCommas(menu.mmoney)}원</p>
-                    </div>
-                ))}
-            </div>
+                            <HeaderProButtonImage src={proButtonImage} alt="프로필 버튼 이미지"  onClick={handleButtonClick}/>
+                            <HeaderProBox isVisible={isBoxVisible}>
+                                <HeaderProButtonClick src={proButtonImageClick} alt="프로필 클릭시 이미지"/>
+                                <HeaderProBoxSection>
+                                    <ProBox>
+                                        <HeaderProImage src={proImage1} alt="프로필 아이콘 이미지"/>
+                                        <HeaderProText>{username}<br/>{userId}</HeaderProText>
+                                    </ProBox>
+                                    <Hr/>
+                                    <BoxLayout>
+                                        <MyproImage src={proImage} alt="내 정보 이미지"/>
+                                        {userId === "admin" ? (
+                                            // 관리자 메인 화면 페이지
+                                            <StyledLink4 to="/management">사용자 관리</StyledLink4>
+                                        ) : (
+                                            // 사용자 메인 화면 페이지
+                                            <StyledLink4 to="/profile">내 정보</StyledLink4>
+                                        )}
+                                    </BoxLayout>
+                                    <Hr2/>
+                                    <BoxLayout>
+                                        <MyproImage src={logoutImage} alt="내 정보 이미지"/>
+                                        <StyledLink4 to="/" onClick={handleLogout}>
+                                            로그아웃
+                                        </StyledLink4>
+                                    </BoxLayout>
+                                </HeaderProBoxSection>
+                            </HeaderProBox>
+                        </Login>
+                    </LoginSignUp>
+                </Header>
 
-            {/* 모달 내용 추가 */}
-            {showModal && selectedMenu && (
-                <div className="menu-modal">
-                    <img
-                        src={selectedMenu.mimage}
-                        alt="음식 썸네일"
-                        onError={(e) => {
-                            e.target.onerror = null; // 이후 재시도 방지
-                            e.target.src = storeImage; // 기본 이미지 경로로 교체
-                        }}
-                    />
-                    <h2>{selectedMenu.mname}</h2>
-                    <p>{selectedMenu.mintro}</p>
-                    <p>{formatNumberWithCommas(selectedMenu.mmoney)}원</p>
-                    <div className="quantity-selector">
-                        <button onClick={decreaseQuantity}>-</button>
-                        <span>{quantity}</span>
-                        <button onClick={increaseQuantity}>+</button>
-                    </div>
-                    {isAuthenticated && (
-                        <button onClick={() => addToOrder(selectedMenu, quantity)}>담기</button>
+                <HeaderImage src={exampleImage} alt="헤더 배경 이미지" />
+
+                <HeaderText1>
+                    <HeaderBackgroundColor></HeaderBackgroundColor>
+                    <HeaderText2>" MatNaMo "</HeaderText2>
+                    <HeaderText3>
+                        <HeaderText4>
+                            <HeaderText5>맛나모( MatNaMo )</HeaderText5>는 "맛있는
+                            나눔(Mate)"을 의미하며,
+                        </HeaderText4>
+                        <HeaderText4>
+                            학생들 간의 음식 나눔을 촉진하는 메시지를 전달합니다.
+                        </HeaderText4>
+                        <HeaderText4>
+                            이 플랫폼은 음식 공동 주문을 통해{" "}
+                            <HeaderText5>배달비와 주문최소금액</HeaderText5>을 절감 할 수
+                            있습니다.
+                        </HeaderText4>
+                    </HeaderText3>
+                </HeaderText1>
+
+                <Menu>
+                    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;
+                    <StyledLink2 to="/board">게시판</StyledLink2>
+                    <MenuText>l</MenuText>
+                    <StyledLink2 to="/notice">공지사항 </StyledLink2>
+                    <MenuText>l</MenuText>
+                    {userId === "admin" ? (
+                        // 관리자 메인 화면 페이지
+                        <StyledLink2 to="/management">사용자 관리</StyledLink2>
+                    ) : (
+                        // 사용자 메인 화면 페이지
+                        <StyledLink2 to="/profile">내 정보</StyledLink2>
                     )}
-                    <button onClick={() => setShowModal(false)}>닫기</button>
-                </div>
-            )}
+                </Menu>
+                <GroupOrderBar3>
+                    <GroupOrderBar2>
+                        <GroupOrderBar4>
+                            <StoreDetailBody>
+                                <StoreDetailStore>
+                                    {/* 가게 이름, 평점, 리뷰수, 최소 주문 금액, 배달 요금,
+                        배달 예상 시간, 영업 시간, 전화번호, 주소 순서로 작성함 */}
+                                    {menus.length > 0 ? <StoreDetailStoreHeader>{menus[0].store.sname}</StoreDetailStoreHeader> : null}
+                                    <StoreDetailStoreTitle>
+                                        {menus.length > 0 ?
+                                            <StoreDetailStoreImage1
+                                                src={menus[0].store.simage}
+                                                alt="가게 썸네일"
+                                                onError={(e) => {
+                                                    e.target.onerror = null; // 이후 재시도 방지
+                                                    e.target.src = storeImage; // 기본 이미지 경로로 교체
+                                                }}
+                                            /> : null}
+                                        <StoreDetailStoreTitle2>
+                                            {menus.length > 0 ? <StoreDetailStoreText1>⭐{menus[0].store.sgrade}</StoreDetailStoreText1> : null}
+                                            {menus.length > 0 ? <StoreDetailStoreText1><StoreDetailStoreText2> 리뷰 :</StoreDetailStoreText2>{formatNumberWithCommas(menus[0].store.sreview)}</StoreDetailStoreText1> : null}
+                                            {menus.length > 0 ? <StoreDetailStoreText1><StoreDetailStoreText2>💰 최소 주문 금액  : </StoreDetailStoreText2>{formatNumberWithCommas(menus[0].store.sorderMinimum)}원</StoreDetailStoreText1> : null}
+                                            {menus.length > 0 ? <StoreDetailStoreText1> <StoreDetailStoreText2>💲  배달 요금 : </StoreDetailStoreText2>{formatNumberWithCommas(menus[0].store.stip)}원</StoreDetailStoreText1> : null}
+                                            {menus.length > 0 ? <StoreDetailStoreText1> <StoreDetailStoreText2> ⏰ 배달 예상 시간 :  </StoreDetailStoreText2>{menus[0].store.stime}</StoreDetailStoreText1> : null}
+                                        </StoreDetailStoreTitle2>
+                                    </StoreDetailStoreTitle>
+                                </StoreDetailStore>
+                            </StoreDetailBody>
+                        </GroupOrderBar4>
+                        <StoreDetailStoreMenu>
+                            <StoreDetailStoreMenuHeader>
+                                {/* 메뉴와 정보에 대한 클릭 이벤트 추가 */}
+                                <StoreDetailStoreMenuHeaderFont onClick={() => { setShowMenu(true); setShowInfo(false); }}>메뉴</StoreDetailStoreMenuHeaderFont>
+                                <StoreDetailStoreMenuHeaderFont onClick={() => { setShowMenu(false); setShowInfo(true); }}>정보</StoreDetailStoreMenuHeaderFont>
+                            </StoreDetailStoreMenuHeader>
 
-            <div>
-                <h2 className="order">주문표</h2>
-                <div className="order-list">
-                    {Object.entries(groupedOrders).map(([userId, group]) => (
-                        <div key={userId}>
-                            <input
-                                type="checkbox"
-                                checked={paymentStatus[userId] === true}
-                                readOnly
-                            />
-                            <span>{group.username} (학번: {userId})</span>
-                            {group.orders.map((order, index) => (
-                                <div key={index}>
-                                    <img
-                                        src={order.mimage}
+                            {/* 메뉴가 보이는 경우 */}
+                            {showMenu && (
+                                <StoreDetailStoreMenuSection className="menu-list">
+                                    {menus.map(menu => (
+                                        <StoreDetailStoreMenuSectionFlex key={menu.menuId} className="menu-item" onClick={() => toggleModal(menu)}>
+                                            <StoreDetailStoreMenuImage1
+                                                src={menu.mimage}
+                                                alt="음식 썸네일"
+                                                onError={(e) => {
+                                                    e.target.onerror = null; // 이후 재시도 방지
+                                                    e.target.src = storeImage; // 기본 이미지 경로로 교체
+                                                }}
+                                            />
+                                            {/*  메뉴 이름 - 메뉴 소개 - 가격 순서로 작성함 */}
+                                            <StoreDetailStoreMenuSection2>
+                                                <h2>{menu.mname}</h2>
+                                                <p>{menu.mintro}</p>
+                                                <p>{formatNumberWithCommas(menu.mmoney)}원</p>
+                                            </StoreDetailStoreMenuSection2>
+                                        </StoreDetailStoreMenuSectionFlex>
+                                    ))}
+                                </StoreDetailStoreMenuSection>
+                            )}
+
+                            {/* 정보가 보이는 경우 */}
+                            {showInfo && (
+                                <StoreDetailStoreMenuSection3>
+                                    <StoreDetailStoreText3>업체 정보</StoreDetailStoreText3>
+                                    {menus.length > 0 ? <StoreDetailStoreText4> <StoreDetailStoreText2>영업 시간 </StoreDetailStoreText2>{menus[0].store.sopen}</StoreDetailStoreText4> : null}
+                                    {menus.length > 0 ? <StoreDetailStoreText4> <StoreDetailStoreText2>☎️ 전화번호 </StoreDetailStoreText2>{menus[0].store.sphone}</StoreDetailStoreText4> : null}
+                                    {menus.length > 0 ? <StoreDetailStoreText4><StoreDetailStoreText2>🏠 주소 </StoreDetailStoreText2>{menus[0].store.saddress}</StoreDetailStoreText4> : null}
+                                </StoreDetailStoreMenuSection3>
+                            )}
+                        </StoreDetailStoreMenu>
+                        {/* 모달 내용 추가 */}
+                        {showModal && selectedMenu && (
+                            <ModalFlexType1>
+                                <div className="menu-modal">
+                                    <StoreDetailStoreMenuImage2
+                                        src={selectedMenu.mimage}
                                         alt="음식 썸네일"
                                         onError={(e) => {
                                             e.target.onerror = null; // 이후 재시도 방지
                                             e.target.src = storeImage; // 기본 이미지 경로로 교체
                                         }}
                                     />
-                                    <span>{order.mname} - 수량: {order.quantity}개 - 총액: {formatNumberWithCommas(order.mmoney * order.quantity)}원</span>
-                                    <button>삭제</button>
+                                    <ModalFlexType1>
+                                        <h2>{selectedMenu.mname}</h2>
+                                        <ModalHr/>
+                                        <ModalFlexType2>
+                                            <ModalFont1>가격</ModalFont1>
+                                            <ModalFont1>{formatNumberWithCommas(selectedMenu.mmoney)}원</ModalFont1>
+                                        </ModalFlexType2>
+                                        <div className="quantity-selector">
+                                            <button onClick={decreaseQuantity}>-</button>
+                                            <span>{quantity}</span>
+                                            <button onClick={increaseQuantity}>+</button>
+                                        </div>
+                                        <ModalHr/>
+                                        <ModalFont2>{selectedMenu.mintro}</ModalFont2>
+                                        <ModalFlexType3>
+                                            {/* "담기" 버튼을 클릭하여 메뉴를 주문표에 추가 */}
+                                            {isAuthenticated && ( // 사용자가 로그인한 경우에만 버튼을 보이도록 함
+                                                <ModalButton onClick={() => addToOrder(selectedMenu, quantity)}>담기</ModalButton>
+                                            )}
+                                            <ModalButton onClick={() => setShowModal(false)}>닫기</ModalButton>
+                                        </ModalFlexType3>
+                                    </ModalFlexType1>
                                 </div>
-                            ))}
-                            {/*
-                            개별적으로 결제한 뒤 모두 결제 성공하면 주문하기 누를 수 있음
-                            결제 시 배달팁도 합산해서 계산됨 - 결제 성공 시 버튼 비활성화
-                            */}
-                            {loggedInUserId == userId && (
-                                <button disabled={paymentStatus[userId] === true}
-                                        onClick={() => handlePayment(userId, group.totalAmount, group.username)}>
-                                    {formatNumberWithCommas(group.totalAmount)}원 결제하기
-                                </button>
-                            )}
-                        </div>
-                    ))}
-                </div>
+                            </ModalFlexType1>
+                        )}
+                    </GroupOrderBar2>
 
-                {menus.length > 0 && totalOrderPrice > 0 && (
-                    <>
-                        <p>배달팁: {formatNumberWithCommas(menus[0].store.stip)}원</p>
-                        <p>주문표 총 가격: {formatNumberWithCommas(totalOrderPrice)}원</p>
-                    </>
-                )}
+                    <div>
+                        <StoreDetailBarFlex2>
+                            <StoreDetailBarAll>
+                                <GroupOrderBar>
+                                    <StoreDetailBarHeader>
+                                        <StoreDetailBarHeaderText className="order">주문표</StoreDetailBarHeaderText>
+                                    </StoreDetailBarHeader>
 
-                {/* 모두 결제성공하고, 배달최소금액 만족, 호스트(방장)만 버튼 누를 수 있다. */}
-                <Link to={`/group-order/delivery/${groupOrderId}`}>
-                    <button disabled={!allPaymentsCompleted() || !isOrganizer || !canPlaceOrder()}>
-                        배달지입력
-                    </button>
-                </Link>
-            </div>
-        </div>
+                                    {menus.length > 0 && totalOrderPrice > 0 && (
+                                        <GroupOrderBarHeader2>
+                                            <GroupOrderBarSection2>배달팁: {formatNumberWithCommas(menus[0].store.stip)}원</GroupOrderBarSection2>
+                                            <GroupOrderBarSection2>주문표 총 가격: {formatNumberWithCommas(totalOrderPrice)}원</GroupOrderBarSection2>
+                                        </GroupOrderBarHeader2>
+                                    )}
+                                    <GroupOrderBarHr/>
+                                    <div className="order-list">
+                                        {Object.entries(groupedOrders).map(([userId, group]) => (
+                                            <div key={userId}>
+                                                <GroupOrderBarHeader1>
+                                                    <input
+                                                        type="checkbox"
+                                                        checked={paymentStatus[userId] === true}
+                                                        readOnly
+                                                    />
+                                                    <span>{group.username} (학번: {userId})</span>
+                                                </GroupOrderBarHeader1>
+                                                {group.orders.map((order, index) => (
+                                                    <GroupOrderPageMenu key={index}>
+                                                        <GroupOrderPageMenuImage1
+                                                            src={order.mimage}
+                                                            alt="음식 썸네일"
+                                                            onError={(e) => {
+                                                                e.target.onerror = null; // 이후 재시도 방지
+                                                                e.target.src = storeImage; // 기본 이미지 경로로 교체
+                                                            }}
+                                                        />
+                                                        <GroupOrderBarSection1>
+                                                            <span>{order.mname} - 수량: {order.quantity}개 - 총액: {formatNumberWithCommas(order.mmoney * order.quantity)}원</span>
+                                                            <GroupOrderBarButtonType2>삭제</GroupOrderBarButtonType2>
+                                                        </GroupOrderBarSection1>
+                                                    </GroupOrderPageMenu>
+                                                ))}
+                                                {/*
+                                        개별적으로 결제한 뒤 모두 결제 성공하면 주문하기 누를 수 있음
+                                        결제 시 배달팁도 합산해서 계산됨 - 결제 완료하면 결제 버튼 비활성화
+                                        */}
+                                                {loggedInUserId == userId && (
+                                                    <GroupOrderBarButtonType1
+                                                        disabled={paymentStatus[userId] === true}
+                                                        onClick={() => handlePayment(userId, group.totalAmount, group.username)}>
+                                                        {formatNumberWithCommas(group.totalAmount)}원 결제하기
+                                                    </GroupOrderBarButtonType1>
+                                                )}
+                                            </div>
+                                        ))}
+                                    </div>
+                                    {/* 모두 결제성공하고, 배달최소금액 만족, 호스트(방장)만 버튼 누를 수 있다. */}
+                                    <Link to={`/group-order/delivery/${groupOrderId}`}>
+                                        <GroupOrderBarButtonType1 disabled={!allPaymentsCompleted() || !isOrganizer || !canPlaceOrder()}>
+                                            배달지입력
+                                        </GroupOrderBarButtonType1>
+                                    </Link>
+                                </GroupOrderBar>
+                            </StoreDetailBarAll>
+                        </StoreDetailBarFlex2>
+                    </div>
+                </GroupOrderBar3>
+
+
+
+
+                <LinkButtonFont1 to={`/`}>
+                    <MainPageFlex>
+                        <HomeImageCss src={HomeImage} alt="홈 이미지"/>
+                        <MypageFont3>메인 홈페이지</MypageFont3>
+                    </MainPageFlex>
+                </LinkButtonFont1>
+
+                <Footer>
+                    <Footer1>
+                        <FooterText>MatNaMo</FooterText>
+                        <FooterText2>이성민(팀장) : 프로젝트 총괄 기획, 웹 퍼블리셔, 프론트엔드</FooterText2>
+                        <FooterText2>우가현(팀원) : 웹 퍼블리셔</FooterText2>
+                        <FooterText2>신민주(팀원) : 백엔드, DB설계</FooterText2>
+                        <FooterText2>이지훈(팀원) : 웹 크롤링, 인공지능</FooterText2>
+
+                        <FooterImages>
+                            <FooterImage src={facebookImage} alt="페이스북 이미지"></FooterImage>
+                            <FooterImage src={instagramImage} alt="인스타그램 이미지"></FooterImage>
+                            <FooterImage src={youtubeImage} alt ="유튜브 이미지"></FooterImage>
+                        </FooterImages>
+                        <Hr2></Hr2>
+                        <FooterText2>@2023 Capstone Project MatNaMo</FooterText2>
+                    </Footer1>
+                </Footer>
+            </HomeBody>
         </>
     );
 }
