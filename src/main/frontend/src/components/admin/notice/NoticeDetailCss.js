@@ -54,8 +54,8 @@ export const NoticeShowHeaderType=styled.div`
   font-weight: 700;
   font-size: 36px;
   color: black;
-  margin-top: 50px;
-  margin-bottom:100px;
+  margin-top: 5px;
+  margin-bottom:15px;
 `
 
 export const NoticeShowSectionType=styled.div`
@@ -94,8 +94,10 @@ export const NoticeShowButtonType2=styled.button`
 `
 
 export const HeaderFont = styled.p`
-  font-weight: 700;
-  font-size: 36px;
+  color: gray;
+  font-weight: 400;
+  font-size: 20px;
+  margin-top: -10px; /* 위로 10px 이동 */
 `;
 
 

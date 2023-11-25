@@ -76,16 +76,14 @@ const StyledNoticeShow = ({ }) => {
             {notice ? (
                 <BodyWrapper2>
                     <HeaderFont>공지사항</HeaderFont>
+                    <NoticeShowHeaderType>{notice.title}</NoticeShowHeaderType>
                     <TableFontType2>
                         <TableImage1 src={ProImage2} alt="프로필 아이콘 이미지"/>
                         <Tdtype1>{notice.user.username}</Tdtype1>
                     </TableFontType2>
                     <Tdtype4>{extractDate(notice.createdAt)} {new Date(notice.createdAt).toLocaleTimeString('en-US', { hour12: false })}</Tdtype4>
                     <NoticeShowType>
-                        <NoticeShowHeaderType>{notice.title}</NoticeShowHeaderType>
-
                         <NoticeShowSectionType>{notice.content}</NoticeShowSectionType>
-
                     </NoticeShowType>
                 </BodyWrapper2>
             ) : (
