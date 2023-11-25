@@ -149,6 +149,8 @@ export const GroupOrderDetailText3 =styled.span`
     font-size: 15px;
     font-weight: 700;
     color: gray;
+    margin-left: -240px;
+    margin-top: -150px;
 `
 export const GroupOrderDetailText4 =styled.p`
     font-size: 15px;

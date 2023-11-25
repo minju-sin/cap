@@ -37,7 +37,7 @@ import {
     GroupOrderDetailText6,
     GroupOrderDetailText7, GroupOrderDetailText8,
     GroupOrderDetailTitle,
-    GroupOrderDetailTitle2
+    GroupOrderDetailTitle2, GroupOrderPageMenuImage1
 } from "./GroupOrderPageCss"
 import StyledLoginAfter from "../style/Header/StyledLoginAfter";
 import StyledHeaderHome from "../style/Header/StyledHeaderHome";
@@ -221,15 +221,18 @@ function GroupOrderDetail() {
                                             <GroupOrderDetailText2_1>{group.username}</GroupOrderDetailText2_1>
                                             {group.orders.map((order, index) => (
                                                 <div key={index}>
-                                                    {/*<GroupOrderPageMenuImage1*/}
-                                                    {/*    src={order.mimage}*/}
-                                                    {/*    alt="음식 썸네일"*/}
-                                                    {/*    onError={(e) => {*/}
-                                                    {/*        e.target.onerror = null; // 이후 재시도 방지*/}
-                                                    {/*        e.target.src = storeImage; // 기본 이미지 경로로 교체*/}
-                                                    {/*    }}*/}
-                                                    {/*/>*/}
-                                                    <GroupOrderDetailText3>{order.mname} - 수량: {order.quantity}개 - 총액: <GroupOrderDetailText5>{formatNumberWithCommas(order.mmoney * order.quantity)}원</GroupOrderDetailText5></GroupOrderDetailText3>
+                                                    <GroupOrderPageMenuImage1
+                                                        src={order.mimage}
+                                                        alt="음식 썸네일"
+                                                        onError={(e) => {
+                                                            e.target.onerror = null; // 이후 재시도 방지
+                                                            e.target.src = storeImage; // 기본 이미지 경로로 교체
+                                                        }}
+                                                    />
+                                                    <GroupOrderDetailText3>
+                                                        {order.mname} 수량: {order.quantity}개
+                                                        <GroupOrderDetailText5>{formatNumberWithCommas(order.mmoney * order.quantity)}원</GroupOrderDetailText5>
+                                                    </GroupOrderDetailText3>
                                                 </div>
                                             ))}
                                             <GroupOrderDetailText4>{group.username}님의 주문 총액(배달팁 포함): <GroupOrderDetailText5>{formatNumberWithCommas(group.totalAmount)}원</GroupOrderDetailText5></GroupOrderDetailText4>
@@ -247,7 +250,7 @@ function GroupOrderDetail() {
             </GroupOrderBar4>
 
             <GroupOrderDetailBox1 className="delivery-information">
-                <GroupOrderDetailHostBox1_1>호스트 정보</GroupOrderDetailHostBox1_1>
+                <GroupOrderDetailHostBox1_1>주문자 정보</GroupOrderDetailHostBox1_1>
                 <GroupOrderDetailHostBox3>
                     <GroupOrderDetailText8>이름</GroupOrderDetailText8>
                     <GroupOrderDetailInput type="text" value={username} readOnly />
@@ -255,7 +258,7 @@ function GroupOrderDetail() {
                     <GroupOrderDetailInput type="text" value={phone} readOnly />
                 </GroupOrderDetailHostBox3>
 
-                <GroupOrderDetailHostBox>배달 정보</GroupOrderDetailHostBox>
+                <GroupOrderDetailHostBox>배달지</GroupOrderDetailHostBox>
                 <GroupOrderDetailHostBox3>
                     <GroupOrderDetailText8>주소</GroupOrderDetailText8>
                     <GroupOrderDetailHostBox2>
@@ -272,10 +275,10 @@ function GroupOrderDetail() {
                     />
                 </GroupOrderDetailHostBox3>
 
-                <GroupOrderDetailHostBox>주문시 요청사항</GroupOrderDetailHostBox>
+                <GroupOrderDetailHostBox>요청 사항</GroupOrderDetailHostBox>
                 <GroupOrderDetailHostBox3_1>
                     <GroupOrderDetailInput3
-                        placeholder=" 요청 사항"
+                        placeholder=" 요청 사항을 적어주세요."
                         type="text"
                         value={specialInstructions}
                         onChange={(e) => setSpecialInstructions(e.target.value)}
