@@ -111,24 +111,9 @@ const StyledNoticeDetail = ({ }) => {
                     }}
                 ></Content_Textarea_1>
 
-                <ErrorText_Wrapper>
-                    <FontOptionOne>주소</FontOptionOne>
-                    {/*<ErrorText>{errorAddress}</ErrorText>*/}
-                </ErrorText_Wrapper>
 
-                <AddressMainOption>
-                    <Content_Input_3
-                        placeholder="07250"
-                        // onChange={addressOnChange}
-                    ></Content_Input_3>
-                    <Button_1>우편번호 검색</Button_1>
-                </AddressMainOption>
-                <Content_Input_1></Content_Input_1>
-                <Content_Input_1></Content_Input_1>
-                <ErrorText_Wrapper>
-                    <FontOptionOne>유튜브</FontOptionOne>
-                    {/*<ErrorText>{errorYoutubeLink}</ErrorText>*/}
-                </ErrorText_Wrapper>
+                <FontOptionOne>유튜브</FontOptionOne>
+                {/*<ErrorText>{errorYoutubeLink}</ErrorText>*/}
 
                 <Content_Input_2
                     placeholder="링크를 복사해주세요."

@@ -34,7 +34,6 @@ const StyledNoticeDetail = ({ }) => {
         }
     }
 
-
     const { noticeId } = useParams(); // URL에서 noticeId를 가져옴
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
@@ -65,7 +64,8 @@ const StyledNoticeDetail = ({ }) => {
         } else {
             setErrorSection("");
         }
-        if (title1 && section) {
+
+        if (title1 || section) {
             Swal.fire({
                 title: '수정 성공!',
                 text: '공지사항 수정하였습니다.',
@@ -133,24 +133,9 @@ const StyledNoticeDetail = ({ }) => {
 
                 ></Content_Textarea_1>
 
-                <ErrorText_Wrapper>
-                    <FontOptionOne>주소</FontOptionOne>
-                    {/*<ErrorText>{errorAddress}</ErrorText>*/}
-                </ErrorText_Wrapper>
 
-                <AddressMainOption>
-                    <Content_Input_3
-                        placeholder="07250"
-                        // onChange={addressOnChange}
-                    ></Content_Input_3>
-                    <Button_1>우편번호 검색</Button_1>
-                </AddressMainOption>
-                <Content_Input_1></Content_Input_1>
-                <Content_Input_1></Content_Input_1>
-                <ErrorText_Wrapper>
-                    <FontOptionOne>유튜브</FontOptionOne>
-                    {/*<ErrorText>{errorYoutubeLink}</ErrorText>*/}
-                </ErrorText_Wrapper>
+                <FontOptionOne>유튜브</FontOptionOne>
+                {/*<ErrorText>{errorYoutubeLink}</ErrorText>*/}
 
                 <Content_Input_2
                     placeholder="링크를 복사해주세요."
