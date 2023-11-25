@@ -60,7 +60,7 @@ export const NoticeShowHeaderType=styled.div`
 
 export const NoticeShowSectionType=styled.div`
   font-weight: 400;
-  font-size: 16px;
+  font-size: 18px;
   color: black;
  margin-bottom: 100px; 
 `
