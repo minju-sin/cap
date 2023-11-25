@@ -214,7 +214,7 @@ function formatNumberWithCommas(number) {
 
 function StoreDetail({ match }) {
     const [isAuthenticated, setIsAuthenticated] = useState(false); // 사용자 로그인 상태
-    
+
     const [menus, setMenus] = useState([]);
     const [showModal, setShowModal] = useState(false); // 모달 상태 변수 추가
     const [selectedMenu, setSelectedMenu] = useState(null); // 선택된 메뉴 정보 (모달창으로 보여줌)
