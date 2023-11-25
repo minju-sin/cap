@@ -11,42 +11,9 @@ import axios from 'axios';
 import Swal from "sweetalert2";
 import { Map, MapMarker } from "react-kakao-maps-sdk";
 import {
-    HomeBody,
-    Header,
-    Logo,
-    Login,
-    LoginSignUp,
-    StyledLink2,
-    HeaderImage,
-    HeaderText1,
-    HeaderText2,
-    HeaderBackgroundColor,
-    HeaderText3,
-    HeaderText4,
-    HeaderText5,
-    Menu,
-    MenuText,
-    HeaderProImage,
-    HeaderProText,
-    HeaderProButtonImage,
-    HeaderProBox,
-    HeaderProButtonClick,
-    HeaderProBoxSection,
-    ProBox,
-    Hr,
-    StyledLink4,
-    MyproImage,
-    BoxLayout,
-    Hr2,
-    HomeLogoImage
+    HomeBody
 } from "../../HomeCss";
 
-import exampleImage from "../../images/HomeHeaderImage.jpg";
-import proImage1 from "../../images/main_pro.png";
-import proButtonImage from "../../images/main_pro_button.png";
-import proButtonImageClick from "../../images/pro_img_click.png";
-import proImage from "../../images/myPro_Image.png"
-import logoutImage from "../../images/logout_Image.png"
 import BoardShowImage1 from "../../images/BoardShowImage1.png"
 import BoardShowImage3 from "../../images/BoardShowImage3.png"
 import BoardShowImage2 from "../../images/BoardShowImage2TextBox.png"
@@ -74,21 +41,22 @@ import ProImage2 from "../../images/MyPageImage.png";
 import {NoticeShowButtonType, NoticeShowButtonType2, NoticeShowButtonType3} from "../../admin/notice/NoticeDetailCss";
 import StyledFooter from "../../style/StyledFooter";
 import StyledLogInBefore from "../../style/Header/StyledLogInBefore";
+import StyledLoginAfter from "../../style/Header/StyledLoginAfter";
+import StyledHeaderHome from "../../style/Header/StyledHeaderHome";
+import StyledHeaderAfter from "../../style/Header/StyledHeaderAfter";
+import StyledArrow from "../../style/StyledArrow";
+import StyledHeaderBefore from "../../style/Header/StyledHeaderBefore";
+import useAuthStatus from "../../style/Backend/useAuthStatus";
 
 function BoardShow() {
     const { articleId } = useParams();
     const [article, setArticle] = useState(null);
     const [isLoginArticle, setIsLoginArticle] = useState(false); // 사용자 로그인 아이디와 게시글 작성자 아이디 확인
     const [mapCoords, setMapCoords] = useState({ lat: 37.555055534888176, lng: 126.97092591663251  }); // 초기 좌표 상태 정의 (서울여)
-    const [isAuthenticated, setIsAuthenticated] = useState(false);
-    const [userId, setUserId] = useState("");
-    const [username, setUsername] = useState("");
-    const [isBoxVisible, setBoxVisibility] = useState(true);
+    const {isAuthenticated } = useAuthStatus();
+
     const [isBoxVisible2, setBoxVisibility2] = useState(true);
 
-    const handleButtonClick = () => {
-        setBoxVisibility(!isBoxVisible);
-    };
 
     const handleButtonClick2 = () => {
         setBoxVisibility2(!isBoxVisible2);
@@ -99,57 +67,7 @@ function BoardShow() {
         return datetime.split('T')[0];
     };
 
-    useEffect(() => {
-        // 서버로 현재 사용자의 인증 상태 확인을 위한 요청 보내기
-        axios
-            .get("/check-auth")
-            .then((response) => {
-                if (response.data === "authenticated") {
-                    setIsAuthenticated(true);
 
-                    // 사용자 ID를 가져와 상태에 저장
-                    axios
-                        .get("/get-user-id")
-                        .then((response) => {
-                            setUserId(response.data);
-                        })
-                        .catch((error) => {
-                            // 에러 처리
-                        });
-
-                    // 사용자 ID를 가져와 상태에 저장
-                    axios
-                        .get("/get-user-name")
-                        .then((response) => {
-                            setUsername(response.data);
-                        })
-                        .catch((error) => {
-                            // 에러 처리
-                        });
-                } else {
-                    setIsAuthenticated(false);
-                }
-            })
-            .catch((error) => {
-                // 요청 실패 처리
-            });
-    }, []);
-
-    // 로그아웃
-    const handleLogout = () => {
-        // 서버의 /logout 엔드포인트로 GET 요청을 보내 로그아웃을 수행
-        axios
-            .get("/logout")
-            .then((response) => {
-                // 로그아웃 성공 시 클라이언트 상태 초기화 및 원하는 작업 수행
-                setIsAuthenticated(false);
-                setUserId("");
-            })
-            .catch((error) => {
-                // 오류 처리
-                console.error("로그아웃 중 오류가 발생했습니다:", error);
-            });
-    };
 
     useEffect(() => {
         // 게시글 상세 정보를 가져오는 API 엔드포인트로 요청 보내기
@@ -260,91 +178,16 @@ function BoardShow() {
     return (
         <div>{isAuthenticated ? (
             <HomeBody>
-                <Header>
-                    <HomeLogoImage>
-                        {/*<LogoImage2 src={logoImage2} alt="프로필 아이콘 이미지"/>*/}
-                        <Logo>MatNaMo</Logo>
-                    </HomeLogoImage>
-                    <LoginSignUp>
-                        <Login>
-                            <HeaderProImage src={proImage1} alt="프로필 아이콘 이미지"/>
-                        </Login>
-                        <Login>
+                <StyledLoginAfter/>
+                <StyledHeaderHome/>
+                <StyledHeaderAfter/>
 
-                            <HeaderProButtonImage src={proButtonImage} alt="프로필 버튼 이미지"  onClick={handleButtonClick}/>
-                            <HeaderProBox isVisible={isBoxVisible}>
-                                <HeaderProButtonClick src={proButtonImageClick} alt="프로필 클릭시 이미지"/>
-                                <HeaderProBoxSection>
-                                    <ProBox>
-                                        <HeaderProImage src={proImage1} alt="프로필 아이콘 이미지"/>
-                                        <HeaderProText>{username}<br/>{userId}</HeaderProText>
-                                    </ProBox>
-                                    <Hr/>
-                                    <BoxLayout>
-                                        <MyproImage src={proImage} alt="내 정보 이미지"/>
-                                        {userId === "admin" ? (
-                                            // 관리자 메인 화면 페이지
-                                            <StyledLink4 to="/management">사용자 관리</StyledLink4>
-                                        ) : (
-                                            // 사용자 메인 화면 페이지
-                                            <StyledLink4 to="/profile">내 정보</StyledLink4>
-                                        )}
-                                    </BoxLayout>
-                                    <Hr2/>
-                                    <BoxLayout>
-                                        <MyproImage src={logoutImage} alt="로그아웃 이미지"/>
-                                        <StyledLink4 to="/" onClick={handleLogout}>
-                                            로그아웃
-                                        </StyledLink4>
-                                    </BoxLayout>
-
-
-                                </HeaderProBoxSection>
-                            </HeaderProBox>
-                        </Login>
-                    </LoginSignUp>
-                </Header>
-
-                <HeaderImage src={exampleImage} alt="헤더 배경 이미지" />
-
-                <HeaderText1>
-                    <HeaderBackgroundColor></HeaderBackgroundColor>
-                    <HeaderText2>" MatNaMo "</HeaderText2>
-                    <HeaderText3>
-                        <HeaderText4>
-                            <HeaderText5>맛나모( MatNaMo )</HeaderText5>는 "맛있는
-                            나눔(Mate)"을 의미하며,
-                        </HeaderText4>
-                        <HeaderText4>
-                            학생들 간의 음식 나눔을 촉진하는 메시지를 전달합니다.
-                        </HeaderText4>
-                        <HeaderText4>
-                            이 플랫폼은 음식 공동 주문을 통해{" "}
-                            <HeaderText5>배달비와 주문최소금액</HeaderText5>을 절감 할 수
-                            있습니다.
-                        </HeaderText4>
-                    </HeaderText3>
-                </HeaderText1>
-
-                <Menu>
-                    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;
-                    <StyledLink2 to="/board">게시판</StyledLink2>
-                    <MenuText>|</MenuText>
-                    <StyledLink2 to="/notice">공지사항 </StyledLink2>
-                    <MenuText>|</MenuText>
-                    {userId === "admin" ? (
-                        // 관리자 메인 화면 페이지
-                        <StyledLink2 to="/management">사용자 관리</StyledLink2>
-                    ) : (
-                        // 사용자 메인 화면 페이지
-                        <StyledLink2 to="/profile">내 정보</StyledLink2>
-                    )}
-                </Menu>
                 <Body>
                     <BodyWrapper2>
-                        <HeaderFont>게시글</HeaderFont>
                         {article ? (
                             <div>
+                                <HeaderFont>게시글</HeaderFont>
+                                <BoardShowHeaderType>{article.title}</BoardShowHeaderType>
                                 <TableFontType2>
                                     <TableImage1 src={ProImage2} alt="프로필 아이콘 이미지"/>
                                     <Tdtype1>{article.user.username}</Tdtype1>
@@ -357,27 +200,26 @@ function BoardShow() {
                                 </TableFontType2>
                                 <Tdtype4>{extractDate(article.createdAt)} {new Date(article.createdAt).toLocaleTimeString('en-US', { hour12: false })}</Tdtype4>
                                 <BoardShowType>
-                                    <BoardShowHeaderType>{article.title}</BoardShowHeaderType>
                                     <BoardShowSectionType>
                                         <BoardShowSectionType>{article.content}</BoardShowSectionType>
                                         <TableFontType3 >
                                             <TableImage3 src={BoardShowImage1} alt="위치 아이콘 이미지"/>
                                             <BoardShowSectionType>배달 도착 위치 : {article.address}</BoardShowSectionType>
                                         </TableFontType3>
+
                                         {/* 도착 위치 표시 디자인 수정 해주세요 */}
+                                        <Map
+                                            center={mapCoords}
+                                            style={{ width: "100%", height: "360px" }}
+                                        >
+                                            <MapMarker position={mapCoords}></MapMarker>
+                                        </Map>
+
                                         <BoardShowSectionType3>
                                             <AType1 href={article.orderLink} onClick={(event) => handleJoinGroupOrder(event)} rel="noopener noreferrer">
                                                 주문 참가하기</AType1>
                                         </BoardShowSectionType3>
                                     </BoardShowSectionType>
-
-                                    {/* 도착 위치 표시 디자인 수정 해주세요 */}
-                                    <Map
-                                        center={mapCoords}
-                                        style={{ width: "100%", height: "360px" }}
-                                    >
-                                        <MapMarker position={mapCoords}></MapMarker>
-                                    </Map>
 
                                 </BoardShowType>
                                 {/* 제목, 작성자, 작성일, 그룹주문링크, 위치, 내용 순서로 나열 */}
@@ -415,48 +257,15 @@ function BoardShow() {
                     </NoticeShowButtonType3>
                 )}
 
+                <StyledArrow/>
                 <StyledFooter/>
-
             </HomeBody>
         ) : (
             <HomeBody>
                 <StyledLogInBefore/>
+                <StyledHeaderHome/>
+                <StyledHeaderBefore/>
 
-                <HeaderImage src={exampleImage} alt="헤더 배경 이미지" />
-
-                <HeaderText1>
-                    <HeaderBackgroundColor></HeaderBackgroundColor>
-                    <HeaderText2>" MatNaMo "</HeaderText2>
-                    <HeaderText3>
-                        <HeaderText4>
-                            <HeaderText5>맛나모( MatNaMo )</HeaderText5>는 "맛있는
-                            나눔(Mate)"을 의미하며,
-                        </HeaderText4>
-                        <HeaderText4>
-                            학생들 간의 음식 나눔을 촉진하는 메시지를 전달합니다.
-                        </HeaderText4>
-                        <HeaderText4>
-                            이 플랫폼은 음식 공동 주문을 통해{" "}
-                            <HeaderText5>배달비와 주문최소금액</HeaderText5>을 절감 할 수
-                            있습니다.
-                        </HeaderText4>
-                    </HeaderText3>
-                </HeaderText1>
-
-                <Menu>
-                    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;
-                    <StyledLink2 to="/board">게시판</StyledLink2>
-                    <MenuText>|</MenuText>
-                    <StyledLink2 to="/notice">공지사항 </StyledLink2>
-                    <MenuText>|</MenuText>
-                    {userId === "admin" ? (
-                        // 관리자 메인 화면 페이지
-                        <StyledLink2 to="/management">사용자 관리</StyledLink2>
-                    ) : (
-                        // 사용자 메인 화면 페이지
-                        <StyledLink2 to="/profile">내 정보</StyledLink2>
-                    )}
-                </Menu>
                 <Body>
                     <BodyWrapper2>
                         <HeaderFont>게시글</HeaderFont>
@@ -533,8 +342,8 @@ function BoardShow() {
                     </NoticeShowButtonType>
                 )}
 
+                <StyledArrow/>
                 <StyledFooter/>
-
             </HomeBody>
         )}
         </div>

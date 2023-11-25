@@ -184,8 +184,10 @@ export const BodyWrapper2 = styled.div`
 
 
 export const HeaderFont = styled.p`
-  font-weight: 700;
-  font-size: 36px;
+  color: gray;
+  font-weight: 400;
+  font-size: 20px;
+  margin-top: -60px; 
 `;
 
 export const SectionWriterPW_Wrapper = styled.div`
@@ -468,14 +470,15 @@ export const BoardShowHeaderType=styled.div`
   font-weight: 700;
   font-size: 36px;
   color: black;
-  margin-top: 50px;
-  margin-bottom:100px;
+  margin-top: 0px;
+  margin-bottom:30px;
 `
 
 export const BoardShowSectionType=styled.div`
   font-weight: 400;
-  font-size: 16px;
+  font-size: 18px;
   color: black;
+  margin-top: 10px;
  margin-bottom: 100px; 
 `
 
