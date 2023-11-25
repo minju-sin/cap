@@ -129,13 +129,18 @@ function Store() {
                         <StoreMenuHeader>
                             <StoreMenuHeaderType>{category} 카테고리 가게 목록</StoreMenuHeaderType>
                             <BoardMainInputImageBox1>
-                                <BoardMainInputImage1 src={NoticeImage} alt="돋보기 이미지"/>
+                                <BoardMainInputImage1 onClick={handleSearch} src={NoticeImage} alt="돋보기 이미지"/>
                             </BoardMainInputImageBox1>
                             <StoreInputType1
                                 type="text"
                                 placeholder="제목을 검색해주세요."
                                 value={searchTerm}
                                 onChange={(e) => setSearchTerm(e.target.value)}
+                                onKeyPress={(e) => {
+                                    if (e.key === 'Enter') {    //  Enter 눌러도 검색됨
+                                        handleSearch();
+                                    }
+                                }}
                             />
                             <StoreInputType2
                                 type="text"
@@ -197,13 +202,18 @@ function Store() {
                         <StoreMenuHeader>
                             <StoreMenuHeaderType>{category} 카테고리 가게 목록</StoreMenuHeaderType>
                             <BoardMainInputImageBox1>
-                                <BoardMainInputImage1 src={NoticeImage} alt="돋보기 이미지"/>
+                                <BoardMainInputImage1 onClick={handleSearch} src={NoticeImage} alt="돋보기 이미지"/>
                             </BoardMainInputImageBox1>
                             <StoreInputType1
                                 type="text"
                                 placeholder="제목을 검색해주세요."
                                 value={searchTerm}
                                 onChange={(e) => setSearchTerm(e.target.value)}
+                                onKeyPress={(e) => {
+                                    if (e.key === 'Enter') {    //  Enter 눌러도 검색됨
+                                        handleSearch();
+                                    }
+                                }}
                             />
                             <StoreInputType2
                                 type="text"
