@@ -19,13 +19,6 @@ const StyledNoticeDetail = ({ }) => {
     const [errorTitle, setErrorTitle] = useState("");
     const [errorSection, setErrorSection] = useState("");
 
-
-
-
-
-
-
-
     const handleSubmit = () => {
         const notice = { title, content };
 

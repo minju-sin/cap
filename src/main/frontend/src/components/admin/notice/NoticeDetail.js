@@ -1,16 +1,14 @@
 //  src/components/admin/notice/NoticeDetail.js
 /*  공지사항 작성 페이지 */
 
-import React, {useState} from 'react';
-import axios from 'axios';
+import React from 'react';
 import {
     HomeBody
 } from "../../HomeCss";
 import {
-    BodyWrapper,
-    Button_2
+    BodyWrapper
 } from "./NoticeDetailCss";
-import Swal from "sweetalert2";
+
 import StyledFooter from "../../style/StyledFooter";
 import StyledLoginAfter from "../../style/Header/StyledLoginAfter";
 import StyledHeaderHome from "../../style/Header/StyledHeaderHome";
