@@ -51,6 +51,7 @@ export const GroupOrderBarButtonType2 = styled.button`
   cursor: pointer;
   border: none;
   margin-left: 250px;
+  border-radius: 5px;
 `
 export const  GroupOrderBarHeader1 = styled.div`
   box-sizing: border-box;
