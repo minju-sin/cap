@@ -4,11 +4,12 @@ import storeImage from "../images/storeImage.png";
 import React from "react";
 
 export const GroupOrderPageMenuImage1=styled.img`
-  width: 150px;
-  height: 150px;
+  width: 80px;
+  height: 80px;
   object-fit: contain;
   background-color: darkgray;
-  cursor: pointer
+  cursor: pointer;
+ margin-right: 260px;
 `
 
 export const GroupOrderPageMenu =styled.div`
@@ -40,15 +41,16 @@ export const GroupOrderBarButtonType1 = styled.button`
   border: none;
 `
 export const GroupOrderBarButtonType2 = styled.button`
-  width: 200px;
-  height: 40px;
+  width: 20px;
+  height: 20px;
   background-color: #E49400;
   color: white;
-  margin: 10px;
+  margin: 5px;
   font-size: 15px;
   font-weight: 600;
   cursor: pointer;
   border: none;
+  margin-left: 250px;
 `
 export const  GroupOrderBarHeader1 = styled.div`
   box-sizing: border-box;
@@ -59,6 +61,7 @@ export const  GroupOrderBarHeader1 = styled.div`
   color: gray;
   font-weight: 600;
   font-size: 16px;
+  margin-right: 120px;
 `
 export const  GroupOrderBarHeader2 = styled.div`
   box-sizing: border-box;
@@ -80,8 +83,9 @@ export const  GroupOrderBarSection1 = styled.div`
   align-items: center;
   justify-content: center;
   width: 300px;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 500;
+  margin-top: -90px;
 `
 export const  GroupOrderBarSection2 = styled.div`
   box-sizing: border-box;
