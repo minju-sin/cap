@@ -49,8 +49,8 @@ function formatNumberWithCommas(number) {
 function Store() {
 
     const [isAuthenticated, setIsAuthenticated] = useState(false);
-    const [userId, setUserId] = useState("");
-    const [username, setUsername] = useState("");
+    const [ setUserId] = useState("");
+    const [ setUsername] = useState("");
 
     const { category } = useParams();
     const [stores, setStores] = useState([]);
@@ -177,6 +177,7 @@ function Store() {
                             </StoreMenuSectionType1>
 
                             <StyledMenuBar/>
+
                         </StoreMenuBar>
                     </StoreSection1>
 
@@ -244,6 +245,7 @@ function Store() {
                             </StoreMenuSectionType1>
 
                             <StyledMenuBar/>
+
                         </StoreMenuBar>
                     </StoreSection1>
 
