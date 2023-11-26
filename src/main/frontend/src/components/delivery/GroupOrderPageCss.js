@@ -39,6 +39,16 @@ export const GroupOrderBarButtonType1 = styled.button`
   font-weight: 600;
   cursor: pointer;
   border: none;
+
+ &:hover {
+  background-color: red; /* 마우스 오버시 색상 변경 */
+ }
+
+ &:disabled {
+  background-color: #C0C0C0; /* 비활성화 상태에서의 배경 색상 */
+  color: #6C757D; /* 비활성화 상태에서의 글자 색상 */
+  cursor: not-allowed; /* 커서 스타일 변경 */
+ }
 `
 export const GroupOrderBarButtonType2 = styled.button`
   width: 20px;
