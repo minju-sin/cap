@@ -73,8 +73,10 @@ export const StyledLink2 = styled(Link)`
 `;
 
 export const StyledLink3 = styled(Link)`
- text-decoration: none;
- color: white;
+  text-decoration: none;
+  color: white;
+  width: 100%;
+  height: 100%;
 `;
 
 export const StyledLink4 = styled(Link)`
@@ -260,7 +262,6 @@ export const ContentsText4 = styled.div`
  left: 30px;
  z-index: 3;
  text-shadow: 1px 1px 5px #000000;
-
 `;
 
 export const ContentsText5 = styled.div``;

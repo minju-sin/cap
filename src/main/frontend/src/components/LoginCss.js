@@ -1,11 +1,23 @@
 import styled from "@emotion/styled";
+import { keyframes } from "@emotion/react"; // 여기를 수정
 import { Link } from "react-router-dom";
+
+const zoomIn = keyframes`
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.1);
+  }
+`;
+
 export const Body = styled.div`
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
+  overflow: hidden;
 `;
 export const JoinBodyWapper = styled.div``;
 
@@ -14,7 +26,7 @@ export const BodyWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  margin: 0px 50px 50px 50px;
+  margin: 0px 50px 15px 50px;
   border: 1px solid rgba(0, 0, 0, 20%);
   border-radius: 10px;
   width: 500px;
@@ -22,6 +34,13 @@ export const BodyWrapper = styled.div`
   box-shadow: 3px 3px 5px #bdbdbd;
   background-color: white;
 `;
+
+export const Form1 =styled.form`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+`
 
 export const TitleLogin = styled.h1`
   margin-bottom: 20px;
@@ -204,15 +223,37 @@ export  const FooterText2 = styled.div`
   font-weight: 600;
   font-size: 12px;
   color:#828282;
-
 `
-
+export  const FooterText3 = styled.div`
+  font-weight: 600;
+  font-size: 12px;
+  color:#828282;
+  margin-bottom: 100px;
+`
 export const LogoImage1 = styled.img`
   margin: 40px;
   padding: 0px;
   object-fit: cover; /* 이미지를 자르지 않고 확대/축소하여 채우기 */
   width: 253px;
   height: 180px;
-  
-  
+`;
+
+export const BodyGrient=styled.div`
+  width: 100%;
+  height: 955px;
+  //border: 1px solid black;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-image: linear-gradient(rgba(228,148,0,20%),rgba(228,148,0,60%),rgba(228,148,0,100%));
+  position: absolute;
+`
+export const LoginBackGroundImage = styled.img`
+  margin: 0px;
+  padding: 0px;
+  width: 100%;
+  height: 955px;
+  object-fit: cover; /* 이미지를 자르지 않고 확대/축소하여 채우기 */
+  animation: ${zoomIn} 3s alternate forwards; /* 3초 동안 확대/축소 한 번만 반복 후 유지 */
 `;

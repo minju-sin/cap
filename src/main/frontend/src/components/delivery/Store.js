@@ -127,7 +127,7 @@ function Store() {
 
                     <StoreSection1>
                         <StoreMenuHeader>
-                            <StoreMenuHeaderType>{category} 카테고리 가게 목록</StoreMenuHeaderType>
+                            <StoreMenuHeaderType>{category}</StoreMenuHeaderType>
                             <BoardMainInputImageBox1>
                                 <BoardMainInputImage1 onClick={handleSearch} src={NoticeImage} alt="돋보기 이미지"/>
                             </BoardMainInputImageBox1>
@@ -200,7 +200,7 @@ function Store() {
 
                     <StoreSection1>
                         <StoreMenuHeader>
-                            <StoreMenuHeaderType>{category} 카테고리 가게 목록</StoreMenuHeaderType>
+                            <StoreMenuHeaderType>{category}</StoreMenuHeaderType>
                             <BoardMainInputImageBox1>
                                 <BoardMainInputImage1 onClick={handleSearch} src={NoticeImage} alt="돋보기 이미지"/>
                             </BoardMainInputImageBox1>

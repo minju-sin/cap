@@ -15,48 +15,6 @@ import Swal from "sweetalert2";
 import storeImage from "../images/storeImage.png";
 import {
     HomeBody,
-    Header,
-    Logo,
-    Login,
-    SignUp,
-    LoginSignUp,
-    StyledLink1,
-    StyledLink2,
-    HeaderImage,
-    HeaderText1,
-    HeaderText2,
-    HeaderBackgroundColor,
-    HeaderText3,
-    HeaderText4,
-    HeaderText5,
-    Menu,
-    MenuText,
-    ContentsText1,
-    ContentsText2,
-    ContentsText3,
-    ContentsText4,
-    Contents,
-    ContentsBox,
-    ContentsImage,
-    HeaderProImage,
-    StyledLink3,
-    HeaderProText,
-    HeaderProButtonImage,
-    HeaderProBox,
-    HeaderProButtonClick,
-    HeaderProBoxSection,
-    ProBox,
-    Hr,
-    StyledLink4,
-    MyproImage,
-    BoxLayout,
-    Hr2,
-    Footer,
-    FooterText,
-    FooterText2,
-    FooterImage,
-    FooterImages,
-    Footer1, LogoImage2, HomeLogoImage
 } from "../HomeCss";
 
 import {
@@ -72,20 +30,9 @@ import {
     BoardMainTd,
     BoardMainTh,
     BoardMainThead,
-    BoardMainTr, WriteButton2, WriteImage3, Pagination, TableImage4
+    BoardMainTr, WriteButton2, WriteImage3, Pagination, TableImage4, BoardButton, PageFlex1
 } from "../user/board/BoardCss";
 
-
-import exampleImage from "../images/HomeHeaderImage.jpg";
-import proImage1 from "../images/main_pro.png";
-import proButtonImage from "../images/main_pro_button.png";
-import proButtonImageClick from "../images/pro_img_click.png";
-import proImage from "../images/myPro_Image.png"
-import logoutImage from "../images/logout_Image.png"
-import facebookImage from "../images/facebookImage.png"
-import instagramImage from "../images/Instagram.png"
-import youtubeImage from "../images/Youtube.png"
-import logoImage2 from "../images/LogoImage2.png";
 import NoticeImage2 from "../images/NoticeImage2.png";
 import NoticeImage from "../images/NoticeImage.png";
 import {
@@ -121,8 +68,6 @@ import {
     StoreDetailStoreTitle2, ModalFlexType2, ModalFont2, ModalFlexType3, ModalButton
 } from "./StoreDetailCss";
 import BoardShowImage3 from "../images/BoardShowImage3.png";
-import {HomeImageCss, LinkButtonFont1, MainPageFlex, MypageFont3} from "../user/ProfileCss";
-import HomeImage from "../images/HomeImage.png";
 import StyledFooter from "../style/StyledFooter";
 import StyledArrow from "../style/StyledArrow";
 import StyledMainPage from "../style/StyledMainPage";
@@ -229,6 +174,35 @@ function StoreDetail({ match }) {
 
     const [showMenu, setShowMenu] = useState(true);  // 메뉴 보이기/감추기 상태
     const [showInfo, setShowInfo] = useState(false); // 정보 보이기/감추기 상태
+
+
+    // 이전 페이지로 이동하는 함수
+    const prevPage = () => {
+        if (currentPage > 1) {
+            setCurrentPage(currentPage - 1);
+        }
+    };
+
+    // 처음 페이지로 이동하는 함수
+    const startPage = () => {
+        if (currentPage > 1) {
+            setCurrentPage(1);
+        }
+    };
+
+    // 다음 페이지로 이동하는 함수
+    const nextPage = () => {
+        if (currentPage < Math.ceil(articles.length / postsPerPage)) {
+            setCurrentPage(currentPage + 1);
+        }
+    };
+
+    // 끝 페이지로 이동하는 함수
+    const endPage = () => {
+        if (currentPage < Math.ceil(articles.length / postsPerPage)) {
+            setCurrentPage(Math.ceil(articles.length / postsPerPage));
+        }
+    };
 
 
     // 게시물 목록을 현재 페이지에 맞게 가져오는 함수
@@ -482,12 +456,22 @@ function StoreDetail({ match }) {
                                 </BoardMainTable1>
                             </BoardMainFlexType>
 
-                            {/* 페이징 컴포넌트 */}
-                            <Pagination
-                                postsPerPage={postsPerPage}
-                                totalPosts={articles.length}
-                                paginate={paginate}
-                            />
+                            <PageFlex1>
+                                {/* 처음 페이지 버튼 */}
+                                <BoardButton onClick={startPage}>&lt;&lt;</BoardButton>
+                                {/* 이전 페이지 버튼 */}
+                                <BoardButton onClick={prevPage}>&lt;</BoardButton>
+                                {/* 페이징 컴포넌트 */}
+                                <Pagination
+                                    postsPerPage={postsPerPage}
+                                    totalPosts={articles.length}
+                                    paginate={paginate}
+                                />
+                                {/* 다음 페이지 버튼 */}
+                                <BoardButton onClick={nextPage}>&gt;</BoardButton>
+                                {/* 끝 페이지 버튼 */}
+                                <BoardButton onClick={endPage}>&gt;&gt;</BoardButton>
+                            </PageFlex1>
 
                             {isAuthenticated && ( // 사용자가 로그인한 경우에만 버튼을 보이도록 함
                                 <Link to="/boardDetail">
@@ -679,12 +663,22 @@ function StoreDetail({ match }) {
                                 </BoardMainTable1>
                             </BoardMainFlexType>
 
-                            {/* 페이징 컴포넌트 */}
-                            <Pagination
-                                postsPerPage={postsPerPage}
-                                totalPosts={articles.length}
-                                paginate={paginate}
-                            />
+                            <PageFlex1>
+                                {/* 처음 페이지 버튼 */}
+                                <BoardButton onClick={startPage}>&lt;&lt;</BoardButton>
+                                {/* 이전 페이지 버튼 */}
+                                <BoardButton onClick={prevPage}>&lt;</BoardButton>
+                                {/* 페이징 컴포넌트 */}
+                                <Pagination
+                                    postsPerPage={postsPerPage}
+                                    totalPosts={articles.length}
+                                    paginate={paginate}
+                                />
+                                {/* 다음 페이지 버튼 */}
+                                <BoardButton onClick={nextPage}>&gt;</BoardButton>
+                                {/* 끝 페이지 버튼 */}
+                                <BoardButton onClick={endPage}>&gt;&gt;</BoardButton>
+                            </PageFlex1>
 
                             {isAuthenticated && ( // 사용자가 로그인한 경우에만 버튼을 보이도록 함
                                 <Link to="/boardDetail">

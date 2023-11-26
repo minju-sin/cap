@@ -522,7 +522,24 @@ export const KakaoMapDiv= styled.div`
   height: 400px;
 `
 
+export const Ultype=styled.ul`
+  padding-left: 20px;
+`
 
+export const BoardButton=styled.button`
+  background-color: white;
+  border: gray;
+  border-radius: 3px;
+  margin-right: 5px;
+  margin-left: 5px;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+`
+export const BoardPageText=styled.a`
+  text-decoration: none;
+  color: grey;
+`
 export const Pagination = ({ postsPerPage, totalPosts, paginate }) => {
     const pageNumbers = [];
     for (let i = 1; i <= Math.ceil(totalPosts / postsPerPage); i++) {
@@ -537,41 +554,22 @@ export const Pagination = ({ postsPerPage, totalPosts, paginate }) => {
 
     return (
         <nav>
-            <ul>
+            <Ultype>
                 {pageNumbers.map((number) => (
                     <LiType key={number}>
-                        <a onClick={() => paginate(number)} href="#">
+                        <BoardPageText onClick={() => paginate(number)} href="#">
                             {number}
-                        </a>
+                        </BoardPageText>
                     </LiType>
                 ))}
-            </ul>
+            </Ultype>
         </nav>
     );
 };
 
-// export const KakaoMapPage = () => {
-//     useEffect(() => {
-//         const script = document.createElement('script');
-//         script.src = '//dapi.kakao.com/v2/maps/sdk.js?appkey=ebbe23daba6a836a93fe27e86edb7706';
-//         document.head.appendChild(script);
-//
-//         script.onload = () => {
-//             // Kakao 지도 API 로딩이 완료된 후에 실행되는 부분
-//             const container = document.getElementById('map');
-//             const options = {
-//                 center: new window.kakao.maps.LatLng(33.450701, 126.570667),
-//                 level: 3
-//             };
-//
-//             // 지도 생성 및 객체 리턴
-//             const map = new window.kakao.maps.Map(container, options);
-//         };
-//     }, []); // 빈 배열을 전달하여 최초 한 번만 실행되도록 함
-//
-//     return (
-//         <>
-//             <div id="map" style={{ width: '500px', height: '400px' }}></div>
-//         </>
-//     );
-// };
+export const PageFlex1=styled.div`
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+`

@@ -14,10 +14,11 @@ import {
   LoginButton_2,
   LoginButton_3,
   JoinWrapper,
-  StyledLink, Logo2, FooterText2,
+  StyledLink, Logo2, FooterText2,BodyGrient,LoginBackGroundImage
 } from "./LoginCss";
-import { Link } from "react-router-dom";
+
 import Swal from "sweetalert2";
+import LoginBackGroundImage1 from "./images/LoginBackGroundImage.jpg";
 
 const DeuDepartment = [
   "국어국문학과",
@@ -105,7 +106,7 @@ function SignUp() {
 
     if (!/(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W)/.test(password)) {
       setPasswordError(
-        "비밀번호는 숫자, 대소문자, 특수문자를 모두 포함해야 합니다."
+          "비밀번호는 숫자, 대소문자, 특수문자를 모두 포함해야 합니다."
       );
     }
 
@@ -138,115 +139,120 @@ function SignUp() {
 
     // 백엔드로 POST 요청을 보냄.
     axios
-      .post("/signup", userData)
-      .then((response) => {
-        // 회원가입 성공 시 로그인 페이지로 이동
-        if (response.data.message === "회원 가입 성공") {
-          Swal.fire({
-            title: '가입 완료!',
-            text: '회원 가입에 성공하였습니다.',
-            icon: 'success',
-            confirmButtonText: '확인'
-          });
-          setTimeout(() =>  window.location.href = "/login", 2000); //  2초 대기 후 로그인 화면으로 리다이렉트
-        } else {
-          // 실패할 경우 에러를 처리
+        .post("/signup", userData)
+        .then((response) => {
+          // 회원가입 성공 시 로그인 페이지로 이동
+          if (response.data.message === "회원 가입 성공") {
+            Swal.fire({
+              title: '가입 완료!',
+              text: '회원 가입에 성공하였습니다.',
+              icon: 'success',
+              confirmButtonText: '확인'
+            });
+            setTimeout(() =>  window.location.href = "/login", 2000); //  2초 대기 후 로그인 화면으로 리다이렉트
+          } else {
+            // 실패할 경우 에러를 처리
+            Swal.fire({
+              title: '회원가입 실패',
+              text: '다시 입력하세요!',
+              icon: 'error',
+              confirmButtonText: '확인'
+            });
+            console.error("회원가입 실패", response.data.message);
+          }
+        })
+        .catch((error) => {
+          // 요청 오류를 처리
           Swal.fire({
             title: '회원가입 실패',
             text: '다시 입력하세요!',
             icon: 'error',
             confirmButtonText: '확인'
           });
-          console.error("회원가입 실패", response.data.message);
-        }
-      })
-      .catch((error) => {
-        // 요청 오류를 처리
-        Swal.fire({
-          title: '회원가입 실패',
-          text: '다시 입력하세요!',
-          icon: 'error',
-          confirmButtonText: '확인'
+          console.error("회원가입 실패", error);
         });
-        console.error("회원가입 실패", error);
-      });
   };
 
   return (
-    <Body>
-      <Logo2>MatNaMo</Logo2>
-      <BodyWrapper>
-        <TitleLogin>회원 가입</TitleLogin>
-        <form onSubmit={handleSubmit}>
-          <InputOption_1_1
-            placeholder=" 학번"
-            type="text"
-            value={userId}
-            onChange={(e) => setUserId(e.target.value)}
-            required
-          />
-          <ErrorTextFront2>{userIdError}</ErrorTextFront2>
+      <Body>
+        <LoginBackGroundImage src={LoginBackGroundImage1} alt="프로필 아이콘 이미지">
+        </LoginBackGroundImage>
+        <BodyGrient>
+          <Logo2>MatNaMo</Logo2>
+          <BodyWrapper>
+            <TitleLogin>회원 가입</TitleLogin>
+            <form onSubmit={handleSubmit}>
+              <InputOption_1_1
+                  placeholder=" 학번"
+                  type="text"
+                  value={userId}
+                  onChange={(e) => setUserId(e.target.value)}
+                  required
+              />
+              <ErrorTextFront2>{userIdError}</ErrorTextFront2>
 
-          <InputOption_1_1
-            placeholder=" 이름"
-            type="text"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            required
-          />
+              <InputOption_1_1
+                  placeholder=" 이름"
+                  type="text"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  required
+              />
 
-          <InputOption_1_1
-            placeholder=" 학과"
-            type="text"
-            value={department}
-            onChange={(e) => setDepartment(e.target.value)}
-            required
-          />
-          <ErrorTextFront2>{departmentError}</ErrorTextFront2>
+              <InputOption_1_1
+                  placeholder=" 학과"
+                  type="text"
+                  value={department}
+                  onChange={(e) => setDepartment(e.target.value)}
+                  required
+              />
+              <ErrorTextFront2>{departmentError}</ErrorTextFront2>
 
-          <InputOption_1_1
-            placeholder=" 비밀번호"
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-          <ErrorTextFront2>{passwordError}</ErrorTextFront2>
+              <InputOption_1_1
+                  placeholder=" 비밀번호"
+                  type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+              />
+              <ErrorTextFront2>{passwordError}</ErrorTextFront2>
 
-          <InputOption_1_1
-            placeholder=" 휴대폰 번호"
-            type="text"
-            value={phone}
-            onChange={(e) => setPhone(e.target.value)}
-            required
-          />
-          <ErrorTextFront2>{PhoneError}</ErrorTextFront2>
+              <InputOption_1_1
+                  placeholder=" 휴대폰 번호"
+                  type="text"
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
+                  required
+              />
+              <ErrorTextFront2>{PhoneError}</ErrorTextFront2>
 
-          <InputApi type="text" value={address} readOnly />
-          <LoginButton_3 type="button" onClick={openAddressSearch}>
-            검색
-          </LoginButton_3>
+              <InputApi type="text" value={address} readOnly />
+              <LoginButton_3 type="button" onClick={openAddressSearch}>
+                검색
+              </LoginButton_3>
 
-          <InputOption_1_1
-            placeholder=" 상세 주소"
-            type="text"
-            value={detailsAddress}
-            onChange={(e) => setDetailsAddress(e.target.value)}
-          />
-          <ErrorTextFront2>{addressError}</ErrorTextFront2>
-          <LoginButton_2 type="submit" onClick={validateInput}>
-            회원가입
-          </LoginButton_2>
-        </form>
-        <JoinWrapper>
-          <LoginKeepLFont>이미 회원이십니까?</LoginKeepLFont>
-          <StyledLink to="/login">
-            <FindPasswordFont>로그인</FindPasswordFont>
-          </StyledLink>
-        </JoinWrapper>
-      </BodyWrapper>
-      <FooterText2>@2023 Capstone Project MatNaMo</FooterText2>
-    </Body>
+              <InputOption_1_1
+                  placeholder=" 상세 주소"
+                  type="text"
+                  value={detailsAddress}
+                  onChange={(e) => setDetailsAddress(e.target.value)}
+              />
+              <ErrorTextFront2>{addressError}</ErrorTextFront2>
+              <LoginButton_2 type="submit" onClick={validateInput}>
+                회원가입
+              </LoginButton_2>
+            </form>
+            <JoinWrapper>
+              <LoginKeepLFont>이미 회원이십니까?</LoginKeepLFont>
+              <StyledLink to="/login">
+                <FindPasswordFont>로그인</FindPasswordFont>
+              </StyledLink>
+            </JoinWrapper>
+          </BodyWrapper>
+          <FooterText2>@2023 Capstone Project MatNaMo</FooterText2>
+        </BodyGrient>
+
+      </Body>
   );
 }
 

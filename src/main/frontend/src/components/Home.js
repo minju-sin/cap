@@ -27,9 +27,7 @@ function Home() {
                     <StyledStore/>
                     <StyledArrow/>
                     <StyledFooter/>
-
                 </HomeBody>
-
 
             ) : (
                 <HomeBody>

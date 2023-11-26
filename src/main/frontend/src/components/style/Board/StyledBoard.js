@@ -1,4 +1,5 @@
 import {
+    BoardButton,
     BoardMainButtonType1, BoardMainFlexType,
     BoardMainHeader,
     BoardMainInputImage1,
@@ -10,7 +11,7 @@ import {
     BoardMainTd,
     BoardMainTh,
     BoardMainThead,
-    BoardMainTr, Pagination, WriteButton2, WriteImage3
+    BoardMainTr, PageFlex1, Pagination, WriteButton2, WriteImage3
 } from "../../user/board/BoardCss";
 import NoticeImage from "../../images/NoticeImage.png";
 import {Link} from "react-router-dom";
@@ -29,6 +30,36 @@ const StyledBoard = ({ }) => {
 
     const [search, setSearch] = useState(''); // 검색어 상태 추가
 
+    // 페이지 변경 시 호출되는 함수
+    const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
+    // 이전 페이지로 이동하는 함수
+        const prevPage = () => {
+            if (currentPage > 1) {
+                setCurrentPage(currentPage - 1);
+            }
+        };
+
+        // 처음 페이지로 이동하는 함수
+        const startPage = () => {
+            if (currentPage > 1) {
+                setCurrentPage(1);
+            }
+        };
+
+    // 다음 페이지로 이동하는 함수
+        const nextPage = () => {
+            if (currentPage < Math.ceil(articles.length / postsPerPage)) {
+                setCurrentPage(currentPage + 1);
+            }
+        };
+
+    // 끝 페이지로 이동하는 함수
+    const endPage = () => {
+        if (currentPage < Math.ceil(articles.length / postsPerPage)) {
+            setCurrentPage(Math.ceil(articles.length / postsPerPage));
+        }
+    };
 
     // 게시물 목록을 현재 페이지에 맞게 가져오는 함수
     const getCurrentPosts = () => {
@@ -37,8 +68,6 @@ const StyledBoard = ({ }) => {
         return articles.slice(indexOfFirstPost, indexOfLastPost);
     };
 
-    // 페이지 변경 시 호출되는 함수
-    const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
     //  작성일 날짜까지만 보이도록 수정한 함수
     const extractDate = (datetime) => {
@@ -55,6 +84,7 @@ const StyledBoard = ({ }) => {
                 console.error('게시글 검색 중 오류가 발생했습니다:', error);
             });
     };
+
 
     useEffect(() => {
         axios.get('/board')
@@ -128,12 +158,22 @@ const StyledBoard = ({ }) => {
                     </BoardMainTbody>
                 </BoardMainTable1>
 
-                {/* 페이징 컴포넌트 */}
-                <Pagination
-                    postsPerPage={postsPerPage}
-                    totalPosts={articles.length}
-                    paginate={paginate}
-                />
+                <PageFlex1>
+                    {/* 처음 페이지 버튼 */}
+                    <BoardButton onClick={startPage}>&lt;&lt;</BoardButton>
+                    {/* 이전 페이지 버튼 */}
+                    <BoardButton onClick={prevPage}>&lt;</BoardButton>
+                    {/* 페이징 컴포넌트 */}
+                    <Pagination
+                        postsPerPage={postsPerPage}
+                        totalPosts={articles.length}
+                        paginate={paginate}
+                    />
+                    {/* 다음 페이지 버튼 */}
+                    <BoardButton onClick={nextPage}>&gt;</BoardButton>
+                    {/* 끝 페이지 버튼 */}
+                    <BoardButton onClick={endPage}>&gt;&gt;</BoardButton>
+                </PageFlex1>
 
                 {isAuthenticated && ( // 사용자가 로그인한 경우에만 버튼을 보이도록 함
                     <Link to="/boardDetail">
