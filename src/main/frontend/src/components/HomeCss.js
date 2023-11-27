@@ -87,6 +87,10 @@ export const StyledLink4 = styled(Link)`
  margin-left:20px;
 `;
 
+export const ContentsBoxLink = styled(Link)`
+ text-decoration: none;
+`;
+
 export const Login = styled.div`
  height: 44px;
  display: flex;

@@ -68,6 +68,18 @@ export const InputOption_1_1 = styled.input`
   margin-left: 47px;
 `;
 
+// InputOption_1_1과 유사한 스타일을 가진 Select 컴포넌트 생성
+export const SelectInput = styled.select`
+  width: 406px;
+  height: 50px;
+  background-color: #f9f9f9;
+  border: 1px solid #bdbdbd;
+  border-radius: 5px;
+  margin: 5px;
+  font-size: 16px;
+  margin-left: 47px;
+`;
+
 export const BodyWrapper_TextWrapper = styled.div`
   width: 400px;
   display: flex;

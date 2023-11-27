@@ -1,6 +1,6 @@
 import {
     Contents,
-    ContentsBox,
+    ContentsBox, ContentsBoxLink,
     ContentsImage, ContentsText1, ContentsText2, ContentsText3,
     ContentsText4, Menu, MenuText, StyledLink2,
     StyledLink3
@@ -23,30 +23,42 @@ const StyledStore = ({ }) => {
             </ContentsText2>
 
             <Contents>
-                <ContentsBox>
-                    <ContentsImage src={menuImage1} alt="치킨 음식 이미지" />
-                    <ContentsText4><StyledLink3 to="/store/category/CHICKEN">치킨</StyledLink3></ContentsText4>
-                </ContentsBox>
-                <ContentsBox>
-                    <ContentsImage src={menuImage4} alt="피자 음식 이미지" />
-                    <ContentsText4> <StyledLink3 to="/store/category/PIZZA">피자</StyledLink3></ContentsText4>
-                </ContentsBox>
-                <ContentsBox>
-                    <ContentsImage src={menuImage3} alt="야식 음식 이미지" />
-                    <ContentsText4><StyledLink3 to="/store/category/NIGHT">야식</StyledLink3></ContentsText4>
-                </ContentsBox>
-                <ContentsBox>
-                    <ContentsImage src={menuImage6} alt="중식 음식 이미지" />
-                    <ContentsText4><StyledLink3 to="/store/category/CHINESE">중식</StyledLink3></ContentsText4>
-                </ContentsBox>
-                <ContentsBox>
-                    <ContentsImage src={menuImage2} alt="한식 음식 이미지" />
-                    <ContentsText4><StyledLink3 to="/store/category/KOREAN">한식</StyledLink3></ContentsText4>
-                </ContentsBox>
-                <ContentsBox>
-                    <ContentsImage src={menuImage5} alt="일식 음식 이미지" />
-                    <ContentsText4><StyledLink3 to="/store/category/JAPANESE">일식</StyledLink3></ContentsText4>
-                </ContentsBox>
+                <ContentsBoxLink to="/store/category/CHICKEN">
+                    <ContentsBox>
+                        <ContentsImage src={menuImage1} alt="치킨 음식 이미지" />
+                        <ContentsText4><StyledLink3 to="/store/category/CHICKEN">치킨</StyledLink3></ContentsText4>
+                    </ContentsBox>
+                </ContentsBoxLink>
+                <ContentsBoxLink to="/store/category/PIZZA">
+                    <ContentsBox>
+                        <ContentsImage src={menuImage4} alt="피자 음식 이미지" />
+                        <ContentsText4> <StyledLink3 to="/store/category/PIZZA">피자</StyledLink3></ContentsText4>
+                    </ContentsBox>
+                </ContentsBoxLink>
+                <ContentsBoxLink to="/store/category/NIGHT">
+                    <ContentsBox>
+                        <ContentsImage src={menuImage3} alt="야식 음식 이미지" />
+                        <ContentsText4><StyledLink3 to="/store/category/NIGHT">야식</StyledLink3></ContentsText4>
+                    </ContentsBox>
+                </ContentsBoxLink>
+                <ContentsBoxLink to="/store/category/CHINESE">
+                    <ContentsBox>
+                        <ContentsImage src={menuImage6} alt="중식 음식 이미지" />
+                        <ContentsText4><StyledLink3 to="/store/category/CHINESE">중식</StyledLink3></ContentsText4>
+                    </ContentsBox>
+                </ContentsBoxLink>
+                <ContentsBoxLink to="/store/category/KOREAN">
+                    <ContentsBox>
+                        <ContentsImage src={menuImage2} alt="한식 음식 이미지" />
+                        <ContentsText4><StyledLink3 to="/store/category/KOREAN">한식</StyledLink3></ContentsText4>
+                    </ContentsBox>
+                </ContentsBoxLink>
+                <ContentsBoxLink to="/store/category/JAPANESE">
+                    <ContentsBox>
+                        <ContentsImage src={menuImage5} alt="일식 음식 이미지" />
+                        <ContentsText4><StyledLink3 to="/store/category/JAPANESE">일식</StyledLink3></ContentsText4>
+                    </ContentsBox>
+                </ContentsBoxLink>
             </Contents>
         </>
     );

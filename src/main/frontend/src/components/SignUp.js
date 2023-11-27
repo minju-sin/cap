@@ -14,12 +14,13 @@ import {
   LoginButton_2,
   LoginButton_3,
   JoinWrapper,
-  StyledLink, Logo2, FooterText2,BodyGrient,LoginBackGroundImage
+  StyledLink, Logo2, FooterText2, BodyGrient, LoginBackGroundImage, SelectInput
 } from "./LoginCss";
 
 import Swal from "sweetalert2";
 import LoginBackGroundImage1 from "./images/LoginBackGroundImage.jpg";
 
+// 학과
 const DeuDepartment = [
   "국어국문학과",
   "중국어학과",
@@ -56,7 +57,8 @@ const DeuDepartment = [
   "기계자동차로봇부품공학부",
   "산업융합시스템공학부",
   "미래형자동차학과",
-  "창의소프트웨어공학부",
+  "응용소프트웨어공학과",
+  "컴퓨터소프트웨어공학과",
   "전기전자통신공학부",
   "디지털콘텐츠게임공학부",
   "영화학과",
@@ -81,6 +83,11 @@ function SignUp() {
   const [addressError, setAddressError] = useState("");
   const [PhoneError, setPhoneError] = useState("");
 
+  // 드롭다운 메뉴에서 학과 선택 처리
+  const handleDepartmentChange = (event) => {
+    setDepartment(event.target.value);
+  };
+
   //  주소 API
   const openAddressSearch = () => {
     new window.daum.Postcode({
@@ -91,6 +98,7 @@ function SignUp() {
     }).open();
   };
 
+  // 회원가입 유효성 검사 함수
   const validateInput = () => {
     // 초기화
     setUserIdError("");
@@ -124,6 +132,7 @@ function SignUp() {
     }
   };
 
+  // 회원가입 버튼 누르면 아래 내용 백엔드 서버로 전송
   const handleSubmit = (e) => {
     e.preventDefault();
     // 사용자 정보
@@ -199,13 +208,16 @@ function SignUp() {
                   required
               />
 
-              <InputOption_1_1
-                  placeholder=" 학과"
-                  type="text"
+              <SelectInput
                   value={department}
-                  onChange={(e) => setDepartment(e.target.value)}
+                  onChange={handleDepartmentChange}
                   required
-              />
+              >
+                <option value="">학과</option>
+                {DeuDepartment.map((dept, index) => (
+                    <option key={index} value={dept}>{dept}</option>
+                ))}
+              </SelectInput>
               <ErrorTextFront2>{departmentError}</ErrorTextFront2>
 
               <InputOption_1_1
