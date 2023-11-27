@@ -156,6 +156,32 @@ public class GroupOrderController {
         }
     }
 
+    // 주문표에 담긴 메뉴 삭제 처리
+    @DeleteMapping("/delete-item")
+    public ResponseEntity<?> deleteOrderItem(@RequestBody Map<String, Object> payload, HttpSession session) {
+        Long menuId = Long.valueOf((Integer) payload.get("menuId"));
+        int quantity = (Integer) payload.get("quantity");
+        String userId = (String) payload.get("userId");
+
+        // 현재 로그인한 사용자 확인
+        User loggedInUser = (User) session.getAttribute("user");
+        if (loggedInUser == null || !loggedInUser.getUserId().equals(userId)) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("사용자 인증에 실패했습니다.");
+        }
+
+        try {
+            int deletedCount = orderItemRepository.deleteByMenuIdAndQuantityAndUserId(menuId, quantity, userId);
+            if (deletedCount > 0) {
+                return ResponseEntity.ok().body("선택한 메뉴 항목이 삭제되었습니다.");
+            } else {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("삭제할 메뉴 항목을 찾을 수 없습니다.");
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("메뉴 항목 삭제 중 오류가 발생했습니다.");
+        }
+    }
+
+
     // 주문 목록 불러오는 처리
     @GetMapping("/items/{groupOrderId}")
     public ResponseEntity<List<OrderItemDto>> getOrderItemsByGroupOrderId(@PathVariable Long groupOrderId) {

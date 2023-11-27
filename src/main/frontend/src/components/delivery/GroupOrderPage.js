@@ -306,6 +306,34 @@ function GroupOrderPage() {
         }
     };
 
+    // todo: delete
+    const handleDeleteMenu = async (menuId, userId, quantity) => {
+        try {
+            // 백엔드에 DELETE 요청을 보냄
+            const response = await axios.delete('/order/delete-item', {
+                data: {
+                    menuId: menuId,
+                    userId: userId,
+                    quantity: quantity
+                }
+            });
+
+            // 응답이 성공적인지 확인
+            if (response.status === 200) {
+                // UI에서 해당 메뉴 아이템을 제거
+                setOrders(currentOrders => currentOrders.filter(order => order.menuId !== menuId || order.userId !== userId));
+
+                alert('메뉴가 주문표에서 삭제되었습니다.');
+            } else {
+                // 서버에서 오류 응답을 받은 경우
+                console.error('메뉴를 삭제하지 못했습니다.', response);
+            }
+        } catch (error) {
+            console.error('메뉴 삭제 중 오류 발생:', error);
+        }
+    };
+
+
     // 주문 목록을 불러오는 함수
     const fetchOrderItems = async () => {
         if (groupOrderId) {
@@ -689,7 +717,10 @@ function GroupOrderPage() {
                                                             }}
                                                         />
                                                         <GroupOrderBarSection1>
-                                                            <GroupOrderBarButtonType2>X</GroupOrderBarButtonType2>
+                                                            {/* todo: delete */}
+                                                            <GroupOrderBarButtonType2 onClick={() => handleDeleteMenu(order.menuId, order.userId, order.quantity)}>
+                                                                X
+                                                            </GroupOrderBarButtonType2>
                                                             <span>{order.mname}</span>
                                                             <span>수량: {order.quantity}개 </span>
                                                             <span>{formatNumberWithCommas(order.mmoney * order.quantity)}원</span>
