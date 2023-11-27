@@ -321,11 +321,19 @@ function GroupOrderPage() {
 
             // 응답이 성공적인지 확인
             if (response.status === 200) {
-                // UI에서 해당 메뉴 아이템을 제거
-                setOrders(currentOrders => currentOrders.filter(order =>
-                    !(order.menuId === menuId && order.userId.toString() === userId.toString() && order.quantity === quantity)
-                ));
+                // UI에서 해당 메뉴 아이템을 제거하고 총액을 재계산
+                setOrders(currentOrders => {
+                    // 업데이트된 주문 목록
+                    const updatedOrders = currentOrders.filter(order =>
+                        !(order.menuId === menuId && order.userId.toString() === userId.toString() && order.quantity === quantity)
+                    );
 
+                    // 총액 재계산
+                    const newTotal = updatedOrders.reduce((sum, order) => sum + order.mmoney * order.quantity, 0);
+                    setTotalOrderPrice(newTotal);
+
+                    return updatedOrders; // 업데이트된 주문 목록 반환
+                });
                 alert('메뉴가 주문표에서 삭제되었습니다.');
             } else {
                 // 서버에서 오류 응답을 받은 경우
