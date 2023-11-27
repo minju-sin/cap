@@ -307,13 +307,14 @@ function GroupOrderPage() {
     };
 
     // todo: delete
+    // 주문표에 담긴 메뉴 삭제 처리
     const handleDeleteMenu = async (menuId, userId, quantity) => {
         try {
             // 백엔드에 DELETE 요청을 보냄
             const response = await axios.delete('/order/delete-item', {
                 data: {
                     menuId: menuId,
-                    userId: userId,
+                    userId: String(userId),
                     quantity: quantity
                 }
             });
@@ -321,7 +322,9 @@ function GroupOrderPage() {
             // 응답이 성공적인지 확인
             if (response.status === 200) {
                 // UI에서 해당 메뉴 아이템을 제거
-                setOrders(currentOrders => currentOrders.filter(order => order.menuId !== menuId || order.userId !== userId));
+                setOrders(currentOrders => currentOrders.filter(order =>
+                    !(order.menuId === menuId && order.userId.toString() === userId.toString() && order.quantity === quantity)
+                ));
 
                 alert('메뉴가 주문표에서 삭제되었습니다.');
             } else {
@@ -332,6 +335,7 @@ function GroupOrderPage() {
             console.error('메뉴 삭제 중 오류 발생:', error);
         }
     };
+
 
 
     // 주문 목록을 불러오는 함수
@@ -452,6 +456,7 @@ function GroupOrderPage() {
 
     // 주문 목록 상태가 바뀔 때마다 주문 목록을 그룹화
     useEffect(() => {
+
         if (Array.isArray(orders) && menus.length > 0) {
             const grouped = groupOrdersByUserId(orders, menus[0].store.stip);
             setGroupedOrders(grouped);
