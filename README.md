@@ -3,11 +3,18 @@
 
 ## 개발 환경 
 Intellij ultimate 2023.2.2
+spring-boot-starter-data-jpa
+spring-boot-starter-web
+spring-boot-devtools
+lombok
+MySQL
+spring-boot-starter-test
 
 ## 사용 언어 
-1. 백엔드
+1. 백엔드 & DB
  - java
  - spring boot
+ - Mysql
     
 2. 프론트엔드
  - React
@@ -23,7 +30,8 @@ Intellij ultimate 2023.2.2
 "기존의 배달 사이트와 다른 점은 분할 결제가 가능하다는 것이다. "
 
 ## 맡은 업무 
-- 프로젝트 총괄 
+- 프로젝트 총괄
+- DB
 - 백엔드
 - 카카오 지도, 맵 API
 - 프론트엔드 (디자인 제외 나머지 구현)
