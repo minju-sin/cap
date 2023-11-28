@@ -6,14 +6,14 @@ Intellij ultimate 2023.2.2
 
 ## 사용 언어 
 1. 백엔드
-- java
-- spring boot
+ - java
+ - spring boot
     
 2. 프론트엔드
-- React
-  
+ - React
+    
 3. 머신러닝
-- python
+ - Python
 
 ## 소개 
 맛나모( MatNaMo )는 "맛있는 나눔(Mate)"을 의미하며,
