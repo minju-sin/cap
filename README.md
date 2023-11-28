@@ -2,13 +2,13 @@
 2023.2학기 팀프로젝트로 진행한 `맛나모`는 배달비 증가로 인한 부담감과 현재 배달서비스의 불편함을 해소하기 위해 고안한 아이디어 프로젝트
 
 ## 개발 환경 
-Intellij ultimate 2023.2.2
-spring-boot-starter-data-jpa
-spring-boot-starter-web
-spring-boot-devtools
-lombok
-MySQL
-spring-boot-starter-test
+- Intellij ultimate 2023.2.2
+- spring-boot-starter-data-jpa
+- spring-boot-starter-web
+- spring-boot-devtools
+- lombok
+- MySQL
+- spring-boot-starter-test
 
 ## 사용 언어 
 1. 백엔드 & DB
