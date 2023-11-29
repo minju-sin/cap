@@ -3,12 +3,16 @@
 
 ## 개발 환경 
 - Intellij ultimate 2023.2.2
-- spring-boot-starter-data-jpa
-- spring-boot-starter-web
-- spring-boot-devtools
-- lombok
-- MySQL
-- spring-boot-starter-test
+- Java 17
+- Gradle 7.4.1
+- Spring Boot 3.1.3
+
+## 기술 세부 스텍
+- Spring Data JPA
+- Spring Web
+- Spring Boot DevTools
+- Lombok
+- MySQL Driver
 
 ## 사용 언어 
 1. 백엔드 & DB
