@@ -182,7 +182,6 @@ function Store() {
                             </StoreMenuSectionType1>
 
                             <StyledMenuBar/>
-
                         </StoreMenuBar>
                     </StoreSection1>
 

@@ -334,7 +334,7 @@ function GroupOrderPage() {
 
                     return updatedOrders; // 업데이트된 주문 목록 반환
                 });
-                alert('메뉴가 주문표에서 삭제되었습니다.');
+
             } else {
                 // 서버에서 오류 응답을 받은 경우
                 console.error('메뉴를 삭제하지 못했습니다.', response);

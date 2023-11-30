@@ -49,6 +49,15 @@ export const GroupOrderBarButtonType1 = styled.button`
   color: #6C757D; /* 비활성화 상태에서의 글자 색상 */
   cursor: not-allowed; /* 커서 스타일 변경 */
  }
+
+ @keyframes fillEffect {
+  0% {
+   background-position: 0% 50%;
+  }
+  100% {
+   background-position: 100% 50%;
+  }
+ }
 `
 export const GroupOrderBarButtonType2 = styled.button`
   width: 20px;
