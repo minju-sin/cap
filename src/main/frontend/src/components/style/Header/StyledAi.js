@@ -12,6 +12,7 @@ import React from "react";
 import menuImage1 from "../../images/ChickenPicture.jpg";
 import menuImage4 from "../../images/PizzaPicture.jpg";
 import menuImage3 from "../../images/Late-night snack picture.jpg";
+import machine_learning_food from "../../images/recommend_food.jpg";
 
 const StyledAi = ({ }) => {
     return (
@@ -28,10 +29,10 @@ const StyledAi = ({ }) => {
                         <ContentsText4><StyledLink3 to="/store/category/CHICKEN">치킨</StyledLink3></ContentsText4>
                     </ContentsBox>
                 </ContentsBoxLink>
-                <ContentsBoxLink to="/store/category/PIZZA">
+                <ContentsBoxLink>
                 <ContentsBox>
-                    <ContentsImage src={menuImage4} alt="메뉴 음식 이미지" />
-                    <ContentsText4> <StyledLink3 to="/store/category/PIZZA">피자</StyledLink3></ContentsText4>
+                    <ContentsImage src={machine_learning_food} alt="인공지능 추천 음식 이미지" />
+                    <ContentsText4>AI 추천 음식</ContentsText4>
                 </ContentsBox>
                 </ContentsBoxLink>
                 <ContentsBoxLink to="/store/category/NIGHT">

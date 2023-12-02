@@ -50,7 +50,7 @@ def perform_task():
     # 이미지 저장 경로
     source_path = 'imoticon/' + max_prob_class + '.jpg'
     ###수정 필요 부분
-    destination_folder = 'C:/Users/이성민/Desktop/cap/src/main/frontend/src/components/images'
+    destination_folder = 'D:/cap/src/main/frontend/src/components/images'
     ###수정 필요 부분
     # 이미지를 Pillow를 사용하여 저장
     if not os.path.exists(destination_folder):
