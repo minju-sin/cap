@@ -95,6 +95,12 @@ public class UserController {
     public Map<String, String> signup(@RequestBody User user) {
         Map<String, String> response = new HashMap<>();
         try {
+            // 아이디 8자리 제약 검사
+            if (!user.getUserId().matches("^\\d{8}$")) {
+                response.put("message", "회원 가입 실패: 학번(아이디)는 숫자 8자리여야 합니다.");
+                return response;
+            }
+            
             // 아이디 중복 검사
             if (userRepository.existsById(user.getUserId())) {
                 // 이미 존재하는 아이디일 경우
