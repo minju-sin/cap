@@ -11,7 +11,6 @@ import {
     StyledLink1
 } from "../../HomeCss";
 import logoImage2 from "../../images/LogoImage2.png";
-import menuBar from "../../images/menuBar.png";
 
 
 const StyledLoginBefore = ({ }) => {
