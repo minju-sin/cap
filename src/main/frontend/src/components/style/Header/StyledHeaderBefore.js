@@ -12,10 +12,7 @@ const StyledHeaderBefore = ({ }) => {
                 <StyledLink2 to="/board">게시판</StyledLink2>
                 <MenuText>|</MenuText>
                 <StyledLink2 to="/notice">공지사항 </StyledLink2>
-                <MenuText>|</MenuText>
-                <StyledLink2 to="/notice">내 정보</StyledLink2>
             </Menu>
-
         </>
     );
 };
