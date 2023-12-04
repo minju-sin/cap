@@ -201,6 +201,7 @@ export const ContentsText2 = styled.div`
  font-size: 25px;
  font-weight: 500;
  margin-top: 10px;
+  margin-bottom: 50px;
 `;
 
 export const ContentsText3 = styled.div`
@@ -252,6 +253,12 @@ export const ContentsBox = styled.div`
 export const ContentsImage = styled.img`
   width: 100%;
   height: 100%;
+  object-fit: cover;
+`;
+
+export const RecommendFoodImage = styled.img`
+  width: 10%;
+  height: 10%;
   object-fit: cover;
 `;
 
