@@ -2,6 +2,7 @@
 
 import React from "react";
 import {
+    ContentsBoxLink,
     Header, HomeLogoImage,
     Login,
     LoginSignUp,
@@ -15,10 +16,12 @@ const StyledLoginBefore = ({ }) => {
     return (
         <>
             <Header>
-                <HomeLogoImage>
-                    {/*<LogoImage2 src={logoImage2} alt="로고 이미지"/>*/}
-                    <Logo>MatNaMo</Logo>
-                </HomeLogoImage>
+                <ContentsBoxLink to={"/"}>
+                    <HomeLogoImage>
+                        <LogoImage2 src={logoImage2} alt="로고 이미지"/>
+                        <Logo>MatNaMo</Logo>
+                    </HomeLogoImage>
+                </ContentsBoxLink>
                 <LoginSignUp>
                     <Login>
                         <StyledLink1 to="/login">로그인</StyledLink1>

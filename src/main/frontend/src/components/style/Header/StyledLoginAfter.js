@@ -1,16 +1,17 @@
 import {
-    BoxLayout, Header,
+    BoxLayout, ContentsBoxLink, Header,
     HeaderProBox, HeaderProBoxSection, HeaderProButtonClick,
     HeaderProButtonImage,
     HeaderProImage, HeaderProText,
     HomeLogoImage, Hr, Hr2,
     Login,
     LoginSignUp,
-    Logo,
+    Logo, LogoImage2,
     MyproImage,
     ProBox,
     StyledLink4
 } from "../../HomeCss";
+import logoImage2 from "../../images/LogoImage2.png";
 import proImage1 from "../../images/main_pro.png";
 import proButtonImage from "../../images/main_pro_button.png";
 import proButtonImageClick from "../../images/pro_img_click.png";
@@ -25,10 +26,12 @@ const StyledLoginAfter = ({ }) => {
     return (
         <>
             <Header>
+                <ContentsBoxLink to={"/"}>
                 <HomeLogoImage>
-                    {/*<LogoImage2 src={logoImage2} alt="로고 이미지"/>*/}
-                    <Logo>MatNaMo</Logo>
+                        <LogoImage2 src={logoImage2} alt="로고 이미지"/>
+                        <Logo>MatNaMo</Logo>
                 </HomeLogoImage>
+                </ContentsBoxLink>
                 <LoginSignUp>
                     <Login>
                         <HeaderProImage src={proImage1} alt="프로필 아이콘 이미지"/>
