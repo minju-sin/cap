@@ -17,7 +17,7 @@ import {
   JoinWrapper,
   StyledLink,
   Logo,
-  FooterText2, Form1, BodyGrient, LoginBackGroundImage, FooterText3
+  Form1, BodyGrient, LoginBackGroundImage, FooterText3
 } from "./LoginCss.js";
 
 // import logoImage1 from "./images/LogoImage1.png";

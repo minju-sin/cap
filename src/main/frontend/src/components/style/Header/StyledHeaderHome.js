@@ -6,7 +6,7 @@ import {
     HeaderText2,
     HeaderText3,
     HeaderText4,
-    HeaderText5, Menu, MenuText, StyledLink2
+    HeaderText5
 } from "../../HomeCss";
 import exampleImage from "../../images/HomeHeaderImage.jpg";
 

@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { Link } from "react-router-dom";
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 
 
 export const BoardMainFlexType = styled.div`

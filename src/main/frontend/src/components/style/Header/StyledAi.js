@@ -1,10 +1,7 @@
 import {
-    Contents,
-    ContentsBox,
-    ContentsImage,
     ContentsText1,
     ContentsText2,
-    ContentsText3, RecommendFoodImage
+   RecommendFoodImage
 } from "../../HomeCss";
 import React from "react";
 import machine_learning_food from "../../images/recommend_food.jpg";
