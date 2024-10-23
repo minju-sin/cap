@@ -22,18 +22,6 @@
 - Lombok
 - MySQL Driver
 
-## 사용 언어 
-1. 백엔드 & DB - 실제 구현
- - java
- - spring boot
- - Mysql
-    
-2. 프론트엔드
- - React
-    
-3. 머신러닝
- - Python
-
 ## 소개 
 맛나모( MatNaMo )는 "맛있는 나눔(Mate)"을 의미하며,
 학생들 간의 음식 나눔을 촉진하는 메시지를 전달합니다.
