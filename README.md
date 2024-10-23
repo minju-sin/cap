@@ -45,10 +45,7 @@
 - **2023.12** 교내 캡스톤디자인 경진대회 대상  
 - **2024.2** 교외 RIS 지역현안 캡스톤디자인 경진대회 팀워크상
 
-<br/>
 ![capstone](https://github.com/user-attachments/assets/56939770-203c-4b91-8624-8e1e445b2228)
-
-<br/>
 ![poster](https://github.com/user-attachments/assets/c5b01377-d404-4648-b42f-70949437dff7)  
 
 
@@ -64,8 +61,4 @@
 ## 프로젝트 시현 영상
 
 [프로젝트 시현 영상 바로 보기](https://youtu.be/mA__awuI2ZU)
-
-또는 아래 이미지를 클릭하여 영상을 시청하세요:
-
-[![프로젝트 시현 영상](https://img.youtube.com/vi/mA__awuI2ZU/0.jpg)](https://youtu.be/mA__awuI2ZU)
 
