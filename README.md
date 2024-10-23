@@ -40,11 +40,16 @@
 ## 팀프로젝트 결과 
 팀프로젝트로 진행한 것은 그룹주문을 성공하는 것까지 구현하였다. 나머지 내용은 혼자 추가할 예정이다. 
 
-## 성과
-2023.12 교내 캡스톤디자인 경진대회 대상 
-2024.2 교외 RIS 지역현안 캡스톤디자인 경진대회 팀워크상
-![poster](https://github.com/user-attachments/assets/c5b01377-d404-4648-b42f-70949437dff7)
+## 수상 내역
+
+- **2023.12** 교내 캡스톤디자인 경진대회 대상  
+- **2024.2** 교외 RIS 지역현안 캡스톤디자인 경진대회 팀워크상
+
+<br/>
 ![capstone](https://github.com/user-attachments/assets/56939770-203c-4b91-8624-8e1e445b2228)
+
+<br/>
+![poster](https://github.com/user-attachments/assets/c5b01377-d404-4648-b42f-70949437dff7)  
 
 
 ## 맡은 업무 
@@ -52,8 +57,15 @@
 - 백엔드
 - 카카오 지도, 맵 API, 포트원 API 
 - React와 springBoot 연동
+[Notion으로 자세히 보기](https://www.notion.so/ancho/Spring-Boot-React-c9db9899074b457e919e8be65b350c39?pvs=4)
+
 
 
 ## 프로젝트 시현 영상
+
+[프로젝트 시현 영상 바로 보기](https://youtu.be/mA__awuI2ZU)
+
+또는 아래 이미지를 클릭하여 영상을 시청하세요:
+
 [![프로젝트 시현 영상](https://img.youtube.com/vi/mA__awuI2ZU/0.jpg)](https://youtu.be/mA__awuI2ZU)
 
