@@ -8,6 +8,7 @@
 
 # 캡스톤디자인1 - 맛나모 
 2023.2학기 팀프로젝트로 진행한 `맛나모`는 배달비 증가로 인한 부담감과 현재 배달서비스의 불편함을 해소하기 위해 고안한 아이디어 프로젝트
+![mainPage](https://github.com/user-attachments/assets/ea5b7902-850b-4829-a0ee-bbcc9063f4b8)
 
 ## 개발 환경 
 - Intellij ultimate 2023.2.2
@@ -34,6 +35,9 @@
 
 ## 성과
 2023.2 교내 캡스톤디자인 경진대회 대상 
+![poster](https://github.com/user-attachments/assets/c5b01377-d404-4648-b42f-70949437dff7)
+![capstone](https://github.com/user-attachments/assets/56939770-203c-4b91-8624-8e1e445b2228)
+
 
 ## 맡은 업무 
 - 데이터베이스
